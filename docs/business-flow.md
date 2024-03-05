@@ -44,3 +44,4 @@ autonumber
 - [OpenID Connect 全フロー解説](https://qiita.com/TakahikoKawasaki/items/4ee9b55db9f7ef352b47#1-response_typecode)
 - [OpenID Connect 概要](https://www.slideshare.net/oidfj/openid-connect-intro-september-2013)
 - [OpenID Connect の定義をわかりやすく解説](https://qiita.com/rendaman0215/items/94ade32a5e38c47ec5b4)
+- [OAuth 2.0 認可コードフロー](https://qiita.com/TakahikoKawasaki/items/200951e5b5929f840a1f#1-%E8%AA%8D%E5%8F%AF%E3%82%B3%E3%83%BC%E3%83%89%E3%83%95%E3%83%AD%E3%83%BC)
