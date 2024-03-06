@@ -1,0 +1,22 @@
+{
+  "name": "nob-openid-connect",
+  "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-boot-dev-pack",
+        "vscjava.vscode-lombok",
+        "arjun.swagger-viewer",
+        "jawandarajbir.react-vscode-extension-pack",
+        "shd101wyy.markdown-preview-enhanced",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}
