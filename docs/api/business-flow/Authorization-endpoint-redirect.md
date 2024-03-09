@@ -1,6 +1,7 @@
 # 認可エンドポイントリダイレクト API
 
 ```mermaid
+%%{init:{'theme':'dark'}}%%
 graph TD;
-    A --> B
+    認可エンドポイント呼び出し
 ```
