@@ -9,7 +9,6 @@ autonumber
     participant oid_provider as OpenIDプロバイダ
 
     user->>relying_party: OIDC開始
-    Note over relying_party: リダイレクトURI
     relying_party-->>+user: リダイレクト
     user->>oid_provider: <br>
     Note over oid_provider: 認可エンドポイント
