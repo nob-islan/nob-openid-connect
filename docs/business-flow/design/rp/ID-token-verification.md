@@ -3,5 +3,6 @@
 ```mermaid
 %%{init:{'theme':'dark'}}%%
 graph TD;
-    処理開始 --> WIP:トークン検証
+    A(処理開始) --> B[トークン検証]
+    B --> C(処理終了)
 ```

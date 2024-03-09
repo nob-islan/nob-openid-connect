@@ -3,5 +3,6 @@
 ```mermaid
 %%{init:{'theme':'dark'}}%%
 graph TD;
-    処理開始 --> |OP| UserInfoエンドポイント呼び出し
+    A(処理開始) --> |OP| B[UserInfoエンドポイント呼び出し]
+    B --> C(処理終了)
 ```
