@@ -4,10 +4,10 @@
 
 ## 設計書一覧
 
-- [業務シーケンス](./docs/business-sequence.md)
-- [エンドポイント一覧](./docs/endpoint.md)
+- [業務シーケンス](./docs/Business-sequence.md)
+- [エンドポイント一覧](./docs/Endpoint.md)
 
 ## WIP: コンポーネント一覧
 
-- リランイグパーティ
-- ID プロバイダ
+- リライングパーティ
+- OpenID プロバイダ
