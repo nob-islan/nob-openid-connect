@@ -12,26 +12,26 @@ sequenceDiagram
 autonumber
     actor user as ユーザ
     participant relying_party as リライングパーティ
-    participant id_provider as IDプロバイダ
+    participant oid_provider as OpenIDプロバイダ
 
     user->>relying_party: OIDCスタート
     Note over relying_party: リダイレクトURI
     relying_party-->>+user: リダイレクト
-    user->>id_provider: <br>
-    Note over id_provider: 認可エンドポイント
-    id_provider-->>user: 認証・ユーザ情報提供同意画面
-    user->>id_provider: 認証リクエスト
-    Note over id_provider: 認証エンドポイント
-    id_provider-->>+user: 認可コード発行・リダイレクト
+    user->>oid_provider: <br>
+    Note over oid_provider: 認可エンドポイント
+    oid_provider-->>user: 認証・ユーザ情報提供同意画面
+    user->>oid_provider: 認証リクエスト
+    Note over oid_provider: 認証エンドポイント
+    oid_provider-->>+user: 認可コード発行・リダイレクト
     user->>-relying_party: <br>
     Note over relying_party: リダイレクトURI
-    relying_party->>id_provider: トークンリクエスト
-    Note over id_provider: トークン発行エンドポイント
-    id_provider-->>relying_party: アクセストークン、IDトークン発行
+    relying_party->>oid_provider: トークンリクエスト
+    Note over oid_provider: トークン発行エンドポイント
+    oid_provider-->>relying_party: アクセストークン、IDトークン発行
     relying_party->>relying_party: IDトークン検証
-    relying_party->>id_provider: ユーザプロフィールリクエスト
-    Note over id_provider: UserInfoエンドポイント
-    id_provider-->>relying_party: ユーザプロフィール返却
+    relying_party->>oid_provider: ユーザプロフィールリクエスト
+    Note over oid_provider: UserInfoエンドポイント
+    oid_provider-->>relying_party: ユーザプロフィール返却
     relying_party-->>+user: リダイレクト
     user->>-relying_party: <br>
     Note over relying_party: トップ画面
