@@ -5,9 +5,9 @@
 ## 設計書一覧
 
 - [業務シーケンス](./docs/Business-sequence.md)
-- [業務フロー](./docs/api/business-flow/README.md)
+- [業務フロー](./docs/business-flow/README.md)
 - [エンドポイント](./docs/Endpoint.md)
-- [API 定義](./docs/api/swagger/README.md)
+- [API 定義](./docs/api/README.md)
 
 ## WIP: コンポーネント一覧
 
