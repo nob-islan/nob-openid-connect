@@ -15,11 +15,13 @@ autonumber
     participant id_provider as IDプロバイダ
 
     user->>relying_party: OIDCスタート
+    Note over relying_party: リダイレクトURI
     relying_party-->>+user: リダイレクト
     user->>id_provider: <br>
     Note over id_provider: 認可エンドポイント
     id_provider-->>user: 認証・ユーザ情報提供同意画面
     user->>id_provider: 認証リクエスト
+    Note over id_provider: 認証エンドポイント
     id_provider-->>+user: 認可コード発行・リダイレクト
     user->>-relying_party: <br>
     Note over relying_party: リダイレクトURI
