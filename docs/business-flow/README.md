@@ -2,15 +2,15 @@
 
 ## リライングパーティ
 
-- [認可エンドポイントリダイレクト API](./design/rp/Authorization-endpoint-redirect.md)
-- [トークンリクエスト API](./design/rp/Token-request.md)
-- [ID トークン検証 API](./design/rp/ID-token-verification.md)
-- [ユーザプロフィールリクエスト API](./design/rp/User-profile-request.md)
-- [トップ画面リダイレクト API](./design/rp/Top-screen-redirect.md)
+- [認可エンドポイントリダイレクト API](./rp/Authorization-endpoint-redirect.md)
+- [トークンリクエスト API](./rp/Token-request.md)
+- [ID トークン検証 API](./rp/ID-token-verification.md)
+- [ユーザプロフィールリクエスト API](./rp/User-profile-request.md)
+- [トップ画面リダイレクト API](./rp/Top-screen-redirect.md)
 
 ## OpenID プロバイダ
 
-- [認可 API](./design/op/Authorization.md)
-- [認証 API](./design/op/Certification.md)
-- [トークン発行 API](./design/op/Token-issue.md)
-- [UserInfo 取得 API](./design/op/User-info-get.md)
+- [認可 API](./op/Authorization.md)
+- [認証 API](./op/Certification.md)
+- [トークン発行 API](./op/Token-issue.md)
+- [UserInfo 取得 API](./op/User-info-get.md)

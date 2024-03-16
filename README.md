@@ -6,7 +6,7 @@
 
 - [業務シーケンス](./docs/Business-sequence.md)
 - [業務フロー](./docs/business-flow/README.md)
-- [エンドポイント](./docs/Endpoint.md)
+- [エンドポイント](./docs/endpoint/README.md)
 - [API 定義](./docs/api/README.md)
 
 ## WIP: コンポーネント一覧
