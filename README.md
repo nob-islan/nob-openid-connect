@@ -8,6 +8,7 @@
 - [業務フロー](./docs/business-flow/README.md)
 - [エンドポイント](./docs/endpoint/README.md)
 - [API 定義](./docs/api/README.md)
+- [データベース定義](./docs/db/README.md)
 
 ## WIP: コンポーネント一覧
 
