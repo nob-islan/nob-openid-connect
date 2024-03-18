@@ -30,7 +30,7 @@ public class UserInfoDaoImplTest {
 
     // データベースのコンテナイメージなど、DB構築に必要な設定値です。
     static final DockerImageName MARIA_DB_IMAGE_NAME = DockerImageName.parse("mariadb").withTag("10.5");
-    static final String DATABASE_NAME = "opdb";
+    static final String DATABASE_NAME = "OPDB";
     static final String USER_NAME = "root";
     static final String PASSWORD = "";
 
