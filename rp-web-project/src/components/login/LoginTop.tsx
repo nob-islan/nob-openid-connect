@@ -2,26 +2,39 @@ import { useState } from 'react';
 import styles from './LoginTop.module.scss';
 
 /**
- * ログイン画面
+ * ログイン画面です。
  *
  */
 const LoginTop = () => {
   /**
-   * ユーザ名を管理するstate
+   * 入力されたユーザIDを管理するstateです。
    */
-  const [userName, setUserName] = useState();
+  const [userId, setUserId] = useState('');
 
   /**
-   * パスワードを管理するstate
+   * 入力されたパスワードを管理するstateです。
    */
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState('');
 
   /**
-   * ログインAPIをコール
+   * 認証APIをコールします。
    */
   const submit = () => {
-    console.log(userName);
+    console.log(userId);
     console.log(password);
+  };
+
+  /**
+   * 入力された値を元にstateを更新します。
+   *
+   * @param e
+   */
+  const changeState = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (e.currentTarget.id === 'userId') {
+      setUserId(e.target.value);
+    } else if (e.currentTarget.id === 'password') {
+      setPassword(e.target.value);
+    }
   };
 
   return (
@@ -32,13 +45,25 @@ const LoginTop = () => {
           <tr>
             <td align="left">ユーザID:</td>
             <td>
-              <input type="text"></input>
+              <input
+                type="text"
+                id="userId"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  changeState(e)
+                }
+              ></input>
             </td>
           </tr>
           <tr>
             <td align="left">パスワード:</td>
             <td>
-              <input type="password"></input>
+              <input
+                type="password"
+                id="password"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  changeState(e)
+                }
+              ></input>
             </td>
           </tr>
         </tbody>
