@@ -10,7 +10,7 @@ autonumber
 
     user->>relying_party: OIDC開始
     relying_party-->>+user: リダイレクト
-    user->>oid_provider: <br>
+    user->>-oid_provider: <br>
     Note over oid_provider: 認可エンドポイント
     oid_provider-->>user: 認証・ユーザ情報提供同意画面
     user->>oid_provider: 認証リクエスト
