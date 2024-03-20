@@ -1,9 +1,12 @@
 package nob.example.opproject.service;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import nob.example.opproject.constants.UrlConst;
 import nob.example.opproject.dto.CertificationInModel;
 import nob.example.opproject.dto.CertificationOutModel;
@@ -15,6 +18,7 @@ import nob.example.opproject.dto.CertificationOutModel;
  */
 @RestController
 @RequestMapping(value = UrlConst.BASE_URL)
+@Tag(name = "Authorization service", description = "認証向けAPIです。")
 public interface AuthorizationService {
 
     /**
@@ -24,5 +28,6 @@ public interface AuthorizationService {
      * @return 認証の結果
      */
     @PostMapping(value = UrlConst.CERTIFICATION)
-    CertificationOutModel certificate(CertificationInModel certificationInModel);
+    @Operation(summary = "認証", description = "${opapidoc.describe.certificate:説明文}")
+    CertificationOutModel certificate(@RequestBody CertificationInModel certificationInModel);
 }

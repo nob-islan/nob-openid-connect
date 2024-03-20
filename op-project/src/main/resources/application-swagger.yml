@@ -1,0 +1,7 @@
+########################
+### OP API documents
+########################
+opapidoc:
+  describe:
+    certificate: |
+      ユーザID, パスワードによる認証を行います。

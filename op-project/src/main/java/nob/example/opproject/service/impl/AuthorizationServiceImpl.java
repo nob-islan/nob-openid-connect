@@ -23,7 +23,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
         // TODO 実装
         CertificationOutModel certificationOutModel = new CertificationOutModel();
-        certificationOutModel.setCertificated(true);
+        certificationOutModel.setIsCertificated(true);
 
         return certificationOutModel;
     }

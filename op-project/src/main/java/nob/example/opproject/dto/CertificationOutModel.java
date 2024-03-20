@@ -1,5 +1,6 @@
 package nob.example.opproject.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -7,10 +8,12 @@ import lombok.Data;
  * 
  */
 @Data
+@Schema(description = "認証API向けのoutModel", type = "object")
 public class CertificationOutModel {
 
     /**
      * 認証の成否
      */
-    private boolean isCertificated;
+    @Schema(description = "認証の成否", type = "boolean", example = "true")
+    private Boolean isCertificated;
 }

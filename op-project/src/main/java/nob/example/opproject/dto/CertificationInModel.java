@@ -1,5 +1,7 @@
 package nob.example.opproject.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -8,17 +10,20 @@ import lombok.Data;
  * @author nob
  */
 @Data
+@Schema(description = "認証API向けのinModel", type = "object")
 public class CertificationInModel {
-
-    // TODO バリデーション, swagger
 
     /**
      * ユーザID
      */
+    @Schema(description = "ユーザID", type = "string", example = "nob")
+    @NotNull
     private String userId;
 
     /**
      * パスワード
      */
+    @Schema(description = "パスワード", type = "string", example = "p@ssw0rd")
+    @NotNull
     private String password;
 }

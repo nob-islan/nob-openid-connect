@@ -10,8 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+
 @SpringBootApplication
 @MapperScan(basePackages = "nob.example.opproject.mapper")
+@OpenAPIDefinition(info = @Info(title = "OpenID Provider API", version = "1.0.0", description = "OpenIDプロバイダの機能を提供するAPIです。"))
 public class OpProjectApplication {
 
 	public static void main(String[] args) {
@@ -20,7 +24,7 @@ public class OpProjectApplication {
 
 	// MyBatisの設定
 	@Bean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+	SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 		final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource);
 		// コンフィグファイルの読み込み
