@@ -3,9 +3,7 @@ import styles from './LoginTop.module.scss';
 const LoginTop = () => {
   return (
     <div>
-      <div className={styles.beginningMessage}>
-        ユーザID, パスワードを入力してください：
-      </div>
+      <div className={styles.beginningMessage}>Nob OpenID Connect</div>
       <table>
         <tr>
           <td align="left">ユーザID:</td>
@@ -20,7 +18,9 @@ const LoginTop = () => {
           </td>
         </tr>
       </table>
-      <button>ログイン</button>
+      <div className={styles.buttonWrapper}>
+        <button className={styles.button}>ログイン</button>
+      </div>
     </div>
   );
 };
