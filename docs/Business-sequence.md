@@ -28,5 +28,5 @@ autonumber
     relying_party-->>+user: リダイレクト
     user->>-relying_party: <br>
     Note over relying_party: トップ画面
-    relying_party-->>+user: トップ画面
+    relying_party-->>user: トップ画面
 ```
