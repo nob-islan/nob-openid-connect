@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import styles from './LoginTop.module.scss';
+import axios from 'axios';
+import UrlConst from '../../const/UrlConst';
 
 /**
  * ログイン画面です。
@@ -17,11 +19,25 @@ const LoginTop = () => {
   const [password, setPassword] = useState('');
 
   /**
-   * TODO: 認証APIをコールします。
+   * 認証の成否を管理するstateです。
+   */
+  const [isCertificated, setIsCertificated] = useState(false)
+
+  // TODO モックサーバ
+
+  /**
+   * 認証APIをコールします。
    */
   const submit = () => {
-    console.log(userId);
-    console.log(password);
+    const request = {
+      userId: userId,
+      password: password
+    };
+    axios
+      .post(UrlConst.CERTIFICATION, request)
+      .then((response) => {
+        setIsCertificated(response.data)
+      });
   };
 
   /**
