@@ -21,7 +21,7 @@ const LoginTop = () => {
   /**
    * 認証の成否を管理するstateです。
    */
-  const [isCertificated, setIsCertificated] = useState(false)
+  const [isCertificated, setIsCertificated] = useState(false);
 
   // TODO モックサーバ
 
@@ -33,11 +33,9 @@ const LoginTop = () => {
       userId: userId,
       password: password
     };
-    axios
-      .post(UrlConst.CERTIFICATION, request)
-      .then((response) => {
-        setIsCertificated(response.data)
-      });
+    axios.post(UrlConst.CERTIFICATION, request).then((response) => {
+      setIsCertificated(response.data);
+    });
   };
 
   /**

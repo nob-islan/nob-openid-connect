@@ -16,7 +16,8 @@
         "arjun.swagger-viewer",
         "jawandarajbir.react-vscode-extension-pack",
         "shd101wyy.markdown-preview-enhanced",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens"
       ]
     }
   }
