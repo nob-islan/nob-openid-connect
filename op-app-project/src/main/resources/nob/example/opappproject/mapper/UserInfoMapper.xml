@@ -7,14 +7,13 @@
     <select id="selectByCondition" resultType="nob.example.opappproject.entity.UserInfo">
         SELECT 
             user_id
-            , login_id
             , password
             , user_name
         FROM 
             user_info
         <where>
-            <if test="loginId != ''">
-                login_id = #{loginId}
+            <if test="userId != ''">
+                user_id = #{userId}
             </if>
         </where>
     </select>

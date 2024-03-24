@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.dto.CertificationInModel;
 import nob.example.opappproject.dto.CertificationOutModel;
+import nob.example.opappproject.dto.FetchUserInfoInModel;
+import nob.example.opappproject.dto.FetchUserInfoOutModel;
 
 /**
  * 認証向けコントローラーのインターフェースです。
@@ -41,4 +43,14 @@ public interface AuthorizationController {
     @PostMapping(value = UrlConst.CERTIFICATION)
     @Operation(summary = "認証", description = "${opapidoc.describe.certificate:説明文}")
     CertificationOutModel certificate(@RequestBody CertificationInModel certificationInModel);
+
+    /**
+     * UserInfoを取得します。
+     * 
+     * @param fetchUserInfoInModel
+     * @return userInfo
+     */
+    @PostMapping(value = UrlConst.USERINFO)
+    @Operation(summary = "UserInfo取得", description = "${opapidoc.describe.userinfo:説明文}")
+    FetchUserInfoOutModel fetchUserInfo(@RequestBody FetchUserInfoInModel fetchUserInfoInModel);
 }

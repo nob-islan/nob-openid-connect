@@ -10,15 +10,18 @@ import lombok.Data;
 @Data
 public class UserInfo {
 
-    /** ユーザID */
+    /**
+     * ユーザID
+     */
     private String userId;
 
-    /** ログインID */
-    private String loginId;
-
-    /** パスワード */
+    /**
+     * パスワード
+     */
     private String password;
 
-    /** ユーザ名 */
+    /**
+     * ユーザ名
+     */
     private String userName;
 }

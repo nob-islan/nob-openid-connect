@@ -14,16 +14,16 @@ import lombok.Data;
 public class CertificationInModel {
 
     /**
-     * ユーザID
+     * ユーザID // TODO ログインIDとどっちなのか確認
      */
-    @Schema(description = "ユーザID", type = "string", example = "nob")
     @NotNull
+    @Schema(description = "ユーザID", type = "string", example = "nob")
     private String userId;
 
     /**
      * パスワード
      */
-    @Schema(description = "パスワード", type = "string", example = "p@ssw0rd")
     @NotNull
+    @Schema(description = "パスワード", type = "string", example = "p@ssw0rd")
     private String password;
 }

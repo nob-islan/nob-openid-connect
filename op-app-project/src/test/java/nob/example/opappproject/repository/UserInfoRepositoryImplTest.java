@@ -62,7 +62,7 @@ public class UserInfoRepositoryImplTest {
 
         // 検索条件の設定
         UserInfoSearchConditionDto userInfoSearchConditionDto = new UserInfoSearchConditionDto();
-        userInfoSearchConditionDto.setLoginId("nob");
+        userInfoSearchConditionDto.setUserId("nob");
 
         // テスト実行
         List<UserInfo> userInfoList = new ArrayList<UserInfo>();
@@ -74,8 +74,7 @@ public class UserInfoRepositoryImplTest {
         }
 
         assertEquals(1, userInfoList.size());
-        assertEquals("1", userInfoList.get(0).getUserId());
-        assertEquals("nob", userInfoList.get(0).getLoginId());
+        assertEquals("nob", userInfoList.get(0).getUserId());
         assertEquals("p@ssw0rd", userInfoList.get(0).getPassword());
         assertEquals("nobuhiro", userInfoList.get(0).getUserName());
     }
