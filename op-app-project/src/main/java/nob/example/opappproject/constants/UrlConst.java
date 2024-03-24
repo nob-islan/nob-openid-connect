@@ -26,4 +26,9 @@ public class UrlConst {
      * 認証API
      */
     public static final String CERTIFICATION = "/certification";
+
+    /**
+     * UserInfo取得API
+     */
+    public static final String USERINFO = "/userinfo";
 }

@@ -8,6 +8,8 @@ import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.controller.AuthorizationController;
 import nob.example.opappproject.dto.CertificationInModel;
 import nob.example.opappproject.dto.CertificationOutModel;
+import nob.example.opappproject.dto.FetchUserInfoInModel;
+import nob.example.opappproject.dto.FetchUserInfoOutModel;
 import nob.example.opappproject.service.AuthorizationService;
 
 /**
@@ -46,5 +48,15 @@ public class AuthorizationControllerImpl implements AuthorizationController {
 
         // サービス呼び出し
         return authorizationService.certificate(certificationInModel);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public FetchUserInfoOutModel fetchUserInfo(FetchUserInfoInModel fetchUserInfoInModel) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'fetchUserInfo'");
     }
 }

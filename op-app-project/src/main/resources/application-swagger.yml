@@ -3,5 +3,9 @@
 ########################
 opapidoc:
   describe:
+    authorize: |
+      認可トークンを発行し、ログイン画面へリダイレクトします。
     certificate: |
       ユーザID, パスワードによる認証を行います。
+    userinfo: |
+      UserInfoを取得します。
