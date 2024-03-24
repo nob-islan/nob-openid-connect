@@ -1,19 +1,19 @@
-package nob.example.opappproject.dao;
+package nob.example.opappproject.repository;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import nob.example.opappproject.dto.UserInfoSearchConditionDto;
 import nob.example.opappproject.entity.UserInfo;
 
 /**
- * user_infoテーブル向けのdaoインターフェースです。
+ * user_infoテーブル向けのrepositoryインターフェースです。
  * 
  * @author nob
  */
-@Component
-public interface UserInfoDao {
+@Repository
+public interface UserInfoRepository {
 
     /**
      * 検索条件に従ってユーザ情報を取得します。

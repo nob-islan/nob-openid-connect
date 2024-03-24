@@ -1,4 +1,4 @@
-package nob.example.opappproject.dao;
+package nob.example.opappproject.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -20,13 +20,13 @@ import nob.example.opappproject.dto.UserInfoSearchConditionDto;
 import nob.example.opappproject.entity.UserInfo;
 
 /**
- * UserInfoDaoImplのテストクラスです。
+ * UserInfoRepositoryImplのテストクラスです。
  * 
  * @author nob
  */
 @SpringBootTest
 @Testcontainers(disabledWithoutDocker = true)
-public class UserInfoDaoImplTest {
+public class UserInfoRepositoryImplTest {
 
     // データベースのコンテナイメージなど、DB構築に必要な設定値です。
     static final DockerImageName MARIA_DB_IMAGE_NAME = DockerImageName.parse("mariadb").withTag("10.5");
@@ -40,7 +40,7 @@ public class UserInfoDaoImplTest {
             .withDatabaseName(DATABASE_NAME)
             .withUsername(USER_NAME)
             .withPassword(PASSWORD)
-            .withInitScript("dao/userinfo/create_table.sql");
+            .withInitScript("repository/userinfo/create_table.sql");
 
     // 接続情報などの設定値を投入します。
     @DynamicPropertySource
@@ -51,7 +51,7 @@ public class UserInfoDaoImplTest {
     }
 
     @Autowired
-    private UserInfoDao userInfoDao;
+    private UserInfoRepository userInfoRepository;
 
     /**
      * selectAllのテスト 正常系
@@ -67,7 +67,7 @@ public class UserInfoDaoImplTest {
         // テスト実行
         List<UserInfo> userInfoList = new ArrayList<UserInfo>();
         try {
-            userInfoList = userInfoDao.selectByCondition(userInfoSearchConditionDto);
+            userInfoList = userInfoRepository.selectByCondition(userInfoSearchConditionDto);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
