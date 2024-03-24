@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  opdb:
+    container_name: opdb
+    image: mariadb:10.5
+    ports:
+      - 3306:3306
+    volumes:
+      - ./volume/initdb.d:/docker-entrypoint-initdb.d
+      - ./volume/csv:/csv
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      # - MYSQL_ALLOW_EMPTY_PASSWORD=true # 空パスワードを許容する
