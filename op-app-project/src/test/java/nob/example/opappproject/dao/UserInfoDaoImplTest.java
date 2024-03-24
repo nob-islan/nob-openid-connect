@@ -58,7 +58,7 @@ public class UserInfoDaoImplTest {
      *
      */
     @Test
-    public void test_selectByCondition() {
+    public void test_selectByCondition_success() {
 
         // 検索条件の設定
         UserInfoSearchConditionDto userInfoSearchConditionDto = new UserInfoSearchConditionDto();
