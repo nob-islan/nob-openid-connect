@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "rpapidoc.describe.login",
+      "type": "java.lang.String",
+      "description": "A description for 'rpapidoc.describe.login'"
+    }
+  ]
+}
