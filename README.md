@@ -17,3 +17,7 @@
 
 - リライングパーティ
 - OpenID プロバイダ
+
+## メモ
+
+認証開始: `localhost:8080/api/rp/redirect/authorization`
