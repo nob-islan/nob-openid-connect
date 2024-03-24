@@ -1,0 +1,14 @@
+@import '../../constants/colors';
+.beginningMessage {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 0 0 10px 0;
+}
+
+.buttonWrapper {
+  padding: 10px 0 0 0;
+
+  .button {
+    background-color: $BUTTON_COLOR;
+  }
+}
