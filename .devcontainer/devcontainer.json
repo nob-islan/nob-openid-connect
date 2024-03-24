@@ -17,7 +17,8 @@
         "jawandarajbir.react-vscode-extension-pack",
         "shd101wyy.markdown-preview-enhanced",
         "esbenp.prettier-vscode",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "gruntfuggly.todo-tree"
       ]
     }
   }
