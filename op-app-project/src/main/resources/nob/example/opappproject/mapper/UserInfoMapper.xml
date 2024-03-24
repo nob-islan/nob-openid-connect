@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="nob.example.opappproject.mapper.UserInfoMapper">
+    <select id="selectByCondition" resultType="nob.example.opappproject.entity.UserInfo">
+        SELECT 
+            user_id
+            , login_id
+            , password
+            , user_name
+        FROM 
+            user_info
+        <where>
+            <if test="loginId != ''">
+                login_id = #{loginId}
+            </if>
+        </where>
+    </select>
+</mapper>
