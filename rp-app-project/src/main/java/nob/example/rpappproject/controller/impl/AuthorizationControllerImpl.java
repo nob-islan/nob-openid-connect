@@ -19,10 +19,10 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView redirectLogin() {
+    public ModelAndView redirectAuthorization() {
 
         // リダイレクトURL作成
-        String redirectUrl = UrlConst.RP_WEB_ORIGIN + "/login";
+        String redirectUrl = UrlConst.OP_APP_ORIGIN + "/api/op/authorization";
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + redirectUrl);

@@ -13,12 +13,17 @@ public class UrlConst {
     public static final String RP_WEB_ORIGIN = "http://localhost:3000";
 
     /**
+     * OP Appのオリジン
+     */
+    public static final String OP_APP_ORIGIN = "http://localhost:8081";
+
+    /**
      * ベースURL
      */
     public static final String BASE_URL = "/api/rp";
 
     /**
-     * ログイン画面へのリダイレクトAPI
+     * 認可エンドポイントへのリダイレクトAPI
      */
-    public static final String LOGIN = "/login";
+    public static final String AUTHORIZATION_REDIRECT = "/redirect/authorization";
 }
