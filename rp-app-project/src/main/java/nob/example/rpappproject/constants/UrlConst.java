@@ -1,4 +1,4 @@
-package nob.example.opappproject.constants;
+package nob.example.rpappproject.constants;
 
 /**
  * URLを管理する定数クラスです。
@@ -15,10 +15,10 @@ public class UrlConst {
     /**
      * ベースURL
      */
-    public static final String BASE_URL = "/api/op";
+    public static final String BASE_URL = "/api/rp";
 
     /**
-     * 認証API
+     * ログイン画面へのリダイレクトAPI
      */
-    public static final String CERTIFICATION = "/certification";
+    public static final String LOGIN = "/login";
 }

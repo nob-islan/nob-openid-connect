@@ -18,7 +18,7 @@ import nob.example.opappproject.dto.CertificationOutModel;
  */
 @RestController
 @RequestMapping(value = UrlConst.BASE_URL)
-@Tag(name = "Authorization service", description = "認証向けAPIです。")
+@Tag(name = "Authorization", description = "認証向けAPIです。")
 public interface AuthorizationService {
 
     /**

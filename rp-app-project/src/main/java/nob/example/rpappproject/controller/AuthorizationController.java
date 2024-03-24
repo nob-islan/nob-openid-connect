@@ -1,0 +1,29 @@
+package nob.example.rpappproject.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import nob.example.rpappproject.constants.UrlConst;
+
+/**
+ * 認証向けコントローラーのインターフェースです。
+ * 
+ * @author nob
+ */
+@RestController
+@RequestMapping(value = UrlConst.BASE_URL)
+@Tag(name = "Authorization", description = "認証向けAPIです。")
+public interface AuthorizationController {
+
+    /**
+     * ログイン画面へのリダイレクトを行います。
+     * 
+     */
+    @GetMapping(value = UrlConst.LOGIN)
+    @Operation(summary = "ログイン画面へのリダイレクト", description = "${rpapidoc.describe.login:説明文}")
+    ModelAndView redirectLogin();
+}
