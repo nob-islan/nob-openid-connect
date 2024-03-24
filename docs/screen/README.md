@@ -1,3 +1,4 @@
 # 画面設計
 
-- [画面 URL](./Url.md)
+- [リライングパーティ画面 URL](./rp/Url.md)
+- [OpenID プロバイダ画面 URL](./op/Url.md)
