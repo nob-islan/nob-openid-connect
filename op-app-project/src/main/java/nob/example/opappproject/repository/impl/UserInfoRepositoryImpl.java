@@ -1,22 +1,22 @@
-package nob.example.opappproject.dao.impl;
+package nob.example.opappproject.repository.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import nob.example.opappproject.dao.UserInfoDao;
 import nob.example.opappproject.dto.UserInfoSearchConditionDto;
 import nob.example.opappproject.entity.UserInfo;
 import nob.example.opappproject.mapper.UserInfoMapper;
+import nob.example.opappproject.repository.UserInfoRepository;
 
 /**
- * user_infoテーブル向けのdao実装クラスです。
+ * user_infoテーブル向けのrepository実装クラスです。
  * 
  * @author nob
  */
 @Component
-public class UserInfoDaoImpl implements UserInfoDao {
+public class UserInfoRepositoryImpl implements UserInfoRepository {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
