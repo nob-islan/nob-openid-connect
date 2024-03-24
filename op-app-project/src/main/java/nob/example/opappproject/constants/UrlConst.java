@@ -18,6 +18,11 @@ public class UrlConst {
     public static final String BASE_URL = "/api/op";
 
     /**
+     * 認可API
+     */
+    public static final String AUTHORIZATION = "/authorization";
+
+    /**
      * 認証API
      */
     public static final String CERTIFICATION = "/certification";

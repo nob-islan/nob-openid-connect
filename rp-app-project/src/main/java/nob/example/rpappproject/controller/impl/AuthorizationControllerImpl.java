@@ -1,9 +1,10 @@
-package nob.example.rpappproject.controller;
+package nob.example.rpappproject.controller.impl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.rpappproject.constants.UrlConst;
+import nob.example.rpappproject.controller.AuthorizationController;
 
 /**
  * 認証向けコントローラーの実装クラスです。

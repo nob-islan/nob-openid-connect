@@ -1,9 +1,11 @@
 package nob.example.opappproject.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,6 +22,15 @@ import nob.example.opappproject.dto.CertificationOutModel;
 @RequestMapping(value = UrlConst.BASE_URL)
 @Tag(name = "Authorization", description = "認証向けAPIです。")
 public interface AuthorizationController {
+
+    /**
+     * 認可トークンを発行し、ログイン画面へリダイレクトします。
+     * 
+     * @return ログイン画面
+     */
+    @GetMapping(value = UrlConst.AUTHORIZATION)
+    @Operation(summary = "認可", description = "${opapidoc.describe.authorize:説明文}")
+    ModelAndView authorize();
 
     /**
      * ユーザID, パスワードによる認証を行います。
