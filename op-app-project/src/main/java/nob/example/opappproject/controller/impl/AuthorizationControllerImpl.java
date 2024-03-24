@@ -56,7 +56,8 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      */
     @Override
     public FetchUserInfoOutModel fetchUserInfo(FetchUserInfoInModel fetchUserInfoInModel) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'fetchUserInfo'");
+
+        // サービス呼び出し
+        return authorizationService.fetchUserInfo(fetchUserInfoInModel);
     }
 }
