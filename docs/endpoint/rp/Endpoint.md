@@ -4,7 +4,6 @@
 
 | API 名                         | メソッド | URL                              |
 | ------------------------------ | -------- | -------------------------------- |
-| ログイン画面リダイレクト       | GET      | `/api/rp/login`                  |
 | 認可エンドポイントリダイレクト | GET      | `/api/rp/redirect/authorization` |
 | トークンリクエスト             | GET      | `/api/rp/token/issue`            |
 | ID トークン検証                | POST     | `/api/rp/token/verify`           |

@@ -1,9 +1,10 @@
-package nob.example.rpappproject.controller;
+package nob.example.rpappproject.controller.impl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.rpappproject.constants.UrlConst;
+import nob.example.rpappproject.controller.AuthorizationController;
 
 /**
  * 認証向けコントローラーの実装クラスです。
@@ -18,10 +19,10 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView redirectLogin() {
+    public ModelAndView redirectAuthorization() {
 
         // リダイレクトURL作成
-        String redirectUrl = UrlConst.RP_WEB_ORIGIN + "/login";
+        String redirectUrl = UrlConst.OP_APP_ORIGIN + "/api/op/authorization";
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + redirectUrl);

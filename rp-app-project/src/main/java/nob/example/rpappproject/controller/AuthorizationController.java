@@ -20,10 +20,10 @@ import nob.example.rpappproject.constants.UrlConst;
 public interface AuthorizationController {
 
     /**
-     * ログイン画面へのリダイレクトを行います。
+     * 認可エンドポイントへのリダイレクトを行います。
      * 
      */
-    @GetMapping(value = UrlConst.LOGIN)
-    @Operation(summary = "ログイン画面へのリダイレクト", description = "${rpapidoc.describe.login:説明文}")
-    ModelAndView redirectLogin();
+    @GetMapping(value = UrlConst.AUTHORIZATION_REDIRECT)
+    @Operation(summary = "認可エンドポイントへのリダイレクト", description = "${rpapidoc.describe.authorization.redirect:説明文}")
+    ModelAndView redirectAuthorization();
 }

@@ -30,14 +30,14 @@ public class AuthorizationControllerImplTest {
     }
 
     /**
-     * redirectLoginのテスト 正常系
+     * redirectAuthorizationのテスト 正常系
      * 
      */
     @Test
-    public void test_redirectLogin_success() throws Exception {
+    public void test_redirectAuthorization_success() throws Exception {
 
-        mockMvc.perform(get("/api/rp/login"))
+        mockMvc.perform(get("/api/rp/redirect/authorization"))
                 .andExpect(status().isFound())
-                .andExpect(view().name("redirect:http://localhost:3000/login"));
+                .andExpect(view().name("redirect:http://localhost:8081/api/op/authorization"));
     }
 }

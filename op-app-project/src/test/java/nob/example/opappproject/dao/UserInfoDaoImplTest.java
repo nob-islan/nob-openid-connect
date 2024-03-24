@@ -40,7 +40,7 @@ public class UserInfoDaoImplTest {
             .withDatabaseName(DATABASE_NAME)
             .withUsername(USER_NAME)
             .withPassword(PASSWORD)
-            .withInitScript("userinfo/create_table.sql");
+            .withInitScript("dao/userinfo/create_table.sql");
 
     // 接続情報などの設定値を投入します。
     @DynamicPropertySource
