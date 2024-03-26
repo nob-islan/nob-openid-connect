@@ -11,6 +11,8 @@
 - [API 定義](./docs/api/README.md)
 - [画面 URL](./docs/screen/README.md)
 
+<!-- TODO docs/endpoint は swagger へ移行 -->
+
 ## WIP: コンポーネント一覧
 
 インターフェース定義については[swagger](http://localhost:8080/swagger-ui/index.html)を確認してください。
