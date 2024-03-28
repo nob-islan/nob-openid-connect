@@ -19,7 +19,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView redirectAuthorization() {
+    public ModelAndView redirectLogin() {
 
         // リダイレクトURL作成
         String redirectUrl = UrlConst.OP_APP_ORIGIN + "/api/op/authorization";

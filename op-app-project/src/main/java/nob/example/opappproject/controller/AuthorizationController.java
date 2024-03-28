@@ -31,7 +31,7 @@ public interface AuthorizationController {
      * @return ログイン画面
      */
     @GetMapping(value = UrlConst.AUTHORIZATION)
-    @Operation(summary = "認可", description = "${opapidoc.describe.authorize:説明文}")
+    @Operation(summary = "認可", description = "${opapidoc.describe.authorization.authorize:説明文}")
     ModelAndView authorize();
 
     /**
@@ -41,7 +41,7 @@ public interface AuthorizationController {
      * @return 認証の結果
      */
     @PostMapping(value = UrlConst.CERTIFICATION)
-    @Operation(summary = "認証", description = "${opapidoc.describe.certificate:説明文}")
+    @Operation(summary = "認証", description = "${opapidoc.describe.authorization.certificate:説明文}")
     CertificationOutModel certificate(@RequestBody CertificationInModel certificationInModel);
 
     /**
@@ -51,6 +51,6 @@ public interface AuthorizationController {
      * @return userInfo
      */
     @PostMapping(value = UrlConst.USERINFO)
-    @Operation(summary = "UserInfo取得", description = "${opapidoc.describe.userinfo:説明文}")
+    @Operation(summary = "UserInfo取得", description = "${opapidoc.describe.authorization.fetch-userinfo:説明文}")
     FetchUserInfoOutModel fetchUserInfo(@RequestBody FetchUserInfoInModel fetchUserInfoInModel);
 }

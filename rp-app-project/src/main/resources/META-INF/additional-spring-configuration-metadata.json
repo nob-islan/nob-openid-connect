@@ -1,9 +1,9 @@
 {
   "properties": [
     {
-      "name": "rpapidoc.describe.redirect.authorization",
+      "name": "rpapidoc.describe.authorization.redirect-login",
       "type": "java.lang.String",
-      "description": "A description for 'rpapidoc.describe.redirect.authorization'"
+      "description": "A description for 'rpapidoc.describe.authorization.redirect-login'"
     }
   ]
 }

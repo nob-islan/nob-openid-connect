@@ -3,6 +3,6 @@
 ########################
 rpapidoc:
   describe:
-    redirect:
-      authorization: |
+    authorization:
+      redirect-login: |
         ログインページへのリダイレクトを行います。

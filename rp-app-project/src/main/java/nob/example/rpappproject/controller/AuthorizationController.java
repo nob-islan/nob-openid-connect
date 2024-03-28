@@ -24,6 +24,6 @@ public interface AuthorizationController {
      * 
      */
     @GetMapping(value = UrlConst.AUTHORIZATION_REDIRECT)
-    @Operation(summary = "認可エンドポイントへのリダイレクト", description = "${rpapidoc.describe.authorization.redirect:説明文}")
-    ModelAndView redirectAuthorization();
+    @Operation(summary = "認可エンドポイントへのリダイレクト", description = "${rpapidoc.describe.authorization.redirect-login:説明文}")
+    ModelAndView redirectLogin();
 }
