@@ -14,7 +14,7 @@ import lombok.Data;
 public class CertificationInModel {
 
     /**
-     * ユーザID // TODO ログインIDとどっちなのか確認
+     * ユーザID
      */
     @NotNull
     @Schema(description = "ユーザID", type = "string", example = "nob")
