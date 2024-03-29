@@ -5,6 +5,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.rpappproject.constants.UrlConst;
 import nob.example.rpappproject.controller.AuthorizationController;
+import nob.example.rpappproject.dto.FetchUserInfoInModel;
+import nob.example.rpappproject.dto.FetchUserInfoOutModel;
 
 /**
  * 認証向けコントローラーの実装クラスです。
@@ -28,5 +30,15 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         modelAndView.setViewName("redirect:" + redirectUrl);
 
         return modelAndView;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public FetchUserInfoOutModel fetchUserInfo(FetchUserInfoInModel fetchUserInfoInModel) {
+        // TODO 実装
+        throw new UnsupportedOperationException("Unimplemented method 'fetchUserInfo'");
     }
 }

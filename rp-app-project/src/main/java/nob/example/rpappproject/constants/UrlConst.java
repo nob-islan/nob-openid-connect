@@ -26,4 +26,9 @@ public class UrlConst {
      * 認可エンドポイントへのリダイレクトAPI
      */
     public static final String AUTHORIZATION_REDIRECT = "/redirect/authorization";
+
+    /**
+     * ユーザ情報取得API
+     */
+    public static final String USER_INFO = "/userinfo";
 }

@@ -26,9 +26,9 @@ import nob.example.opappproject.dto.FetchUserInfoOutModel;
 public interface AuthorizationController {
 
     /**
-     * 認可トークンを発行し、ログイン画面へリダイレクトします。
+     * 認可トークンを発行し、認証・ユーザ情報提供画面へリダイレクトします。
      * 
-     * @return ログイン画面
+     * @return 認証・ユーザ情報提供画面
      */
     @GetMapping(value = UrlConst.AUTHORIZATION)
     @Operation(summary = "認可", description = "${opapidoc.describe.authorization.authorize:説明文}")

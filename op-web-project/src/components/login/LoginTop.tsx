@@ -4,7 +4,7 @@ import axios from 'axios';
 import UrlConst from '../../constants/UrlConst';
 
 /**
- * ログイン画面です。
+ * 認証・ユーザ情報提供画面です。
  *
  */
 const LoginTop = () => {

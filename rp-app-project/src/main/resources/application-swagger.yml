@@ -5,4 +5,6 @@ rpapidoc:
   describe:
     authorization:
       redirect-login: |
-        ログインページへのリダイレクトを行います。
+        認証・ユーザ情報提供ページへのリダイレクトを行います。
+      fetch-userinfo: |
+        ユーザ情報を取得します。
