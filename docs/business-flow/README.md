@@ -5,7 +5,7 @@
 - [認可エンドポイントリダイレクト API](./rp/Authorization-endpoint-redirect.md)
 - [トークンリクエスト API](./rp/Token-request.md)
 - [ID トークン検証 API](./rp/ID-token-verification.md)
-- [ユーザプロフィールリクエスト API](./rp/User-profile-request.md)
+- [ユーザ情報リクエスト API](./rp/User-profile-request.md)
 - [トップ画面リダイレクト API](./rp/Top-screen-redirect.md)
 
 ## OpenID プロバイダ
