@@ -1,5 +1,6 @@
 package nob.example.rpappproject.controller.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -7,6 +8,7 @@ import nob.example.rpappproject.constants.UrlConst;
 import nob.example.rpappproject.controller.AuthorizationController;
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
+import nob.example.rpappproject.service.AuthorizationService;
 
 /**
  * 認証向けコントローラーの実装クラスです。
@@ -15,6 +17,9 @@ import nob.example.rpappproject.dto.FetchUserInfoOutModel;
  */
 @Controller
 public class AuthorizationControllerImpl implements AuthorizationController {
+
+    @Autowired
+    private AuthorizationService authorizationService;
 
     /**
      * {@inheritDoc}
@@ -38,7 +43,10 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      */
     @Override
     public FetchUserInfoOutModel fetchUserInfo(FetchUserInfoInModel fetchUserInfoInModel) {
-        // TODO 実装
-        throw new UnsupportedOperationException("Unimplemented method 'fetchUserInfo'");
+
+        // サービス呼び出し
+        FetchUserInfoOutModel fetchUserInfoOutModel = authorizationService.fetchUserInfo(fetchUserInfoInModel);
+
+        return fetchUserInfoOutModel;
     }
 }

@@ -32,6 +32,7 @@ public class AuthorizationControllerImplTest {
     /**
      * redirectAuthorizationのテスト 正常系
      * 
+     * @throws Exception
      */
     @Test
     public void test_redirectAuthorization_success() throws Exception {
