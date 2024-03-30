@@ -1,7 +1,7 @@
 package nob.example.rpappproject.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.rpappproject.constants.UrlConst;
@@ -17,7 +17,7 @@ import nob.example.rpappproject.service.AuthorizationService;
  * 
  * @author nob
  */
-@Controller
+@RestController
 public class AuthorizationControllerImpl implements AuthorizationController {
 
     @Autowired

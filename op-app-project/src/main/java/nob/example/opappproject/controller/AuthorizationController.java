@@ -10,10 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import nob.example.opappproject.constants.UrlConst;
-import nob.example.opappproject.dto.CertificationInModel;
-import nob.example.opappproject.dto.CertificationOutModel;
-import nob.example.opappproject.dto.FetchUserInfoInModel;
-import nob.example.opappproject.dto.FetchUserInfoOutModel;
+import nob.example.opappproject.dto.CertificationRequest;
+import nob.example.opappproject.dto.CertificationResponse;
+import nob.example.opappproject.dto.FetchUserInfoRequest;
+import nob.example.opappproject.dto.FetchUserInfoResponse;
 
 /**
  * 認証向けコントローラーのインターフェースです。
@@ -42,7 +42,7 @@ public interface AuthorizationController {
      */
     @PostMapping(value = UrlConst.CERTIFICATION)
     @Operation(summary = "認証", description = "${opapidoc.describe.authorization.certificate:説明文}")
-    CertificationOutModel certificate(@RequestBody CertificationInModel certificationInModel);
+    CertificationResponse certificate(@RequestBody CertificationRequest certificationRequest);
 
     /**
      * UserInfoを取得します。
@@ -52,5 +52,5 @@ public interface AuthorizationController {
      */
     @PostMapping(value = UrlConst.USERINFO)
     @Operation(summary = "UserInfo取得", description = "${opapidoc.describe.authorization.fetch-userinfo:説明文}")
-    FetchUserInfoOutModel fetchUserInfo(@RequestBody FetchUserInfoInModel fetchUserInfoInModel);
+    FetchUserInfoResponse fetchUserInfo(@RequestBody FetchUserInfoRequest fetchUserInfoRequest);
 }
