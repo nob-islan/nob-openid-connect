@@ -6,6 +6,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.rpappproject.constants.UrlConst;
 import nob.example.rpappproject.controller.AuthorizationController;
+import nob.example.rpappproject.dto.DemandTokenInModel;
+import nob.example.rpappproject.dto.DemandTokenOutModel;
+import nob.example.rpappproject.dto.DemandTokenRequest;
+import nob.example.rpappproject.dto.DemandTokenResponse;
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
 import nob.example.rpappproject.dto.FetchUserInfoRequest;
@@ -28,15 +32,34 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView redirectLogin() {
+    public ModelAndView redirectAuthorization() {
 
-        // リダイレクトURL作成
+        // リダイレクトURL作成 // TODO URLを定数として管理するか検討
         String redirectUrl = UrlConst.OP_APP_ORIGIN + "/api/op/authorization";
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + redirectUrl);
 
         return modelAndView;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public DemandTokenResponse demandToken(DemandTokenRequest demandTokenRequest) {
+
+        // TODO inModel作成
+        DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
+
+        // サービス呼び出し
+        DemandTokenOutModel demandTokenOutModel = authorizationService.demandToken(demandTokenInModel);
+
+        // TODO outModel作成
+        DemandTokenResponse demandTokenResponse = new DemandTokenResponse();
+
+        return demandTokenResponse;
     }
 
     /**

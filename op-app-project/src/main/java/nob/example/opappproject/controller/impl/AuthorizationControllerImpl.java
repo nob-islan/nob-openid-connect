@@ -14,6 +14,8 @@ import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
 import nob.example.opappproject.dto.FetchUserInfoRequest;
 import nob.example.opappproject.dto.FetchUserInfoResponse;
+import nob.example.opappproject.dto.IssueTokenRequest;
+import nob.example.opappproject.dto.IssueTokenResponse;
 import nob.example.opappproject.service.AuthorizationService;
 
 /**
@@ -63,6 +65,16 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         certificationResponse.setIsCertificated(certificationOutModel.getIsCertificated());
 
         return certificationResponse;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public IssueTokenResponse issueToken(IssueTokenRequest issueTokenRequest) {
+        // TODO 実装
+        return new IssueTokenResponse();
     }
 
     /**

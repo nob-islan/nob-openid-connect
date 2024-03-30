@@ -2,6 +2,8 @@ package nob.example.rpappproject.service;
 
 import org.springframework.stereotype.Service;
 
+import nob.example.rpappproject.dto.DemandTokenInModel;
+import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
 
@@ -12,6 +14,14 @@ import nob.example.rpappproject.dto.FetchUserInfoOutModel;
  */
 @Service
 public interface AuthorizationService {
+
+    /**
+     * アクセストークンおよびIDトークンを要求します。
+     * 
+     * @param demandTokenInModel
+     * @return OPから発行されたトークン
+     */
+    DemandTokenOutModel demandToken(DemandTokenInModel demandTokenInModel);
 
     /**
      * ユーザ情報を取得します。

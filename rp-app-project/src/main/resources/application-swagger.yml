@@ -4,7 +4,9 @@
 rpapidoc:
   describe:
     authorization:
-      redirect-login: |
+      redirect-authorization: |
         認証・ユーザ情報提供ページへのリダイレクトを行います。
+      demand-token: |
+        アクセストークンおよびIDトークンを要求します。
       fetch-userinfo: |
         ユーザ情報を取得します。

@@ -5,8 +5,10 @@ opapidoc:
   describe:
     authorization:
       authorize: |
-        認可トークンを発行し、認証・ユーザ情報提供画面へリダイレクトします。
+        認証・ユーザ情報提供画面へリダイレクトします。
       certificate: |
-        ユーザID, パスワードによる認証を行います。
+        ユーザID, パスワードによる認証を行い、認可コードを発行します。
+      issue-token: |
+        アクセストークンおよびIDトークンを発行します。
       fetch-userinfo: |
         UserInfoを取得します。

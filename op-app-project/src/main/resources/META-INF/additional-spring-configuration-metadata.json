@@ -1,17 +1,24 @@
-{"properties": [
-  {
-    "name": "opapidoc.describe.authorization.authorize",
-    "type": "java.lang.String",
-    "description": "A description for 'opapidoc.describe.authorization.authorize'"
-  },
-  {
-    "name": "opapidoc.describe.authorization.certificate",
-    "type": "java.lang.String",
-    "description": "A description for 'opapidoc.describe.authorization.certificate'"
-  },
-  {
-    "name": "opapidoc.describe.authorization.fetch-userinfo",
-    "type": "java.lang.String",
-    "description": "A description for 'opapidoc.describe.authorization.fetch-userinfo'"
-  }
-]}
+{
+  "properties": [
+    {
+      "name": "opapidoc.describe.authorization.authorize",
+      "type": "java.lang.String",
+      "description": "A description for 'opapidoc.describe.authorization.authorize'"
+    },
+    {
+      "name": "opapidoc.describe.authorization.certificate",
+      "type": "java.lang.String",
+      "description": "A description for 'opapidoc.describe.authorization.certificate'"
+    },
+    {
+      "name": "opapidoc.describe.authorization.fetch-userinfo",
+      "type": "java.lang.String",
+      "description": "A description for 'opapidoc.describe.authorization.fetch-userinfo'"
+    },
+    {
+      "name": "opapidoc.describe.authorization.issue-token",
+      "type": "java.lang.String",
+      "description": "A description for 'opapidoc.describe.authorization.issue-token'"
+    }
+  ]
+}

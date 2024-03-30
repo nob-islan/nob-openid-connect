@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
-import nob.example.rpappproject.rest.dto.OpFetchUserInfoOutModel;
+import nob.example.rpappproject.rest.dto.OpFetchUserInfoResponse;
 
 /**
  * AuthorizationServiceImplのテストクラスです。
@@ -47,11 +47,11 @@ public class AuthorizationServiceImplTest {
         fetchUserInfoInModel.setUserId("testNob");
 
         // モック返却値の作成
-        OpFetchUserInfoOutModel opFetchUserInfoOutModel = new OpFetchUserInfoOutModel();
-        opFetchUserInfoOutModel.setUserId("testNob");
-        opFetchUserInfoOutModel.setUserName("testNobuhiro");
+        OpFetchUserInfoResponse opFetchUserInfoResponse = new OpFetchUserInfoResponse();
+        opFetchUserInfoResponse.setUserId("testNob");
+        opFetchUserInfoResponse.setUserName("testNobuhiro");
         ObjectMapper mapper = new ObjectMapper();
-        String response = mapper.writeValueAsString(opFetchUserInfoOutModel);
+        String response = mapper.writeValueAsString(opFetchUserInfoResponse);
 
         // リクエストURL
         String url = "http://localhost:8081/api/op/userinfo";
