@@ -8,6 +8,8 @@ import nob.example.rpappproject.constants.UrlConst;
 import nob.example.rpappproject.controller.AuthorizationController;
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
+import nob.example.rpappproject.dto.FetchUserInfoRequest;
+import nob.example.rpappproject.dto.FetchUserInfoResponse;
 import nob.example.rpappproject.service.AuthorizationService;
 
 /**
@@ -42,11 +44,20 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public FetchUserInfoOutModel fetchUserInfo(FetchUserInfoInModel fetchUserInfoInModel) {
+    public FetchUserInfoResponse fetchUserInfo(FetchUserInfoRequest fetchUserInfoRequest) {
+
+        // inModel作成
+        FetchUserInfoInModel fetchUserInfoInModel = new FetchUserInfoInModel();
+        fetchUserInfoInModel.setUserId(fetchUserInfoRequest.getUserId());
 
         // サービス呼び出し
         FetchUserInfoOutModel fetchUserInfoOutModel = authorizationService.fetchUserInfo(fetchUserInfoInModel);
 
-        return fetchUserInfoOutModel;
+        // outModel作成
+        FetchUserInfoResponse fetchUserInfoResponse = new FetchUserInfoResponse();
+        fetchUserInfoResponse.setUserId(fetchUserInfoOutModel.getUserId());
+        fetchUserInfoResponse.setUserName(fetchUserInfoOutModel.getUserName());
+
+        return fetchUserInfoResponse;
     }
 }

@@ -10,8 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import nob.example.rpappproject.constants.UrlConst;
-import nob.example.rpappproject.dto.FetchUserInfoInModel;
-import nob.example.rpappproject.dto.FetchUserInfoOutModel;
+import nob.example.rpappproject.dto.FetchUserInfoRequest;
+import nob.example.rpappproject.dto.FetchUserInfoResponse;
 
 /**
  * 認証向けコントローラーのインターフェースです。
@@ -40,5 +40,5 @@ public interface AuthorizationController {
      */
     @PostMapping(value = UrlConst.USER_INFO)
     @Operation(summary = "ユーザ情報の取得", description = "${rpapidoc.describe.authorization.fetch-userinfo:説明文}")
-    FetchUserInfoOutModel fetchUserInfo(@RequestBody FetchUserInfoInModel fetchUserInfoInModel);
+    FetchUserInfoResponse fetchUserInfo(@RequestBody FetchUserInfoRequest fetchUserInfoRequest);
 }

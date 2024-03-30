@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
+import nob.example.rpappproject.dto.FetchUserInfoRequest;
+import nob.example.rpappproject.dto.FetchUserInfoResponse;
 import nob.example.rpappproject.service.AuthorizationService;
 
 /**
@@ -65,6 +67,10 @@ public class AuthorizationControllerImplTest {
     public void test_fetchUserInfo_success() throws Exception {
 
         // 入力値の作成
+        FetchUserInfoRequest fetchUserInfoRequest = new FetchUserInfoRequest();
+        fetchUserInfoRequest.setUserId("testNob");
+
+        // サービス呼び出し時の想定inModel
         FetchUserInfoInModel fetchUserInfoInModel = new FetchUserInfoInModel();
         fetchUserInfoInModel.setUserId("testNob");
 
@@ -78,10 +84,10 @@ public class AuthorizationControllerImplTest {
 
         try {
             // コントローラ呼び出し
-            FetchUserInfoOutModel fetchUserInfoOutModel = authorizationController.fetchUserInfo(fetchUserInfoInModel);
+            FetchUserInfoResponse fetchUserInfoResponse = authorizationController.fetchUserInfo(fetchUserInfoRequest);
             // 結果のassert
-            assertEquals("testNob", fetchUserInfoOutModel.getUserId());
-            assertEquals("testNobuhiro", fetchUserInfoOutModel.getUserName());
+            assertEquals("testNob", fetchUserInfoResponse.getUserId());
+            assertEquals("testNobuhiro", fetchUserInfoResponse.getUserName());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
