@@ -28,6 +28,11 @@ public class UrlConst {
     public static final String CERTIFICATION = "/certification";
 
     /**
+     * トークン発行API
+     */
+    public static final String TOKEN = "/token";
+
+    /**
      * UserInfo取得API
      */
     public static final String USERINFO = "/userinfo";

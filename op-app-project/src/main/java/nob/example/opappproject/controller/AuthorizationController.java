@@ -14,6 +14,8 @@ import nob.example.opappproject.dto.CertificationRequest;
 import nob.example.opappproject.dto.CertificationResponse;
 import nob.example.opappproject.dto.FetchUserInfoRequest;
 import nob.example.opappproject.dto.FetchUserInfoResponse;
+import nob.example.opappproject.dto.IssueTokenRequest;
+import nob.example.opappproject.dto.IssueTokenResponse;
 
 /**
  * 認証向けコントローラーのインターフェースです。
@@ -26,7 +28,7 @@ import nob.example.opappproject.dto.FetchUserInfoResponse;
 public interface AuthorizationController {
 
     /**
-     * 認可トークンを発行し、認証・ユーザ情報提供画面へリダイレクトします。
+     * 認証・ユーザ情報提供画面へリダイレクトします。
      * 
      * @return 認証・ユーザ情報提供画面
      */
@@ -35,7 +37,7 @@ public interface AuthorizationController {
     ModelAndView authorize();
 
     /**
-     * ユーザID, パスワードによる認証を行います。
+     * ユーザID, パスワードによる認証を行い、認可コードを発行します。
      * 
      * @param certificationInModel
      * @return 認証の結果
@@ -43,6 +45,16 @@ public interface AuthorizationController {
     @PostMapping(value = UrlConst.CERTIFICATION)
     @Operation(summary = "認証", description = "${opapidoc.describe.authorization.certificate:説明文}")
     CertificationResponse certificate(@RequestBody CertificationRequest certificationRequest);
+
+    /**
+     * アクセストークンおよびIDトークンを発行します。
+     * 
+     * @param issueTokenRequest
+     * @return
+     */
+    @PostMapping(value = UrlConst.TOKEN)
+    @Operation(summary = "トークン発行", description = "${opapidoc.describe.authorization.issue-token:説明文}")
+    IssueTokenResponse issueToken(@RequestBody IssueTokenRequest issueTokenRequest);
 
     /**
      * UserInfoを取得します。
