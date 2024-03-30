@@ -18,7 +18,12 @@ public class UrlConst {
     public static final String BASE_URL = "/api/op";
 
     /**
+     * トークン発行API
+     */
+    public static final String TOKEN = "/token";
+
+    /**
      * UserInfo取得API
      */
-    public static final String USER_INFO = "/userinfo";
+    public static final String USERINFO = "/userinfo";
 }

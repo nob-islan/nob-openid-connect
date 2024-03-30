@@ -3,12 +3,12 @@ package nob.example.rpappproject.rest.dto;
 import lombok.Data;
 
 /**
- * UserInfo取得API向けのinModelです。
+ * UserInfo取得API向けのリクエストです。
  * 
  * @author nob
  */
 @Data
-public class OpFetchUserInfoInModel {
+public class OpFetchUserInfoRequest {
 
     /**
      * ユーザID

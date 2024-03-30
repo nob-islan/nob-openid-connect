@@ -74,7 +74,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public IssueTokenResponse issueToken(IssueTokenRequest issueTokenRequest) {
         // TODO 実装
-        throw new UnsupportedOperationException("Unimplemented method 'issueToken'");
+        return new IssueTokenResponse();
     }
 
     /**
