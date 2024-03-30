@@ -4,8 +4,8 @@
 
 | API 名                         | メソッド | URL                              |
 | ------------------------------ | -------- | -------------------------------- |
-| 認可エンドポイントリダイレクト | GET      | `/api/rp/redirect/authorization` |
-| トークンリクエスト             | GET      | `/api/rp/token/issue`            |
+| 認可エンドポイントリダイレクト | GET      | `/api/rp/authorization/redirect` |
+| トークンリクエスト             | POST     | `/api/rp/token/demand`           |
 | ID トークン検証                | POST     | `/api/rp/token/verify`           |
-| ユーザ情報リクエスト           | POST     | `/api/rp/userinfo`               |
-| トップ画面リダイレクト         | GET      | `/api/rp/redirect/top`           |
+| ユーザ情報リクエスト           | POST     | `/api/rp/userinfo/fetch`         |
+| トップ画面リダイレクト         | GET      | `/api/rp//top/redirect`          |

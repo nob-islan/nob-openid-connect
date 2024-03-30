@@ -6,6 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.rpappproject.constants.UrlConst;
 import nob.example.rpappproject.controller.AuthorizationController;
+import nob.example.rpappproject.dto.DemandTokenRequest;
+import nob.example.rpappproject.dto.DemandTokenResponse;
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
 import nob.example.rpappproject.dto.FetchUserInfoRequest;
@@ -28,7 +30,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView redirectLogin() {
+    public ModelAndView redirectAuthorization() {
 
         // リダイレクトURL作成
         String redirectUrl = UrlConst.OP_APP_ORIGIN + "/api/op/authorization";
@@ -37,6 +39,16 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         modelAndView.setViewName("redirect:" + redirectUrl);
 
         return modelAndView;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public DemandTokenResponse demandToken(DemandTokenRequest demandTokenRequest) {
+        // TODO 実装
+        throw new UnsupportedOperationException("Unimplemented method 'demandToken'");
     }
 
     /**

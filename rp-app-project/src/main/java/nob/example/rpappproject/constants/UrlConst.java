@@ -25,10 +25,15 @@ public class UrlConst {
     /**
      * 認可エンドポイントへのリダイレクトAPI
      */
-    public static final String AUTHORIZATION_REDIRECT = "/redirect/authorization";
+    public static final String AUTHORIZATION_REDIRECT = "/authorization/redirect";
+
+    /**
+     * トークンリクエストAPI
+     */
+    public static final String TOKEN_DEMAND = "/token/demand";
 
     /**
      * ユーザ情報取得API
      */
-    public static final String USER_INFO = "/userinfo";
+    public static final String USERINFO_FETCH = "/userinfo/fetch";
 }
