@@ -1,15 +1,24 @@
 package nob.example.rpappproject.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import nob.example.rpappproject.dto.FetchUserInfoInModel;
+import nob.example.rpappproject.dto.FetchUserInfoOutModel;
+import nob.example.rpappproject.service.AuthorizationService;
 
 /**
  * AuthorizationControllerImplのテストクラスです。
@@ -17,12 +26,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
  * @author nob
  */
 @SpringBootTest
+@AutoConfigureMockMvc
 public class AuthorizationControllerImplTest {
 
     @Autowired
     private AuthorizationController authorizationController;
 
+    @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private AuthorizationService authorizationService;
 
     @BeforeEach
     public void setup() {
@@ -40,5 +54,37 @@ public class AuthorizationControllerImplTest {
         mockMvc.perform(get("/api/rp/redirect/authorization"))
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:http://localhost:8081/api/op/authorization"));
+    }
+
+    /**
+     * fetchUserInfoのテスト 正常系
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_fetchUserInfo_success() throws Exception {
+
+        // 入力値の作成
+        FetchUserInfoInModel fetchUserInfoInModel = new FetchUserInfoInModel();
+        fetchUserInfoInModel.setUserId("testNob");
+
+        // モック返却値の作成
+        FetchUserInfoOutModel mockFetchUserInfoOutModel = new FetchUserInfoOutModel();
+        mockFetchUserInfoOutModel.setUserId("testNob");
+        mockFetchUserInfoOutModel.setUserName("testNobuhiro");
+
+        // サービスのモック化
+        Mockito.when(authorizationService.fetchUserInfo(fetchUserInfoInModel)).thenReturn(mockFetchUserInfoOutModel);
+
+        try {
+            // コントローラ呼び出し
+            FetchUserInfoOutModel fetchUserInfoOutModel = authorizationController.fetchUserInfo(fetchUserInfoInModel);
+            // 結果のassert
+            assertEquals("testNob", fetchUserInfoOutModel.getUserId());
+            assertEquals("testNobuhiro", fetchUserInfoOutModel.getUserName());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 }

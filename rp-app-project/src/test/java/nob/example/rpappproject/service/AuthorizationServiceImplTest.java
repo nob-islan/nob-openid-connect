@@ -1,5 +1,11 @@
 package nob.example.rpappproject.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,12 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
 import nob.example.rpappproject.rest.dto.OpFetchUserInfoOutModel;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 /**
  * AuthorizationServiceImplのテストクラスです。
