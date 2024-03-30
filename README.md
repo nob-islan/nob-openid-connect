@@ -17,6 +17,8 @@
 
 インターフェース定義については[swagger](http://localhost:8080/swagger-ui/index.html)を確認してください。
 
+TODO パッケージ構成とか書く
+
 - リライングパーティ
 - OpenID プロバイダ
 

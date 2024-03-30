@@ -1,4 +1,4 @@
-# ユーザプロフィールリクエスト API
+# ユーザ情報リクエスト API
 
 ```mermaid
 %%{init:{'theme':'dark'}}%%

@@ -76,7 +76,6 @@ public class AuthorizationControllerImplTest {
             CertificationOutModel certificationOutModel = authorizationService.certificate(certificationInModel);
             // 結果のassert
             assertEquals(true, certificationOutModel.getIsCertificated());
-
         } catch (Exception e) {
             e.printStackTrace();
             fail();
