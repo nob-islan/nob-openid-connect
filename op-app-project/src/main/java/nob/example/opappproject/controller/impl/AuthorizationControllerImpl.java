@@ -8,8 +8,12 @@ import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.controller.AuthorizationController;
 import nob.example.opappproject.dto.CertificationInModel;
 import nob.example.opappproject.dto.CertificationOutModel;
+import nob.example.opappproject.dto.CertificationRequest;
+import nob.example.opappproject.dto.CertificationResponse;
 import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
+import nob.example.opappproject.dto.FetchUserInfoRequest;
+import nob.example.opappproject.dto.FetchUserInfoResponse;
 import nob.example.opappproject.service.AuthorizationService;
 
 /**
@@ -44,10 +48,21 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public CertificationOutModel certificate(CertificationInModel certificationInModel) {
+    public CertificationResponse certificate(CertificationRequest certificationRequest) {
+
+        // inModel作成
+        CertificationInModel certificationInModel = new CertificationInModel();
+        certificationInModel.setUserId(certificationRequest.getUserId());
+        certificationInModel.setPassword(certificationRequest.getPassword());
 
         // サービス呼び出し
-        return authorizationService.certificate(certificationInModel);
+        CertificationOutModel certificationOutModel = authorizationService.certificate(certificationInModel);
+
+        // outModel作成
+        CertificationResponse certificationResponse = new CertificationResponse();
+        certificationResponse.setIsCertificated(certificationOutModel.getIsCertificated());
+
+        return certificationResponse;
     }
 
     /**
@@ -55,9 +70,20 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public FetchUserInfoOutModel fetchUserInfo(FetchUserInfoInModel fetchUserInfoInModel) {
+    public FetchUserInfoResponse fetchUserInfo(FetchUserInfoRequest fetchUserInfoRequest) {
+
+        // inModel作成
+        FetchUserInfoInModel fetchUserInfoInModel = new FetchUserInfoInModel();
+        fetchUserInfoInModel.setUserId(fetchUserInfoRequest.getUserId());
 
         // サービス呼び出し
-        return authorizationService.fetchUserInfo(fetchUserInfoInModel);
+        FetchUserInfoOutModel fetchUserInfoOutModel = authorizationService.fetchUserInfo(fetchUserInfoInModel);
+
+        // outModel作成
+        FetchUserInfoResponse fetchUserInfoResponse = new FetchUserInfoResponse();
+        fetchUserInfoResponse.setUserId(fetchUserInfoOutModel.getUserId());
+        fetchUserInfoResponse.setUserName(fetchUserInfoOutModel.getUserName());
+
+        return fetchUserInfoResponse;
     }
 }
