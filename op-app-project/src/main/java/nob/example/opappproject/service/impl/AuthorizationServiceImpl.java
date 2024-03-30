@@ -50,7 +50,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         UserInfoSearchConditionDto userInfoSearchConditionDto = new UserInfoSearchConditionDto();
         userInfoSearchConditionDto.setUserId(fetchUserInfoInModel.getUserId());
 
-        // repository呼び出し
+        // repository呼び出し // TODO 結果が0件だった場合の例外処理
         List<UserInfo> userInfoList = userInfoRepository.selectByCondition(userInfoSearchConditionDto);
 
         // レスポンス作成

@@ -56,8 +56,8 @@ public class AuthorizationServiceImplTest {
 
         try {
             FetchUserInfoOutModel fetchUserInfoOutModel = authorizationService.fetchUserInfo(fetchUserInfoInModel);
-            assertEquals(fetchUserInfoOutModel.getUserId(), "testNob");
-            assertEquals(fetchUserInfoOutModel.getUserName(), "testNobuhiro");
+            assertEquals("testNob", fetchUserInfoOutModel.getUserId());
+            assertEquals("testNobuhiro", fetchUserInfoOutModel.getUserName());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
