@@ -15,6 +15,11 @@ import nob.example.opappproject.constants.UrlConst;
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
+    /**
+     * オリジン間リソース共有を許可します。
+     * 
+     * @return
+     */
     @Bean
     WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

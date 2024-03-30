@@ -2,6 +2,7 @@ package nob.example.rpappproject.service.impl;
 
 import java.net.URI;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,6 +26,9 @@ import nob.example.rpappproject.service.AuthorizationService;
 @Service
 public class AuthorizationServiceImpl implements AuthorizationService {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     /**
      * {@inheritDoc}
      * 
@@ -44,8 +48,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         // TODO GETメソッドの実装と併せて共通化検討
 
         // OP UserInfo取得API呼び出し
-        RestTemplate restTemplate = new RestTemplate();
-
         ResponseEntity<OpFetchUserInfoOutModel> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
                 new HttpEntity(opFetchUserInfoInModel, new HttpHeaders()), OpFetchUserInfoOutModel.class);
 
