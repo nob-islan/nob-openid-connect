@@ -1,5 +1,6 @@
 import axios from 'axios';
 import UrlConst from '../constants/UrlConst';
+import { Dispatch } from 'redux';
 
 export const LoginActionType = {
   /**
@@ -12,8 +13,6 @@ export const LoginActionType = {
    */
   UPDATE_PASSWORD: 'UPDATE_PASSWORD'
 };
-
-type ValueOf<T> = T[keyof T];
 
 /**
  * リクエスト用のペイロード
@@ -30,6 +29,11 @@ export type LoginStatePayload = {
   password?: string;
 };
 
+type ValueOf<T> = T[keyof T];
+
+/**
+ * ログイン時のアクションです。
+ */
 export type LoginAction = {
   type: ValueOf<typeof LoginActionType>;
   payload: LoginStatePayload;
@@ -60,11 +64,13 @@ export const updatePassword = (inputPassword: string): LoginAction => ({
  *
  * @returns
  */
-export const verifyCredential = async () => {
-  const request = {
-    userId: 'testUserId',
-    password: 'testPassword'
+export const verifyCredential = () => {
+  return async (dispatch: Dispatch) => {
+    const request = {
+      userId: 'testUserId',
+      password: 'testPassword'
+    };
+    const response = await axios.post(UrlConst.CERTIFICATION, request);
+    console.log(response);
   };
-  const response = await axios.post(UrlConst.CERTIFICATION, request);
-  console.log(response.data); // TODO 後続処理
 };

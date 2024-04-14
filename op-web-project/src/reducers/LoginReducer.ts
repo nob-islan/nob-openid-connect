@@ -1,10 +1,9 @@
-import { Reducer } from 'redux';
+import { LoginActionType } from '../actions/LoginAction';
 import { LoginState, initLoginState } from '../states/LoginState';
-import { LoginAction, LoginActionType } from '../actions/LoginAction';
 
-export const LoginReducer: Reducer<LoginState, LoginAction> = (
+export const LoginReducer = (
   state: LoginState = initLoginState,
-  action: LoginAction
+  action: any
 ): LoginState => {
   switch (action.type) {
     /**

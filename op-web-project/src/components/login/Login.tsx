@@ -5,6 +5,7 @@ import {
   updateUserId,
   verifyCredential
 } from '../../actions/LoginAction';
+import { store } from '../..';
 
 interface Props {}
 
@@ -21,7 +22,7 @@ const Login: React.FC<Props> = (props) => {
    * 認証APIをコールします。
    */
   const submit = () => {
-    // dispatch(verifyCredential());
+    store.dispatch(verifyCredential());
   };
 
   /**
