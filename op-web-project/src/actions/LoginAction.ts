@@ -60,7 +60,7 @@ export const updatePassword = (inputPassword: string): LoginAction => ({
 });
 
 /**
- * ユーザID, パスワードを検証します。
+ * ユーザID, パスワードを検証します。 // TODO formからuserId, passwordを受け取るように変更
  *
  * @returns
  */
