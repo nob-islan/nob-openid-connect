@@ -49,11 +49,11 @@ TODO パッケージ構成とか書く
 
 データ格納オブジェクトを行うクラスを配置します。各種 dto について、それがどの層に属するかによって下記で命名します:
 
-| 層         | 命名（入力 / 出力）                          |
-| ---------- | -------------------------------------------- |
-| controller | `XXXRequest` / `XXXResponse`                 |
-| service    | `XXXInModel` / `XXXOutModel`                 |
-| repository | `XXXSearchConditionDto` / `{エンティティ名}` |
+| 層         | 命名（入力 / 出力）           |
+| ---------- | ----------------------------- |
+| controller | `XXXRequest` / `XXXResponse`  |
+| service    | `XXXInModel` / `XXXOutModel`  |
+| repository | `XXXKey` / `{エンティティ名}` |
 
 ##### entity
 
