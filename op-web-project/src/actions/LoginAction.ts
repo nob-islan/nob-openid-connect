@@ -1,32 +1,24 @@
 import axios from 'axios';
 import UrlConst from '../constants/UrlConst';
-import { Dispatch } from 'redux';
+import { loginFormName } from '../components/login/Login';
+import { formValueSelector } from 'redux-form';
+import { store } from '..';
 
-export const LoginActionType = {
-  /**
-   * ユーザIDを入力された値で更新します。
-   */
-  UPDATE_USER_ID: 'UPDATE_USER_ID',
-
-  /**
-   * パスワードを入力された値で更新します。
-   */
-  UPDATE_PASSWORD: 'UPDATE_PASSWORD'
-};
+export const LoginActionType = {};
 
 /**
  * リクエスト用のペイロード
  */
-export type LoginStatePayload = {
+export type LoginActionPayload = {
   /**
    *ユーザID
    */
-  userId?: string;
+  userId: string;
 
   /**
    * パスワード
    */
-  password?: string;
+  password: string;
 };
 
 type ValueOf<T> = T[keyof T];
@@ -36,41 +28,22 @@ type ValueOf<T> = T[keyof T];
  */
 export type LoginAction = {
   type: ValueOf<typeof LoginActionType>;
-  payload: LoginStatePayload;
+  payload: LoginActionPayload;
 };
 
 /**
- * ユーザIDを入力された値で更新します。
- *
- * @returns
- */
-export const updateUserId = (inputUserId: string): LoginAction => ({
-  type: LoginActionType.UPDATE_USER_ID,
-  payload: { userId: inputUserId }
-});
-
-/**
- * パスワードを入力された値で更新します。
- *
- * @returns
- */
-export const updatePassword = (inputPassword: string): LoginAction => ({
-  type: LoginActionType.UPDATE_PASSWORD,
-  payload: { password: inputPassword }
-});
-
-/**
- * ユーザID, パスワードを検証します。 // TODO formからuserId, passwordを受け取るように変更
+ * ユーザID, パスワードを検証します。
  *
  * @returns
  */
 export const verifyCredential = () => {
-  return async (dispatch: Dispatch) => {
-    const request = {
-      userId: 'testUserId',
-      password: 'testPassword'
+  const selector = formValueSelector(loginFormName);
+  return async () => {
+    const request: LoginActionPayload = {
+      userId: selector(store.getState(), 'userId'),
+      password: selector(store.getState(), 'password')
     };
     const response = await axios.post(UrlConst.CERTIFICATION, request);
-    console.log(response);
+    console.log(response); // TODO 検証用ログ削除
   };
 };
