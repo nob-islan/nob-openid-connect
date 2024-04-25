@@ -9,6 +9,9 @@ class UrlConst {
    */
   static readonly OP_BASE_URL = '/api/op';
 
+  /**
+   * 認証API
+   */
   static readonly CERTIFICATION =
     this.OP_DOMAIN + this.OP_BASE_URL + '/certification';
 }
