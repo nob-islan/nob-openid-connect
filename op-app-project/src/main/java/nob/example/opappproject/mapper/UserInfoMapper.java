@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import nob.example.opappproject.dto.UserInfoSearchConditionDto;
+import nob.example.opappproject.dto.UserInfoSearchKey;
 import nob.example.opappproject.entity.UserInfo;
 
 /**
@@ -18,8 +18,8 @@ public interface UserInfoMapper {
     /**
      * 検索条件に従ってユーザ情報を取得します。
      * 
-     * @param userInfoSearchConditionDto
+     * @param userInfoSearchKey
      * @return ユーザ情報検索結果
      */
-    List<UserInfo> selectByCondition(UserInfoSearchConditionDto userInfoSearchConditionDto);
+    List<UserInfo> selectByCondition(UserInfoSearchKey userInfoSearchKey);
 }

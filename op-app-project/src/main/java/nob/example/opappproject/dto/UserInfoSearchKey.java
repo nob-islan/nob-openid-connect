@@ -8,7 +8,7 @@ import lombok.Data;
  * @author nob
  */
 @Data
-public class UserInfoSearchConditionDto {
+public class UserInfoSearchKey {
 
     /**
      * ユーザID

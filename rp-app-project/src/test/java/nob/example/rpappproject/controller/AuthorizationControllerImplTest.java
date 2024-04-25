@@ -53,7 +53,7 @@ public class AuthorizationControllerImplTest {
     @Test
     public void test_redirectAuthorization_success() throws Exception {
 
-        mockMvc.perform(get("/api/rp/redirect/authorization"))
+        mockMvc.perform(get("/api/rp/authorization/redirect"))
                 .andExpect(status().isFound())
                 .andExpect(view().name("redirect:http://localhost:8081/api/op/authorization"));
     }
