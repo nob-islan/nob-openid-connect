@@ -76,7 +76,9 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      */
     @Override
     public IssueTokenResponse issueToken(IssueTokenRequest issueTokenRequest) {
-        // TODO 実装
+
+        // TODO 認可コード、codeVerifier検証
+
         return new IssueTokenResponse();
     }
 

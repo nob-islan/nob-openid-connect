@@ -58,14 +58,19 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public DemandTokenResponse demandToken(DemandTokenRequest demandTokenRequest) {
 
-        // TODO inModel作成
+        // inModel作成
         DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
+        demandTokenInModel.setAuthorizationCode(demandTokenRequest.getAuthorizationCode());
+        demandTokenInModel.setCodeVerifier(demandTokenRequest.getCodeVerifier());
 
         // サービス呼び出し
         DemandTokenOutModel demandTokenOutModel = authorizationService.demandToken(demandTokenInModel);
 
-        // TODO outModel作成
+        // outModel作成
         DemandTokenResponse demandTokenResponse = new DemandTokenResponse();
+        demandTokenResponse.setAccessToken(demandTokenOutModel.getAccessToken());
+        demandTokenResponse.setRefleshToken(demandTokenOutModel.getRefleshToken());
+        demandTokenResponse.setIdToken(demandTokenOutModel.getIdToken());
 
         return demandTokenResponse;
     }

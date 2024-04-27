@@ -10,5 +10,18 @@ import lombok.Data;
 @Data
 public class DemandTokenOutModel {
 
-    // TODO 作成
+    /**
+     * アクセストークン
+     */
+    private String accessToken;
+
+    /**
+     * リフレッシュトークン
+     */
+    private String refleshToken;
+
+    /**
+     * IDトークン
+     */
+    private String idToken;
 }

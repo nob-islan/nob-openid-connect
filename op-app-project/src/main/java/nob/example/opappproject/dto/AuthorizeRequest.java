@@ -15,7 +15,7 @@ public class AuthorizeRequest {
     /**
      * codeVerifierをハッシュ化した値
      */
-    @Schema(description = "codeVerifierをハッシュ化した値", type = "string", example = "abc123")
+    @Schema(description = "codeVerifierをハッシュ化した値", type = "string", example = "xyz789")
     private String codeChallenge;
 
     /**

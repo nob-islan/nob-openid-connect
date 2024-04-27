@@ -2,7 +2,6 @@ package nob.example.rpappproject.service;
 
 import org.springframework.stereotype.Service;
 
-import jakarta.servlet.http.HttpSession;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.FetchUserInfoInModel;

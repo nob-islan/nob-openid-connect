@@ -111,13 +111,18 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
         // OP呼び出しのためのリクエスト作成
         OpIssueTokenRequest opIssueTokenRequest = new OpIssueTokenRequest();
+        opIssueTokenRequest.setAuthorizationCode(demandTokenInModel.getAuthorizationCode());
+        opIssueTokenRequest.setCodeVerifier(demandTokenInModel.getCodeVerifier());
 
         // OP トークン発行API呼び出し
         ResponseEntity<OpIssueTokenResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
                 new HttpEntity(opIssueTokenRequest, new HttpHeaders()), OpIssueTokenResponse.class);
 
-        // TODO 返却値の作成
+        // 返却値の作成
         DemandTokenOutModel demandTokenOutModel = new DemandTokenOutModel();
+        demandTokenOutModel.setAccessToken(responseEntity.getBody().getAccessToken());
+        demandTokenOutModel.setRefleshToken(responseEntity.getBody().getRefleshToken());
+        demandTokenOutModel.setIdToken(responseEntity.getBody().getIdToken());
 
         return demandTokenOutModel;
     }
@@ -138,9 +143,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         OpFetchUserInfoRequest opFetchUserInfoRequest = new OpFetchUserInfoRequest();
         opFetchUserInfoRequest.setUserId(fetchUserInfoInModel.getUserId());
 
-        // TODO GETメソッドの実装と併せて共通化検討
-
-        // OP UserInfo取得API呼び出し
+        // OP UserInfo取得API呼び出し // TODO exchangeについて、GETメソッドの実装と併せて共通化検討
         ResponseEntity<OpFetchUserInfoResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
                 new HttpEntity(opFetchUserInfoRequest, new HttpHeaders()), OpFetchUserInfoResponse.class);
 

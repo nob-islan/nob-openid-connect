@@ -8,7 +8,6 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
 
 import org.junit.jupiter.api.Test;
@@ -21,10 +20,13 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import nob.example.rpappproject.dto.DemandTokenInModel;
+import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
 import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.rest.dto.OpFetchUserInfoResponse;
+import nob.example.rpappproject.rest.dto.OpIssueTokenResponse;
 
 /**
  * AuthorizationServiceImplのテストクラスです。
@@ -60,6 +62,48 @@ public class AuthorizationServiceImplTest {
             byte[] sha256Byte = sha256.digest(redirectAuthorizationOutModel.getCodeVerifier().getBytes());
             HexFormat hex = HexFormat.of().withLowerCase();
             assertEquals(redirectAuthorizationOutModel.getCodeChallenge(), hex.formatHex(sha256Byte));
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    /**
+     * demandTokenのテスト 正常系
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_demandToken_success() throws Exception {
+
+        // 入力値の作成
+        DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
+        demandTokenInModel.setAuthorizationCode("testAuthorizationCode");
+        demandTokenInModel.setCodeVerifier("testCodeVerifier");
+
+        // モック返却値の作成
+        OpIssueTokenResponse opIssueTokenResponse = new OpIssueTokenResponse();
+        opIssueTokenResponse.setAccessToken("testAccessToken");
+        opIssueTokenResponse.setRefleshToken("testRefleshToken");
+        opIssueTokenResponse.setIdToken("testIdToken");
+        ObjectMapper mapper = new ObjectMapper();
+        String response = mapper.writeValueAsString(opIssueTokenResponse);
+
+        // リクエストURL
+        String url = "http://localhost:8081/api/op/token";
+
+        // モックサーバの作成
+        MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
+        mockRestServiceServer.expect(requestTo(url)).andExpect(method(HttpMethod.POST)).andRespond(
+                withSuccess(response, MediaType.APPLICATION_JSON));
+
+        try {
+            // サービス呼び出し
+            DemandTokenOutModel demandTokenOutModel = authorizationService.demandToken(demandTokenInModel);
+            // 結果のassert
+            assertEquals("testAccessToken", demandTokenOutModel.getAccessToken());
+            assertEquals("testRefleshToken", demandTokenOutModel.getRefleshToken());
+            assertEquals("testIdToken", demandTokenOutModel.getIdToken());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
