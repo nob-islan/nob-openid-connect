@@ -68,14 +68,14 @@ public class AuthorizationControllerImplTest {
 
         // モックレスポンス作成
         CertificationOutModel mockCertificationOutModel = new CertificationOutModel();
-        mockCertificationOutModel.setIsCertificated(true);
+        mockCertificationOutModel.setAuthorizationCode("testAuthorizationCode");
         Mockito.when(authorizationService.certificate(certificationInModel)).thenReturn(mockCertificationOutModel);
 
         try {
             // サービス呼び出し
             CertificationOutModel certificationOutModel = authorizationService.certificate(certificationInModel);
             // 結果のassert
-            assertEquals(true, certificationOutModel.getIsCertificated());
+            assertEquals("testAuthorizationCode", certificationOutModel.getAuthorizationCode());
         } catch (Exception e) {
             e.printStackTrace();
             fail();

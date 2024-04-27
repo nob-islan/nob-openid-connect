@@ -12,8 +12,8 @@ import lombok.Data;
 public class CertificationResponse {
 
     /**
-     * 認証の成否
+     * 認可コード
      */
-    @Schema(description = "認証の成否", type = "boolean", example = "true")
-    private Boolean isCertificated;
+    @Schema(description = "認可コード", type = "boolean", example = "abc123")
+    private String authorizationCode;
 }

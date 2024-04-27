@@ -13,4 +13,4 @@
 - [認可 API](./op/Authorization.md)
 - [認証 API](./op/Certification.md)
 - [トークン発行 API](./op/Token-issue.md)
-- [UserInfo 取得 API](./op/User-info-get.md)
+- [UserInfo 取得 API](./op/User-info-fetch.md)

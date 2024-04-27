@@ -10,7 +10,7 @@ import lombok.Data;
 public class CertificationOutModel {
 
     /**
-     * 認証の成否
+     * 認可コード
      */
-    private Boolean isCertificated;
+    private String authorizationCode;
 }
