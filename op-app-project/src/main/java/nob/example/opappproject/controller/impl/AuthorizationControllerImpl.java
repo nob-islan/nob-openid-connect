@@ -8,7 +8,8 @@ import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.controller.AuthorizationController;
 import nob.example.opappproject.dto.CertificationInModel;
 import nob.example.opappproject.dto.CertificationOutModel;
-import nob.example.opappproject.dto.CertificationRequest;
+import nob.example.opappproject.dto.AuthorizeRequest;
+import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificationResponse;
 import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
@@ -34,7 +35,9 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView authorize() {
+    public ModelAndView authorize(AuthorizeRequest authorizeRequest) {
+
+        // TODO codeChallengeを保持
 
         // リダイレクトURL作成
         String redirectUrl = UrlConst.RP_WEB_ORIGIN + "/login";
@@ -50,12 +53,12 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public CertificationResponse certificate(CertificationRequest certificationRequest) {
+    public CertificationResponse certificate(CertificateRequest certificateRequest) {
 
         // inModel作成
         CertificationInModel certificationInModel = new CertificationInModel();
-        certificationInModel.setUserId(certificationRequest.getUserId());
-        certificationInModel.setPassword(certificationRequest.getPassword());
+        certificationInModel.setUserId(certificateRequest.getUserId());
+        certificationInModel.setPassword(certificateRequest.getPassword());
 
         // サービス呼び出し
         CertificationOutModel certificationOutModel = authorizationService.certificate(certificationInModel);
@@ -73,7 +76,11 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      */
     @Override
     public IssueTokenResponse issueToken(IssueTokenRequest issueTokenRequest) {
-        // TODO 実装
+
+        // TODO 認可コード、codeVerifier検証
+
+        // TODO アクセストークン、リフレッシュトークン、IDトークン作成
+
         return new IssueTokenResponse();
     }
 

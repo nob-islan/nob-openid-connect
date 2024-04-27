@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "認証API向けのリクエスト", type = "object")
-public class CertificationRequest {
+public class CertificateRequest {
 
     /**
      * ユーザID

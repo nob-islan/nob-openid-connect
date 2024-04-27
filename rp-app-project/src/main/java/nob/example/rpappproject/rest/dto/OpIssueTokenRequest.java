@@ -10,5 +10,13 @@ import lombok.Data;
 @Data
 public class OpIssueTokenRequest {
 
-    // TODO 作成
+    /**
+     * 認可コード
+     */
+    private String authorizationCode;
+
+    /**
+     * 検証用のランダム文字列
+     */
+    private String codeVerifier;
 }
