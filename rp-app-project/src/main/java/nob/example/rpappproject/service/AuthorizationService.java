@@ -2,10 +2,12 @@ package nob.example.rpappproject.service;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpSession;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
+import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 
 /**
  * 認証向けサービスのインターフェースです。
@@ -14,6 +16,13 @@ import nob.example.rpappproject.dto.FetchUserInfoOutModel;
  */
 @Service
 public interface AuthorizationService {
+
+    /**
+     * 認可エンドポイントへのリダイレクトを行います。
+     * 
+     * @return codeChallenge
+     */
+    RedirectAuthorizationOutModel redirectAuthorization();
 
     /**
      * アクセストークンおよびIDトークンを要求します。

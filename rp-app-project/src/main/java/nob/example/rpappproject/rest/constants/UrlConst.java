@@ -10,12 +10,17 @@ public class UrlConst {
     /**
      * OP Appのオリジン
      */
-    public static final String OP_APP_ORIGIN = nob.example.rpappproject.constants.UrlConst.OP_APP_ORIGIN;
+    public static final String OP_APP_ORIGIN = "http://localhost:8081";
 
     /**
      * ベースURL
      */
     public static final String BASE_URL = "/api/op";
+
+    /**
+     * 認可API
+     */
+    public static final String AUTHORIZATION = "/authorization";
 
     /**
      * トークン発行API

@@ -1,10 +1,15 @@
 package nob.example.rpappproject.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
+import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.rest.dto.OpFetchUserInfoResponse;
 
 /**
@@ -33,6 +39,32 @@ public class AuthorizationServiceImplTest {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    /**
+     * redirectAuthorizationのテスト 正常系
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_redirectAuthorization_success() throws Exception {
+
+        try {
+            // サービス呼び出し
+            RedirectAuthorizationOutModel redirectAuthorizationOutModel = authorizationService.redirectAuthorization();
+            // 結果のassert
+            assertNotNull(redirectAuthorizationOutModel.getCodeVerifier());
+            assertNotNull(redirectAuthorizationOutModel.getCodeChallenge());
+            assertEquals(redirectAuthorizationOutModel.getCodeChallengeMethod(), "S256");
+            // codeVerifierをハッシュ化して、codeChallengeを一致することを確認
+            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+            byte[] sha256Byte = sha256.digest(redirectAuthorizationOutModel.getCodeVerifier().getBytes());
+            HexFormat hex = HexFormat.of().withLowerCase();
+            assertEquals(redirectAuthorizationOutModel.getCodeChallenge(), hex.formatHex(sha256Byte));
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
     /**
      * fetchUserInfoのテスト 正常系

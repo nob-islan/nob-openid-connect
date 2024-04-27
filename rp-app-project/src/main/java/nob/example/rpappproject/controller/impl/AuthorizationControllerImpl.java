@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import nob.example.rpappproject.constants.UrlConst;
 import nob.example.rpappproject.controller.AuthorizationController;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
@@ -14,6 +13,8 @@ import nob.example.rpappproject.dto.FetchUserInfoInModel;
 import nob.example.rpappproject.dto.FetchUserInfoOutModel;
 import nob.example.rpappproject.dto.FetchUserInfoRequest;
 import nob.example.rpappproject.dto.FetchUserInfoResponse;
+import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
+import nob.example.rpappproject.rest.constants.UrlConst;
 import nob.example.rpappproject.service.AuthorizationService;
 
 /**
@@ -34,11 +35,18 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public ModelAndView redirectAuthorization() {
 
-        // リダイレクトURL作成 // TODO URLを定数として管理するか検討
-        String redirectUrl = UrlConst.OP_APP_ORIGIN + "/api/op/authorization";
+        // サービスを呼び出してcodeChallengeを計算
+        RedirectAuthorizationOutModel redirectAuthorizationOutModel = authorizationService.redirectAuthorization();
+
+        // TODO codeVerifierを保持（httpSession?）
+
+        // クエリパラメータを作成
+        String queryParam = "?" + "codeChallenge=" + redirectAuthorizationOutModel.getCodeChallenge()
+                + "&codeChallengeMethod=" + redirectAuthorizationOutModel.getCodeChallengeMethod();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + redirectUrl);
+        modelAndView.setViewName(
+                "redirect:" + UrlConst.OP_APP_ORIGIN + UrlConst.BASE_URL + UrlConst.AUTHORIZATION + queryParam);
 
         return modelAndView;
     }
