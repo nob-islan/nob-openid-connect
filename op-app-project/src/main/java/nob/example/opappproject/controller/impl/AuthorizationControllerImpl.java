@@ -65,8 +65,9 @@ public class AuthorizationControllerImpl implements AuthorizationController {
 
         // outModel作成
         CertificationResponse certificationResponse = new CertificationResponse();
-        certificationResponse.setIsCertificated(certificationOutModel.getIsCertificated());
+        certificationResponse.setAuthorizationCode(certificationOutModel.getAuthorizationCode());
 
+        // TODO リダイレクト処理？
         return certificationResponse;
     }
 

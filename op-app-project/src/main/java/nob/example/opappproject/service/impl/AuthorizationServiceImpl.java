@@ -32,9 +32,12 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     public CertificationOutModel certificate(CertificationInModel certificationInModel) {
 
-        // TODO 実装
+        // TODO 認可コード発行
+        String authorizationCode = "";
+
+        // 返却値の作成
         CertificationOutModel certificationOutModel = new CertificationOutModel();
-        certificationOutModel.setIsCertificated(true);
+        certificationOutModel.setAuthorizationCode(authorizationCode);
 
         return certificationOutModel;
     }
