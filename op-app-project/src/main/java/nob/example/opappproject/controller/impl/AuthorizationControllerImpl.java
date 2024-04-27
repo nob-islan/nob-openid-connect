@@ -79,6 +79,8 @@ public class AuthorizationControllerImpl implements AuthorizationController {
 
         // TODO 認可コード、codeVerifier検証
 
+        // TODO アクセストークン、リフレッシュトークン、IDトークン作成
+
         return new IssueTokenResponse();
     }
 
