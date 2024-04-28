@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.rpappproject.controller.AuthorizationController;
+import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.rest.constants.UrlConst;
 import nob.example.rpappproject.service.AuthorizationService;
@@ -41,5 +42,15 @@ public class AuthorizationControllerImpl implements AuthorizationController {
                 "redirect:" + UrlConst.OP_APP_ORIGIN + UrlConst.BASE_URL + UrlConst.AUTHORIZATION + queryParam);
 
         return modelAndView;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'fetchToken'");
     }
 }

@@ -13,7 +13,7 @@ import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 public interface AuthorizationService {
 
     /**
-     * 認可エンドポイントへのリダイレクトを行います。
+     * 認可エンドポイントへのリダイレクトを行います。// TODO 名称変更
      * 
      * @return codeChallenge
      */
