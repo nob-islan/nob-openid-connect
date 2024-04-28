@@ -16,4 +16,19 @@
             </if>
         </where>
     </select>
+
+    <select id="selectUserCredential" resultType="nob.example.opappproject.entity.UserInfo">
+        SELECT 
+            user_id
+        FROM 
+            user_info
+        <where>
+            <if test="userId != ''">
+                user_id = #{userId}
+            </if>
+            <if test="password != ''">
+                AND password = #{password}
+            </if>
+        </where>
+    </select>
 </mapper>

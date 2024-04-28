@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import nob.example.opappproject.dto.UserCredentialSelectKey;
 import nob.example.opappproject.dto.UserDataSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 import nob.example.opappproject.mapper.UserInfoMapper;
@@ -29,5 +30,15 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
     public List<UserInfo> selectUserData(UserDataSelectKey userDataSelectKey) {
 
         return userInfoMapper.selectUserData(userDataSelectKey);
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public List<UserInfo> selectUserCredential(UserCredentialSelectKey userCredentialSelectKey) {
+
+        return userInfoMapper.selectUserCredential(userCredentialSelectKey);
     }
 }
