@@ -39,11 +39,11 @@ public class AuthorizationControllerImpl implements AuthorizationController {
 
         // TODO codeChallengeを保持
 
-        // リダイレクトURL作成
-        String redirectUrl = UrlConst.OP_WEB_ORIGIN + UrlConst.LOGIN;
+        // クエリパラメータを作成
+        String queryParam = "?" + "redirectUri=" + authorizeRequest.getRedirectUri();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + redirectUrl);
+        modelAndView.setViewName("redirect:" + UrlConst.OP_WEB_ORIGIN + UrlConst.LOGIN + queryParam);
 
         return modelAndView;
     }
