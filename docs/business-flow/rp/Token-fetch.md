@@ -1,4 +1,4 @@
-# トークンリクエスト API
+# アクセストークン取得 API
 
 ```mermaid
 %%{init:{'theme':'dark'}}%%

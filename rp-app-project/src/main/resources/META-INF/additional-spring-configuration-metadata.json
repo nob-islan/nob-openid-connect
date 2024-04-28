@@ -6,14 +6,9 @@
       "description": "A description for 'rpapidoc.describe.authorization.redirect-authorization'"
     },
     {
-      "name": "rpapidoc.describe.authorization.fetch-userinfo",
+      "name": "rpapidoc.describe.authorization.fetch-token",
       "type": "java.lang.String",
-      "description": "A description for 'rpapidoc.describe.authorization.fetch-userinfo'"
-    },
-    {
-      "name": "rpapidoc.describe.authorization.demand-token",
-      "type": "java.lang.String",
-      "description": "A description for 'rpapidoc.describe.authorization.demand-token'"
+      "description": "A description for 'rpapidoc.describe.authorization.fetch-token'"
     }
   ]
 }
