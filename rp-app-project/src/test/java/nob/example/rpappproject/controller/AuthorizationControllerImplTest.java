@@ -1,6 +1,8 @@
 package nob.example.rpappproject.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -11,9 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import nob.example.rpappproject.dto.DemandTokenInModel;
+import nob.example.rpappproject.dto.DemandTokenOutModel;
+import nob.example.rpappproject.dto.DemandUserInfoInModel;
+import nob.example.rpappproject.dto.DemandUserInfoOutModel;
+import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.service.AuthorizationService;
 
@@ -50,9 +60,9 @@ public class AuthorizationControllerImplTest {
 
         // モック返却値の作成
         RedirectAuthorizationOutModel mockRedirectAuthorizationOutModel = new RedirectAuthorizationOutModel();
-        mockRedirectAuthorizationOutModel.setCodeVerifier("abc123");
-        mockRedirectAuthorizationOutModel.setCodeChallenge("xyz789");
-        mockRedirectAuthorizationOutModel.setCodeChallengeMethod("S256");
+        mockRedirectAuthorizationOutModel.setCodeVerifier("testCodeVerifier");
+        mockRedirectAuthorizationOutModel.setCodeChallenge("testCodeChallenge");
+        mockRedirectAuthorizationOutModel.setCodeChallengeMethod("testCodeChallengeMethod");
 
         // サービスのモック化
         Mockito.when(authorizationService.redirectAuthorization()).thenReturn(mockRedirectAuthorizationOutModel);
@@ -60,6 +70,55 @@ public class AuthorizationControllerImplTest {
         mockMvc.perform(get("/api/rp/authorization/redirect"))
                 .andExpect(status().isFound())
                 .andExpect(view().name(
-                        "redirect:http://localhost:8081/api/op/authorization?codeChallenge=xyz789&codeChallengeMethod=S256"));
+                        "redirect:http://localhost:8081/api/op/authorization?codeChallenge=testCodeChallenge&codeChallengeMethod=testCodeChallengeMethod"));
+    }
+
+    /**
+     * fetchTokenのテスト 正常系
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_fetchToken_success() throws Exception {
+
+        // 入力値の作成
+        FetchTokenRequest fetchTokenRequest = new FetchTokenRequest();
+        fetchTokenRequest.setAuthorizationCode("testAuthorizationCode");
+        fetchTokenRequest.setCodeVerifier("testCodeVerifier");
+        fetchTokenRequest.setUserId("testUserId");
+
+        // サービス呼び出し想定のinModel作成 トークンリクエスト
+        DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
+        demandTokenInModel.setAuthorizationCode("testAuthorizationCode");
+        demandTokenInModel.setCodeVerifier("testCodeVerifier");
+
+        // モックレスポンスの作成 トークンリクエスト
+        DemandTokenOutModel mockDemandTokenOutModel = new DemandTokenOutModel();
+        mockDemandTokenOutModel.setAccessToken("testAccessToken");
+        mockDemandTokenOutModel.setRefleshToken("testRefleshToken");
+        mockDemandTokenOutModel.setIdToken("testIdToken");
+
+        // サービスのモック化 トークンリクエスト
+        Mockito.when(authorizationService.demandToken(demandTokenInModel)).thenReturn(mockDemandTokenOutModel);
+
+        // サービス呼び出し想定のinModel作成 ユーザ情報リクエスト
+        DemandUserInfoInModel demandUserInfoInModel = new DemandUserInfoInModel();
+        demandUserInfoInModel.setUserId("testUserId");
+
+        // モックレスポンスの作成 ユーザ情報リクエスト
+        DemandUserInfoOutModel demandUserInfoOutModel = new DemandUserInfoOutModel();
+        demandUserInfoOutModel.setUserId("testUserId");
+        demandUserInfoOutModel.setUserName("testUserName");
+
+        // サービスのモック化 ユーザ情報リクエスト
+        Mockito.when(authorizationService.demandUserInfo(demandUserInfoInModel)).thenReturn(demandUserInfoOutModel);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/api/rp/token/fetch").content(objectMapper.writeValueAsString(fetchTokenRequest))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isFound())
+                .andExpect(model().attribute("demandTokenOutModel", mockDemandTokenOutModel))
+                .andExpect(model().attribute("demandUserInfoOutModel", demandUserInfoOutModel));
     }
 }

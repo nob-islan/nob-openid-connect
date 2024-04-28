@@ -7,7 +7,7 @@ import lombok.Data;
  * 
  */
 @Data
-public class CertificationOutModel {
+public class CertificateOutModel {
 
     /**
      * 認可コード

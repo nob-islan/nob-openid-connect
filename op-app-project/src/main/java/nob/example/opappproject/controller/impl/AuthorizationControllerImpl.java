@@ -6,11 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.controller.AuthorizationController;
-import nob.example.opappproject.dto.CertificationInModel;
-import nob.example.opappproject.dto.CertificationOutModel;
+import nob.example.opappproject.dto.CertificateInModel;
+import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.CertificateRequest;
-import nob.example.opappproject.dto.CertificationResponse;
+import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
 import nob.example.opappproject.dto.FetchUserInfoRequest;
@@ -53,21 +53,20 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public CertificationResponse certificate(CertificateRequest certificateRequest) {
+    public CertificateResponse certificate(CertificateRequest certificateRequest) {
 
         // inModel作成
-        CertificationInModel certificationInModel = new CertificationInModel();
-        certificationInModel.setUserId(certificateRequest.getUserId());
-        certificationInModel.setPassword(certificateRequest.getPassword());
+        CertificateInModel certificateInModel = new CertificateInModel();
+        certificateInModel.setUserId(certificateRequest.getUserId());
+        certificateInModel.setPassword(certificateRequest.getPassword());
 
         // サービス呼び出し
-        CertificationOutModel certificationOutModel = authorizationService.certificate(certificationInModel);
+        CertificateOutModel certificationOutModel = authorizationService.certificate(certificateInModel);
 
         // outModel作成
-        CertificationResponse certificationResponse = new CertificationResponse();
+        CertificateResponse certificationResponse = new CertificateResponse();
         certificationResponse.setAuthorizationCode(certificationOutModel.getAuthorizationCode());
 
-        // TODO リダイレクト処理？
         return certificationResponse;
     }
 

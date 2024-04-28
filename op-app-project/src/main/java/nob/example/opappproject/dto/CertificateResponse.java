@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "認証API向けのレスポンス", type = "object")
-public class CertificationResponse {
+public class CertificateResponse {
 
     /**
      * 認可コード

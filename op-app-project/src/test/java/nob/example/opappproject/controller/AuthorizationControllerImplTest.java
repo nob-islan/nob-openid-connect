@@ -15,8 +15,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import nob.example.opappproject.dto.CertificationInModel;
-import nob.example.opappproject.dto.CertificationOutModel;
+import nob.example.opappproject.dto.CertificateRequest;
+import nob.example.opappproject.dto.CertificateInModel;
+import nob.example.opappproject.dto.CertificateOutModel;
+import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.service.AuthorizationService;
 
 /**
@@ -62,20 +64,27 @@ public class AuthorizationControllerImplTest {
     public void test_certificate_success() throws Exception {
 
         // 入力値の作成
-        CertificationInModel certificationInModel = new CertificationInModel();
-        certificationInModel.setUserId("nob");
-        certificationInModel.setPassword("p@ssw0rd");
+        CertificateRequest certificateRequest = new CertificateRequest();
+        certificateRequest.setUserId("testUserId");
+        certificateRequest.setPassword("testPassword");
+
+        // サービス呼び出し想定のinModel作成
+        CertificateInModel certificateInModel = new CertificateInModel();
+        certificateInModel.setUserId("testUserId");
+        certificateInModel.setPassword("testPassword");
 
         // モックレスポンス作成
-        CertificationOutModel mockCertificationOutModel = new CertificationOutModel();
-        mockCertificationOutModel.setAuthorizationCode("testAuthorizationCode");
-        Mockito.when(authorizationService.certificate(certificationInModel)).thenReturn(mockCertificationOutModel);
+        CertificateOutModel mockCertificateOutModel = new CertificateOutModel();
+        mockCertificateOutModel.setAuthorizationCode("testAuthorizationCode");
+
+        // サービスのモック化
+        Mockito.when(authorizationService.certificate(certificateInModel)).thenReturn(mockCertificateOutModel);
 
         try {
-            // サービス呼び出し
-            CertificationOutModel certificationOutModel = authorizationService.certificate(certificationInModel);
+            // API呼び出し
+            CertificateResponse certificateResponse = authorizationController.certificate(certificateRequest);
             // 結果のassert
-            assertEquals("testAuthorizationCode", certificationOutModel.getAuthorizationCode());
+            assertEquals("testAuthorizationCode", certificateResponse.getAuthorizationCode());
         } catch (Exception e) {
             e.printStackTrace();
             fail();

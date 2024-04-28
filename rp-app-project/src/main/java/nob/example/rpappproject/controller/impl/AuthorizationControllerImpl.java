@@ -1,6 +1,7 @@
 package nob.example.rpappproject.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,6 +43,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
                 + "&codeChallengeMethod=" + redirectAuthorizationOutModel.getCodeChallengeMethod();
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setStatus(HttpStatus.FOUND);
         modelAndView.setViewName(
                 "redirect:" + UrlConst.OP_APP_ORIGIN + UrlConst.BASE_URL + UrlConst.AUTHORIZATION + queryParam);
 
@@ -69,6 +71,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         DemandUserInfoOutModel demandUserInfoOutModel = authorizationService.demandUserInfo(demandUserInfoInModel);
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setStatus(HttpStatus.FOUND);
         modelAndView.addObject("demandTokenOutModel", demandTokenOutModel);
         modelAndView.addObject("demandUserInfoOutModel", demandUserInfoOutModel);
         // TODO リダイレクト先設定

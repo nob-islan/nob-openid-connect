@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import nob.example.opappproject.dto.CertificationInModel;
-import nob.example.opappproject.dto.CertificationOutModel;
+import nob.example.opappproject.dto.CertificateInModel;
+import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
 import nob.example.opappproject.dto.UserInfoSearchKey;
@@ -30,13 +30,15 @@ public class AuthorizationServiceImpl implements AuthorizationService {
      * 
      */
     @Override
-    public CertificationOutModel certificate(CertificationInModel certificationInModel) {
+    public CertificateOutModel certificate(CertificateInModel certificateInModel) {
+
+        // TODO クレデンシャル検証
 
         // TODO 認可コード発行
         String authorizationCode = "";
 
         // 返却値の作成
-        CertificationOutModel certificationOutModel = new CertificationOutModel();
+        CertificateOutModel certificationOutModel = new CertificateOutModel();
         certificationOutModel.setAuthorizationCode(authorizationCode);
 
         return certificationOutModel;
