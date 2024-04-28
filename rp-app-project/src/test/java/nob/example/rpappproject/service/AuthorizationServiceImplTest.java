@@ -20,11 +20,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.DemandUserInfoInModel;
 import nob.example.rpappproject.dto.DemandUserInfoOutModel;
-import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.rest.dto.OpFetchUserInfoResponse;
 import nob.example.rpappproject.rest.dto.OpIssueTokenResponse;
 
@@ -52,16 +52,16 @@ public class AuthorizationServiceImplTest {
 
         try {
             // サービス呼び出し
-            RedirectAuthorizationOutModel redirectAuthorizationOutModel = authorizationService.redirectAuthorization();
+            CalcCodeChallengeOutModel calcCodeChallengeOutModel = authorizationService.redirectAuthorization();
             // 結果のassert
-            assertNotNull(redirectAuthorizationOutModel.getCodeVerifier());
-            assertNotNull(redirectAuthorizationOutModel.getCodeChallenge());
-            assertEquals(redirectAuthorizationOutModel.getCodeChallengeMethod(), "S256");
+            assertNotNull(calcCodeChallengeOutModel.getCodeVerifier());
+            assertNotNull(calcCodeChallengeOutModel.getCodeChallenge());
+            assertEquals(calcCodeChallengeOutModel.getCodeChallengeMethod(), "S256");
             // codeVerifierをハッシュ化して、codeChallengeを一致することを確認
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            byte[] sha256Byte = sha256.digest(redirectAuthorizationOutModel.getCodeVerifier().getBytes());
+            byte[] sha256Byte = sha256.digest(calcCodeChallengeOutModel.getCodeVerifier().getBytes());
             HexFormat hex = HexFormat.of().withLowerCase();
-            assertEquals(redirectAuthorizationOutModel.getCodeChallenge(), hex.formatHex(sha256Byte));
+            assertEquals(calcCodeChallengeOutModel.getCodeChallenge(), hex.formatHex(sha256Byte));
         } catch (Exception e) {
             e.printStackTrace();
             fail();

@@ -19,12 +19,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.DemandUserInfoInModel;
 import nob.example.rpappproject.dto.DemandUserInfoOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
-import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.service.AuthorizationService;
 
 /**
@@ -59,13 +59,13 @@ public class AuthorizationControllerImplTest {
     public void test_redirectAuthorization_success() throws Exception {
 
         // モック返却値の作成
-        RedirectAuthorizationOutModel mockRedirectAuthorizationOutModel = new RedirectAuthorizationOutModel();
-        mockRedirectAuthorizationOutModel.setCodeVerifier("testCodeVerifier");
-        mockRedirectAuthorizationOutModel.setCodeChallenge("testCodeChallenge");
-        mockRedirectAuthorizationOutModel.setCodeChallengeMethod("testCodeChallengeMethod");
+        CalcCodeChallengeOutModel mockCalcCodeChallengeOutModel = new CalcCodeChallengeOutModel();
+        mockCalcCodeChallengeOutModel.setCodeVerifier("testCodeVerifier");
+        mockCalcCodeChallengeOutModel.setCodeChallenge("testCodeChallenge");
+        mockCalcCodeChallengeOutModel.setCodeChallengeMethod("testCodeChallengeMethod");
 
         // サービスのモック化
-        Mockito.when(authorizationService.redirectAuthorization()).thenReturn(mockRedirectAuthorizationOutModel);
+        Mockito.when(authorizationService.redirectAuthorization()).thenReturn(mockCalcCodeChallengeOutModel);
 
         mockMvc.perform(get("/api/rp/authorization/redirect"))
                 .andExpect(status().isFound())

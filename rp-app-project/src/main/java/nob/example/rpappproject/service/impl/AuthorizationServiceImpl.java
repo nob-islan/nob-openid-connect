@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.DemandUserInfoInModel;
 import nob.example.rpappproject.dto.DemandUserInfoOutModel;
-import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.rest.constants.UrlConst;
 import nob.example.rpappproject.rest.dto.OpFetchUserInfoRequest;
 import nob.example.rpappproject.rest.dto.OpFetchUserInfoResponse;
@@ -43,7 +43,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
      * 
      */
     @Override
-    public RedirectAuthorizationOutModel redirectAuthorization() {
+    public CalcCodeChallengeOutModel redirectAuthorization() {
 
         // codeVerifierの基となる文字
         String CODE_VERIFIER_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -62,8 +62,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         int codeVerifierLength = random.nextInt(CODE_VERIFIER_VARIATION_WIDTH) + CODE_VERIFIER_MIN_LENGTH;
 
         // 返却値の作成
-        RedirectAuthorizationOutModel redirectAuthorizationOutModel = new RedirectAuthorizationOutModel();
-        redirectAuthorizationOutModel.setCodeChallengeMethod(CODE_CHALLENGE_METHOD);
+        CalcCodeChallengeOutModel calcCodeChallengeOutModel = new CalcCodeChallengeOutModel();
+        calcCodeChallengeOutModel.setCodeChallengeMethod(CODE_CHALLENGE_METHOD);
 
         // codeVerifier生成
         StringBuilder codeVerifierBuilder = new StringBuilder();
@@ -73,7 +73,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
         String codeVerifier = codeVerifierBuilder.toString();
         // 返却値にcodeVerifierをセット
-        redirectAuthorizationOutModel.setCodeVerifier(codeVerifier);
+        calcCodeChallengeOutModel.setCodeVerifier(codeVerifier);
 
         // codeChallenge計算
         try {
@@ -82,12 +82,12 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             HexFormat hex = HexFormat.of().withLowerCase();
             String codeChallenge = hex.formatHex(sha256Byte);
             // 返却値にcodeChallengeをセット
-            redirectAuthorizationOutModel.setCodeChallenge(codeChallenge);
+            calcCodeChallengeOutModel.setCodeChallenge(codeChallenge);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace(); // TODO エラーハンドリング
         }
 
-        return redirectAuthorizationOutModel;
+        return calcCodeChallengeOutModel;
     }
 
     /**

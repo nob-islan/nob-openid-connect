@@ -3,12 +3,12 @@ package nob.example.rpappproject.dto;
 import lombok.Data;
 
 /**
- * 認可エンドポイントへのリダイレクトAPI向けのoutModelです。
+ * codeChallenge計算向けのoutModelです。
  * 
  * @author nob
  */
 @Data
-public class RedirectAuthorizationOutModel {
+public class CalcCodeChallengeOutModel {
 
     /**
      * 検証用のランダム文字列

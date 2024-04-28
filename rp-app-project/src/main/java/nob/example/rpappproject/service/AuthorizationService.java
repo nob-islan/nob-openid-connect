@@ -2,11 +2,11 @@ package nob.example.rpappproject.service;
 
 import org.springframework.stereotype.Service;
 
+import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.DemandUserInfoInModel;
 import nob.example.rpappproject.dto.DemandUserInfoOutModel;
-import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 
 /**
  * 認証向けサービスのインターフェースです。
@@ -17,11 +17,11 @@ import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 public interface AuthorizationService {
 
     /**
-     * 認可エンドポイントへのリダイレクトを行います。// TODO 名称変更
+     * codeChallengeを計算します。
      * 
      * @return codeChallenge
      */
-    RedirectAuthorizationOutModel redirectAuthorization();
+    CalcCodeChallengeOutModel redirectAuthorization();
 
     /**
      * アクセストークンを要求します。
