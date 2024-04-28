@@ -7,7 +7,6 @@
     <select id="selectByCondition" resultType="nob.example.opappproject.entity.UserInfo">
         SELECT 
             user_id
-            , password
             , user_name
         FROM 
             user_info

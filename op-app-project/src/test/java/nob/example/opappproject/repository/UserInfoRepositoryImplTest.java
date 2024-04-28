@@ -16,7 +16,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import nob.example.opappproject.dto.UserInfoSearchKey;
+import nob.example.opappproject.dto.UserInfoSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 
 /**
@@ -61,13 +61,13 @@ public class UserInfoRepositoryImplTest {
     public void test_selectByCondition_success() {
 
         // 検索条件の設定
-        UserInfoSearchKey userInfoSearchKey = new UserInfoSearchKey();
-        userInfoSearchKey.setUserId("nob");
+        UserInfoSelectKey userInfoSelectKey = new UserInfoSelectKey();
+        userInfoSelectKey.setUserId("nob");
 
         // テスト実行
         List<UserInfo> userInfoList = new ArrayList<UserInfo>();
         try {
-            userInfoList = userInfoRepository.selectByCondition(userInfoSearchKey);
+            userInfoList = userInfoRepository.selectByCondition(userInfoSelectKey);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -75,7 +75,6 @@ public class UserInfoRepositoryImplTest {
 
         assertEquals(1, userInfoList.size());
         assertEquals("nob", userInfoList.get(0).getUserId());
-        assertEquals("p@ssw0rd", userInfoList.get(0).getPassword());
         assertEquals("nobuhiro", userInfoList.get(0).getUserName());
     }
 }

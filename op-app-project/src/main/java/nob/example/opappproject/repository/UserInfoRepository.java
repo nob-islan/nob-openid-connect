@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import nob.example.opappproject.dto.UserInfoSearchKey;
+import nob.example.opappproject.dto.UserInfoSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 
 /**
@@ -21,5 +21,5 @@ public interface UserInfoRepository {
      * @param userInfoSearchConditionDto
      * @return ユーザ情報検索結果
      */
-    List<UserInfo> selectByCondition(UserInfoSearchKey userInfoSearchKey);
+    List<UserInfo> selectByCondition(UserInfoSelectKey userInfoSelectKey);
 }
