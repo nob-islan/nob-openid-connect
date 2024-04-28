@@ -7,4 +7,4 @@ rpapidoc:
       redirect-authorization: |
         認証・ユーザ情報提供ページへのリダイレクトを行います。
       fetch-token: |
-        アクセストークンおよびIDトークンを取得します。
+        アクセストークンを取得します。

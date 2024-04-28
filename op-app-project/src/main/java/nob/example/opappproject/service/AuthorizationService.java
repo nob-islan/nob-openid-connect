@@ -2,8 +2,8 @@ package nob.example.opappproject.service;
 
 import org.springframework.stereotype.Service;
 
-import nob.example.opappproject.dto.CertificationInModel;
-import nob.example.opappproject.dto.CertificationOutModel;
+import nob.example.opappproject.dto.CertificateInModel;
+import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
 
@@ -21,7 +21,7 @@ public interface AuthorizationService {
      * @param certificationInModel
      * @return 認証の結果
      */
-    CertificationOutModel certificate(CertificationInModel certificationInModel);
+    CertificateOutModel certificate(CertificateInModel certificateInModel);
 
     /**
      * UserInfoを取得します。

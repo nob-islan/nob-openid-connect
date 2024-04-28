@@ -1,10 +1,16 @@
 package nob.example.rpappproject.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.rpappproject.controller.AuthorizationController;
+import nob.example.rpappproject.dto.DemandTokenInModel;
+import nob.example.rpappproject.dto.DemandTokenOutModel;
+import nob.example.rpappproject.dto.DemandUserInfoInModel;
+import nob.example.rpappproject.dto.DemandUserInfoOutModel;
+import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.rest.constants.UrlConst;
 import nob.example.rpappproject.service.AuthorizationService;
@@ -37,8 +43,38 @@ public class AuthorizationControllerImpl implements AuthorizationController {
                 + "&codeChallengeMethod=" + redirectAuthorizationOutModel.getCodeChallengeMethod();
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setStatus(HttpStatus.FOUND);
         modelAndView.setViewName(
                 "redirect:" + UrlConst.OP_APP_ORIGIN + UrlConst.BASE_URL + UrlConst.AUTHORIZATION + queryParam);
+
+        return modelAndView;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest) {
+
+        // トークンリクエスト
+        DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
+        demandTokenInModel.setAuthorizationCode(fetchTokenRequest.getAuthorizationCode());
+        demandTokenInModel.setCodeVerifier(fetchTokenRequest.getCodeVerifier());
+        DemandTokenOutModel demandTokenOutModel = authorizationService.demandToken(demandTokenInModel);
+
+        // TODO IDトークン検証
+
+        // ユーザ情報リクエスト // TODO アクセストークンを付与してコール
+        DemandUserInfoInModel demandUserInfoInModel = new DemandUserInfoInModel();
+        demandUserInfoInModel.setUserId(fetchTokenRequest.getUserId());
+        DemandUserInfoOutModel demandUserInfoOutModel = authorizationService.demandUserInfo(demandUserInfoInModel);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setStatus(HttpStatus.FOUND);
+        modelAndView.addObject("demandTokenOutModel", demandTokenOutModel);
+        modelAndView.addObject("demandUserInfoOutModel", demandUserInfoOutModel);
+        // TODO リダイレクト先設定
 
         return modelAndView;
     }
