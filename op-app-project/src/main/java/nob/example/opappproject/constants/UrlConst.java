@@ -10,7 +10,7 @@ public class UrlConst {
     /**
      * RP Webのオリジン
      */
-    public static final String RP_WEB_ORIGIN = "http://localhost:3000";
+    public static final String OP_WEB_ORIGIN = "http://localhost:3001";
 
     /**
      * ベースURL

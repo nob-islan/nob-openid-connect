@@ -40,7 +40,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         // TODO codeChallengeを保持
 
         // リダイレクトURL作成
-        String redirectUrl = UrlConst.RP_WEB_ORIGIN + "/login";
+        String redirectUrl = UrlConst.OP_WEB_ORIGIN + "/login";
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + redirectUrl);
