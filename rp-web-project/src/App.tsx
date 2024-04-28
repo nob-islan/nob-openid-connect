@@ -1,11 +1,14 @@
-import { BrowserRouter, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Top from './components/top/Top';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <div>
-          <Routes></Routes>
+          <Routes>
+            <Route path="/top" element={<Top />} />
+          </Routes>
         </div>
       </BrowserRouter>
     </div>
