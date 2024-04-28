@@ -50,7 +50,15 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      */
     @Override
     public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'fetchToken'");
+
+        // トークンリクエスト
+
+        // TODO IDトークン検証
+
+        // ユーザ情報リクエスト
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        return modelAndView;
     }
 }
