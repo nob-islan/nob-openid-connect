@@ -49,7 +49,7 @@ public interface AuthorizationController {
     CertificationResponse certificate(@RequestBody CertificateRequest certificateRequest);
 
     /**
-     * アクセストークンおよびIDトークンを発行します。
+     * アクセストークンを発行します。
      * 
      * @param issueTokenRequest
      * @return

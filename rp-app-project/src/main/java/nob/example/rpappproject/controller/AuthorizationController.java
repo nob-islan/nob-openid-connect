@@ -32,12 +32,12 @@ public interface AuthorizationController {
     ModelAndView redirectAuthorization();
 
     /**
-     * アクセストークンおよびIDトークンを取得します。
+     * アクセストークンを取得します。
      * 
      * @param fetchTokenRequest
      * @return ログイン後トップ画面
      */
     @PostMapping(value = UrlConst.TOKEN_FETCH)
-    @Operation(summary = "アクセストークンおよびIDトークンの取得", description = "${rpapidoc.describe.authorization.fetch-token:説明文}")
+    @Operation(summary = "アクセストークンの取得", description = "${rpapidoc.describe.authorization.fetch-token:説明文}")
     ModelAndView fetchToken(@RequestBody FetchTokenRequest fetchTokenRequest);
 }
