@@ -3,7 +3,7 @@ package nob.example.rpappproject.dto;
 import lombok.Data;
 
 /**
- * アクセストークンリクエスト向けのinModelです。
+ * アクセストークン要求向けのinModelです。
  * 
  * @author nob
  */

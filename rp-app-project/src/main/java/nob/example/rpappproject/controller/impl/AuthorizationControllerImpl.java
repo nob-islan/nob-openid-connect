@@ -5,6 +5,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import nob.example.rpappproject.controller.AuthorizationController;
+import nob.example.rpappproject.dto.DemandTokenInModel;
+import nob.example.rpappproject.dto.DemandTokenOutModel;
+import nob.example.rpappproject.dto.DemandUserInfoInModel;
+import nob.example.rpappproject.dto.DemandUserInfoOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.rest.constants.UrlConst;
@@ -52,12 +56,22 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest) {
 
         // トークンリクエスト
+        DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
+        demandTokenInModel.setAuthorizationCode(fetchTokenRequest.getAuthorizationCode());
+        demandTokenInModel.setCodeVerifier(fetchTokenRequest.getCodeVerifier());
+        DemandTokenOutModel demandTokenOutModel = authorizationService.demandToken(demandTokenInModel);
 
         // TODO IDトークン検証
 
-        // ユーザ情報リクエスト
+        // ユーザ情報リクエスト // TODO アクセストークンを付与してコール
+        DemandUserInfoInModel demandUserInfoInModel = new DemandUserInfoInModel();
+        demandUserInfoInModel.setUserId(fetchTokenRequest.getUserId());
+        DemandUserInfoOutModel demandUserInfoOutModel = authorizationService.demandUserInfo(demandUserInfoInModel);
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("demandTokenOutModel", demandTokenOutModel);
+        modelAndView.addObject("demandUserInfoOutModel", demandUserInfoOutModel);
+        // TODO リダイレクト先設定
 
         return modelAndView;
     }

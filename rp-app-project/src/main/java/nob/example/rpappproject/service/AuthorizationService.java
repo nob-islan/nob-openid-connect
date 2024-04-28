@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
+import nob.example.rpappproject.dto.DemandUserInfoInModel;
+import nob.example.rpappproject.dto.DemandUserInfoOutModel;
 import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 
 /**
@@ -22,10 +24,18 @@ public interface AuthorizationService {
     RedirectAuthorizationOutModel redirectAuthorization();
 
     /**
-     * アクセストークンをリクエストします。
+     * アクセストークンを要求します。
      * 
      * @param demandTokenInModel
      * @return アクセストークン
      */
     DemandTokenOutModel demandToken(DemandTokenInModel demandTokenInModel);
+
+    /**
+     * ユーザ情報を要求します。
+     * 
+     * @param demandUserInfoInModel
+     * @return ユーザ情報
+     */
+    DemandUserInfoOutModel demandUserInfo(DemandUserInfoInModel demandUserInfoInModel);
 }

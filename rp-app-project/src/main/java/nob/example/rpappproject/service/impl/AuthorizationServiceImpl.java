@@ -17,8 +17,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
+import nob.example.rpappproject.dto.DemandUserInfoInModel;
+import nob.example.rpappproject.dto.DemandUserInfoOutModel;
 import nob.example.rpappproject.dto.RedirectAuthorizationOutModel;
 import nob.example.rpappproject.rest.constants.UrlConst;
+import nob.example.rpappproject.rest.dto.OpFetchUserInfoRequest;
+import nob.example.rpappproject.rest.dto.OpFetchUserInfoResponse;
 import nob.example.rpappproject.rest.dto.OpIssueTokenRequest;
 import nob.example.rpappproject.rest.dto.OpIssueTokenResponse;
 import nob.example.rpappproject.service.AuthorizationService;
@@ -114,5 +118,33 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         demandTokenOutModel.setIdToken(responseEntity.getBody().getIdToken());
 
         return demandTokenOutModel;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Override
+    public DemandUserInfoOutModel demandUserInfo(DemandUserInfoInModel demandUserInfoInModel) {
+
+        // URL作成
+        String urlStr = UrlConst.OP_APP_ORIGIN + UrlConst.BASE_URL + UrlConst.USERINFO;
+        URI url = UriComponentsBuilder.fromHttpUrl(urlStr).build().toUri();
+
+        // OP呼び出しのためのリクエストを作成
+        OpFetchUserInfoRequest opFetchUserInfoRequest = new OpFetchUserInfoRequest();
+        opFetchUserInfoRequest.setUserId(demandUserInfoInModel.getUserId());
+
+        // OP UserInfo取得API呼び出し
+        ResponseEntity<OpFetchUserInfoResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
+                new HttpEntity(opFetchUserInfoRequest, new HttpHeaders()), OpFetchUserInfoResponse.class);
+
+        // 返却値の作成
+        DemandUserInfoOutModel demandUserInfoOutModel = new DemandUserInfoOutModel();
+        demandUserInfoOutModel.setUserId(responseEntity.getBody().getUserId());
+        demandUserInfoOutModel.setUserName(responseEntity.getBody().getUserName());
+
+        return demandUserInfoOutModel;
     }
 }
