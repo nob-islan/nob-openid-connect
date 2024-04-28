@@ -8,9 +8,14 @@ package nob.example.opappproject.constants;
 public class UrlConst {
 
     /**
-     * RP Webのオリジン
+     * OP Webのオリジン
      */
     public static final String OP_WEB_ORIGIN = "http://localhost:3001";
+
+    /**
+     * ログイン画面
+     */
+    public static final String LOGIN = "/login";
 
     /**
      * ベースURL
