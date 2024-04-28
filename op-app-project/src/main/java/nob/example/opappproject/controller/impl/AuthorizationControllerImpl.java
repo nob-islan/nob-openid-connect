@@ -61,13 +61,14 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         certificateInModel.setPassword(certificateRequest.getPassword());
 
         // サービス呼び出し
-        CertificateOutModel certificationOutModel = authorizationService.certificate(certificateInModel);
+        CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
 
         // outModel作成
-        CertificateResponse certificationResponse = new CertificateResponse();
-        certificationResponse.setAuthorizationCode(certificationOutModel.getAuthorizationCode());
+        CertificateResponse certificateResponse = new CertificateResponse();
+        certificateResponse.setUserId(certificateOutModel.getUserId());
+        certificateResponse.setAuthorizationCode(certificateOutModel.getAuthorizationCode());
 
-        return certificationResponse;
+        return certificateResponse;
     }
 
     /**

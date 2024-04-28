@@ -38,10 +38,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         String authorizationCode = "";
 
         // 返却値の作成
-        CertificateOutModel certificationOutModel = new CertificateOutModel();
-        certificationOutModel.setAuthorizationCode(authorizationCode);
+        CertificateOutModel certificateOutModel = new CertificateOutModel();
+        certificateOutModel.setUserId(certificateInModel.getUserId()); // TODO userId取り方検討 クレデンシャル検証のレスポンスか何かを用意する？
+        certificateOutModel.setAuthorizationCode(authorizationCode);
 
-        return certificationOutModel;
+        return certificateOutModel;
     }
 
     /**

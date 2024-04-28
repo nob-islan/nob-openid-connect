@@ -18,7 +18,7 @@ public interface AuthorizationService {
     /**
      * ユーザID, パスワードによる認証を行います。
      * 
-     * @param certificationInModel
+     * @param certificateInModel
      * @return 認証の結果
      */
     CertificateOutModel certificate(CertificateInModel certificateInModel);
