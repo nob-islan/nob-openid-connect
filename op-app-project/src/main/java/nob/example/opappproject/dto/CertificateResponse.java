@@ -22,4 +22,10 @@ public class CertificateResponse {
      */
     @Schema(description = "認可コード", type = "string", example = "abc123")
     private String authorizationCode;
+
+    /**
+     * リダイレクトURI
+     */
+    @Schema(description = "リダイレクトURI", type = "string", example = "http://example.nob/sample")
+    private String redirectUri;
 }

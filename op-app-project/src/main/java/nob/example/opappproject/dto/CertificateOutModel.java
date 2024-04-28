@@ -18,4 +18,9 @@ public class CertificateOutModel {
      * 認可コード
      */
     private String authorizationCode;
+
+    /**
+     * リダイレクトURI
+     */
+    private String redirectUri;
 }

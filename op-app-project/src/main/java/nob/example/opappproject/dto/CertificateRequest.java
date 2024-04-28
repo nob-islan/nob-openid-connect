@@ -26,4 +26,10 @@ public class CertificateRequest {
     @NotNull
     @Schema(description = "パスワード", type = "string", example = "p@ssw0rd")
     private String password;
+
+    /**
+     * リダイレクトURI
+     */
+    @Schema(description = "リダイレクトURI", type = "string", example = "http://example.nob/sample")
+    private String redirectUri;
 }

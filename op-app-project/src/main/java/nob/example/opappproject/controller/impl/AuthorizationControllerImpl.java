@@ -59,6 +59,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         CertificateInModel certificateInModel = new CertificateInModel();
         certificateInModel.setUserId(certificateRequest.getUserId());
         certificateInModel.setPassword(certificateRequest.getPassword());
+        certificateInModel.setRedirectUri(certificateRequest.getRedirectUri());
 
         // サービス呼び出し
         CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
@@ -67,8 +68,9 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         CertificateResponse certificateResponse = new CertificateResponse();
         certificateResponse.setUserId(certificateOutModel.getUserId());
         certificateResponse.setAuthorizationCode(certificateOutModel.getAuthorizationCode());
+        certificateResponse.setRedirectUri(certificateOutModel.getRedirectUri());
 
-        return certificateResponse; // TODO リダイレクトに変更
+        return certificateResponse;
     }
 
     /**

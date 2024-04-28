@@ -19,6 +19,11 @@ export type LoginActionPayload = {
    * パスワード
    */
   password: string;
+
+  /**
+   * リダイレクトURI
+   */
+  redirectUri: string;
 };
 
 type ValueOf<T> = T[keyof T];
@@ -38,12 +43,17 @@ export type LoginAction = {
  */
 export const verifyCredential = () => {
   const selector = formValueSelector(loginFormName);
+  console.log('開始');
   return async () => {
+    // TODO クエリパラメータからリダイレクトURIを取得してリクエストを作成
+    // const search: string = useLocation().search;
+    // const query = new URLSearchParams(search);
     const request: LoginActionPayload = {
       userId: selector(store.getState(), 'userId'),
-      password: selector(store.getState(), 'password')
+      password: selector(store.getState(), 'password'),
+      redirectUri: 'sample'
     };
-    const response = await axios.post(UrlConst.CERTIFICATION, request);
+    const response: any = await axios.post(UrlConst.CERTIFICATION, request);
     console.log(response); // TODO 検証用ログ削除
   };
 };

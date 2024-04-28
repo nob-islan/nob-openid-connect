@@ -43,6 +43,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             System.out.println("認証失敗"); // TODO 例外作成
         }
 
+        // TODO リダイレクトURI検証、OKであればoutModelにセットする。今は暫定でノールックでセットしている。
+
         // TODO 認可コード発行
         String authorizationCode = "";
 
@@ -50,6 +52,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         CertificateOutModel certificateOutModel = new CertificateOutModel();
         certificateOutModel.setUserId(userInfoList.get(0).getUserId());
         certificateOutModel.setAuthorizationCode(authorizationCode);
+        certificateOutModel.setRedirectUri(certificateInModel.getRedirectUri());
 
         return certificateOutModel;
     }
