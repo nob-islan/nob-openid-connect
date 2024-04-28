@@ -32,6 +32,7 @@ public interface AuthorizationController {
     /**
      * 認証・ユーザ情報提供画面へリダイレクトします。
      * 
+     * @param authorizeRequest
      * @return 認証・ユーザ情報提供画面
      */
     @GetMapping(value = UrlConst.AUTHORIZATION)
@@ -41,7 +42,7 @@ public interface AuthorizationController {
     /**
      * ユーザID, パスワードによる認証を行い、認可コードを発行します。
      * 
-     * @param certificationInModel
+     * @param certificateRequest
      * @return 認証の結果
      */
     @PostMapping(value = UrlConst.CERTIFICATION)
@@ -52,7 +53,7 @@ public interface AuthorizationController {
      * アクセストークンを発行します。
      * 
      * @param issueTokenRequest
-     * @return
+     * @return アクセストークン
      */
     @PostMapping(value = UrlConst.TOKEN)
     @Operation(summary = "トークン発行", description = "${opapidoc.describe.authorization.issue-token:説明文}")
@@ -61,7 +62,7 @@ public interface AuthorizationController {
     /**
      * UserInfoを取得します。
      * 
-     * @param fetchUserInfoInModel
+     * @param fetchUserInfoRequest
      * @return userInfo
      */
     @PostMapping(value = UrlConst.USERINFO)

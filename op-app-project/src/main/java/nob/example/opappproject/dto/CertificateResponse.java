@@ -12,8 +12,14 @@ import lombok.Data;
 public class CertificateResponse {
 
     /**
+     * ユーザID
+     */
+    @Schema(description = "ユーザID", type = "string", example = "nob")
+    private String userId;
+
+    /**
      * 認可コード
      */
-    @Schema(description = "認可コード", type = "boolean", example = "abc123")
+    @Schema(description = "認可コード", type = "string", example = "abc123")
     private String authorizationCode;
 }

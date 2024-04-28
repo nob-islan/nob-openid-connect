@@ -75,6 +75,7 @@ public class AuthorizationControllerImplTest {
 
         // モックレスポンス作成
         CertificateOutModel mockCertificateOutModel = new CertificateOutModel();
+        mockCertificateOutModel.setUserId("testUserId");
         mockCertificateOutModel.setAuthorizationCode("testAuthorizationCode");
 
         // サービスのモック化
@@ -84,6 +85,7 @@ public class AuthorizationControllerImplTest {
             // API呼び出し
             CertificateResponse certificateResponse = authorizationController.certificate(certificateRequest);
             // 結果のassert
+            assertEquals("testUserId", certificateResponse.getUserId());
             assertEquals("testAuthorizationCode", certificateResponse.getAuthorizationCode());
         } catch (Exception e) {
             e.printStackTrace();
