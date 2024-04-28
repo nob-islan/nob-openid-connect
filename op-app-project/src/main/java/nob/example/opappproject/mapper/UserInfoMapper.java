@@ -16,7 +16,7 @@ import nob.example.opappproject.entity.UserInfo;
 public interface UserInfoMapper {
 
     /**
-     * 検索条件に従ってユーザ情報を取得します。
+     * 検索条件に従って画面に表示するユーザ情報を取得します。
      * 
      * @param userDataSelectKey
      * @return 検索条件に該当するユーザID, ユーザ名
