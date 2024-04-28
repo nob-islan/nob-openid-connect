@@ -3,7 +3,7 @@ package nob.example.opappproject.dto;
 import lombok.Data;
 
 /**
- * UserInfo検索向けdtoです。
+ * 画面に表示するユーザ情報の検索条件dtoです。
  * 
  * @author nob
  */
