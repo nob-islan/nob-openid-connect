@@ -23,12 +23,7 @@ public class UrlConst {
     public static final String AUTHORIZATION_REDIRECT = "/authorization/redirect";
 
     /**
-     * トークンリクエストAPI
+     * アクセストークン取得API
      */
-    public static final String TOKEN_DEMAND = "/token/demand";
-
-    /**
-     * ユーザ情報取得API
-     */
-    public static final String USERINFO_FETCH = "/userinfo/fetch";
+    public static final String TOKEN_FETCH = "/token/fetch";
 }
