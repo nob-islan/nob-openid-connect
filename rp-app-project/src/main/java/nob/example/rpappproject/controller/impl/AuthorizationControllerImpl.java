@@ -76,6 +76,6 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         modelAndView.addObject("demandUserInfoOutModel", demandUserInfoOutModel);
         modelAndView.setViewName("redirect:" + UrlConst.RP_WEB_ORIGIN + UrlConst.TOP);
 
-        return modelAndView;
+        return modelAndView; // TODO リダイレクトは別APIとする方針のため、responseを用意する。
     }
 }
