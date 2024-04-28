@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import nob.example.opappproject.dto.UserInfoSelectKey;
+import nob.example.opappproject.dto.UserDataSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 import nob.example.opappproject.mapper.UserInfoMapper;
 import nob.example.opappproject.repository.UserInfoRepository;
@@ -26,8 +26,8 @@ public class UserInfoRepositoryImpl implements UserInfoRepository {
      * 
      */
     @Override
-    public List<UserInfo> selectByCondition(UserInfoSelectKey userInfoSelectKey) {
+    public List<UserInfo> selectUserData(UserDataSelectKey userDataSelectKey) {
 
-        return userInfoMapper.selectByCondition(userInfoSelectKey);
+        return userInfoMapper.selectUserData(userDataSelectKey);
     }
 }

@@ -16,7 +16,7 @@ import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
-import nob.example.opappproject.dto.UserInfoSelectKey;
+import nob.example.opappproject.dto.UserDataSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 import nob.example.opappproject.repository.UserInfoRepository;
 
@@ -72,8 +72,8 @@ public class AuthorizationServiceImplTest {
         fetchUserInfoInModel.setUserId("testUserId");
 
         // repository呼び出し想定のkey作成
-        UserInfoSelectKey userInfoSelectKey = new UserInfoSelectKey();
-        userInfoSelectKey.setUserId("testUserId");
+        UserDataSelectKey userDataSelectKey = new UserDataSelectKey();
+        userDataSelectKey.setUserId("testUserId");
 
         // モックレスポンス作成
         UserInfo mockUserInfo = new UserInfo();
@@ -83,7 +83,7 @@ public class AuthorizationServiceImplTest {
         mockUserInfoList.add(mockUserInfo);
 
         // repositoryモック化
-        Mockito.when(userInfoRepository.selectByCondition(userInfoSelectKey)).thenReturn(mockUserInfoList);
+        Mockito.when(userInfoRepository.selectUserData(userDataSelectKey)).thenReturn(mockUserInfoList);
 
         try {
             // サービス呼び出し
