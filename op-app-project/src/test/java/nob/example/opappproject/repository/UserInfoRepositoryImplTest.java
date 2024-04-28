@@ -3,7 +3,6 @@ package nob.example.opappproject.repository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import nob.example.opappproject.dto.UserCredentialSelectKey;
 import nob.example.opappproject.dto.UserDataSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 
@@ -55,26 +55,51 @@ public class UserInfoRepositoryImplTest {
 
     /**
      * selectUserDataのテスト 正常系
-     *
+     * 
+     * @throws Exception
      */
     @Test
-    public void test_selectUserData_success() {
+    public void test_selectUserData_success() throws Exception {
 
         // 検索条件の設定
         UserDataSelectKey userDataSelectKey = new UserDataSelectKey();
         userDataSelectKey.setUserId("nob");
 
-        // テスト実行
-        List<UserInfo> userInfoList = new ArrayList<UserInfo>();
         try {
-            userInfoList = userInfoRepository.selectUserData(userDataSelectKey);
+            // repository呼び出し
+            List<UserInfo> userInfoList = userInfoRepository.selectUserData(userDataSelectKey);
+            // 結果のassert
+            assertEquals(1, userInfoList.size());
+            assertEquals("nob", userInfoList.get(0).getUserId());
+            assertEquals("nobuhiro", userInfoList.get(0).getUserName());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
+    }
 
-        assertEquals(1, userInfoList.size());
-        assertEquals("nob", userInfoList.get(0).getUserId());
-        assertEquals("nobuhiro", userInfoList.get(0).getUserName());
+    /**
+     * selectUserCredentialのテスト 正常系
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_selectUserCredential_success() throws Exception {
+
+        // 検索条件の設定
+        UserCredentialSelectKey userCredentialSelectKey = new UserCredentialSelectKey();
+        userCredentialSelectKey.setUserId("nob");
+        userCredentialSelectKey.setPassword("p@ssw0rd");
+
+        try {
+            // repository呼び出し
+            List<UserInfo> userInfoList = userInfoRepository.selectUserCredential(userCredentialSelectKey);
+            // 結果のassert
+            assertEquals(1, userInfoList.size());
+            assertEquals("nob", userInfoList.get(0).getUserId());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 }

@@ -68,7 +68,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         certificateResponse.setUserId(certificateOutModel.getUserId());
         certificateResponse.setAuthorizationCode(certificateOutModel.getAuthorizationCode());
 
-        return certificateResponse;
+        return certificateResponse; // TODO リダイレクトに変更
     }
 
     /**
