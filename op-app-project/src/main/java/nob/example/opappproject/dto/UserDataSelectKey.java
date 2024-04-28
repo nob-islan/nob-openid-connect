@@ -8,7 +8,7 @@ import lombok.Data;
  * @author nob
  */
 @Data
-public class UserInfoSelectKey {
+public class UserDataSelectKey {
 
     /**
      * ユーザID

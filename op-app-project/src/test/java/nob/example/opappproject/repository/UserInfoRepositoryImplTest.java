@@ -16,7 +16,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import nob.example.opappproject.dto.UserInfoSelectKey;
+import nob.example.opappproject.dto.UserDataSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 
 /**
@@ -54,20 +54,20 @@ public class UserInfoRepositoryImplTest {
     private UserInfoRepository userInfoRepository;
 
     /**
-     * selectAllのテスト 正常系
+     * selectUserDataのテスト 正常系
      *
      */
     @Test
-    public void test_selectByCondition_success() {
+    public void test_selectUserData_success() {
 
         // 検索条件の設定
-        UserInfoSelectKey userInfoSelectKey = new UserInfoSelectKey();
-        userInfoSelectKey.setUserId("nob");
+        UserDataSelectKey userDataSelectKey = new UserDataSelectKey();
+        userDataSelectKey.setUserId("nob");
 
         // テスト実行
         List<UserInfo> userInfoList = new ArrayList<UserInfo>();
         try {
-            userInfoList = userInfoRepository.selectByCondition(userInfoSelectKey);
+            userInfoList = userInfoRepository.selectUserData(userDataSelectKey);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
