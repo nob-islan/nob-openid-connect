@@ -9,6 +9,7 @@ import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
+import nob.example.opappproject.dto.UserCredentialSelectKey;
 import nob.example.opappproject.dto.UserDataSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 import nob.example.opappproject.repository.UserInfoRepository;
@@ -32,14 +33,22 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     public CertificateOutModel certificate(CertificateInModel certificateInModel) {
 
-        // TODO クレデンシャル検証
+        // クレデンシャル検証
+        UserCredentialSelectKey userCredentialSelectKey = new UserCredentialSelectKey();
+        userCredentialSelectKey.setUserId(certificateInModel.getUserId());
+        userCredentialSelectKey.setPassword(certificateInModel.getPassword());
+        List<UserInfo> userInfoList = userInfoRepository.selectUserCredential(userCredentialSelectKey);
+        // ヒットした件数が1件でなければ認証失敗とする
+        if (userInfoList.size() != 1) {
+            System.out.println("認証失敗"); // TODO 例外作成
+        }
 
         // TODO 認可コード発行
         String authorizationCode = "";
 
         // 返却値の作成
         CertificateOutModel certificateOutModel = new CertificateOutModel();
-        certificateOutModel.setUserId(certificateInModel.getUserId()); // TODO userId取り方検討 クレデンシャル検証のレスポンスか何かを用意する？
+        certificateOutModel.setUserId(userInfoList.get(0).getUserId());
         certificateOutModel.setAuthorizationCode(authorizationCode);
 
         return certificateOutModel;
