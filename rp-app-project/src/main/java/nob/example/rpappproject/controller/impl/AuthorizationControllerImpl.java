@@ -12,6 +12,7 @@ import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.DemandUserInfoInModel;
 import nob.example.rpappproject.dto.DemandUserInfoOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
+import nob.example.rpappproject.dto.RedirectAuthorizationRequest;
 import nob.example.rpappproject.rest.constants.UrlConst;
 import nob.example.rpappproject.service.AuthorizationService;
 
@@ -31,7 +32,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView redirectAuthorization() {
+    public ModelAndView redirectAuthorization(RedirectAuthorizationRequest redirectAuthorizationRequest) {
 
         // サービスを呼び出してcodeChallengeを計算
         CalcCodeChallengeOutModel calcCodeChallengeOutModel = authorizationService.redirectAuthorization();
@@ -40,7 +41,8 @@ public class AuthorizationControllerImpl implements AuthorizationController {
 
         // クエリパラメータを作成
         String queryParam = "?" + "codeChallenge=" + calcCodeChallengeOutModel.getCodeChallenge()
-                + "&codeChallengeMethod=" + calcCodeChallengeOutModel.getCodeChallengeMethod();
+                + "&codeChallengeMethod=" + calcCodeChallengeOutModel.getCodeChallengeMethod()
+                + "&redirectUri=" + redirectAuthorizationRequest.getRedirectUri();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setStatus(HttpStatus.FOUND);

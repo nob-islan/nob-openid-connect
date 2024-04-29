@@ -1,7 +1,10 @@
 import styles from './Login.module.scss';
-import { verifyCredential } from '../../actions/LoginAction';
+import { updateRedirectUri, verifyCredential } from '../../actions/LoginAction';
 import { store } from '../..';
 import { Field, reduxForm } from 'redux-form';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 interface Props {}
 
@@ -12,7 +15,18 @@ export const loginFormName = 'LoginForm';
  *
  */
 const Login: React.FC<Props> = (props) => {
-  // TODO モックサーバ
+  const search: string = useLocation().search;
+  const dispatch = useDispatch();
+
+  /**
+   *   初期表示処理です。
+   */
+  useEffect(() => {
+    // リダイレクトURIをstateに保持
+    const query = new URLSearchParams(search);
+    const redirectUri = query.get('redirectUri') || '';
+    dispatch(updateRedirectUri(redirectUri));
+  }, [dispatch, search]);
 
   /**
    * 認証APIをコールします。

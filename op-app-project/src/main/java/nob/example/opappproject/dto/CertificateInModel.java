@@ -19,4 +19,9 @@ public class CertificateInModel {
      * パスワード
      */
     private String password;
+
+    /**
+     * リダイレクトURI
+     */
+    private String redirectUri;
 }

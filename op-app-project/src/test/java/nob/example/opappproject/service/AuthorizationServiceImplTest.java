@@ -16,6 +16,7 @@ import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
+import nob.example.opappproject.dto.UserCredentialSelectKey;
 import nob.example.opappproject.dto.UserDataSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 import nob.example.opappproject.repository.UserInfoRepository;
@@ -46,6 +47,21 @@ public class AuthorizationServiceImplTest {
         CertificateInModel certificateInModel = new CertificateInModel();
         certificateInModel.setUserId("testUserId");
         certificateInModel.setPassword("testPassword");
+        certificateInModel.setRedirectUri("testRedirectUri");
+
+        // repository呼び出し想定のkey作成
+        UserCredentialSelectKey userCredentialSelectKey = new UserCredentialSelectKey();
+        userCredentialSelectKey.setUserId("testUserId");
+        userCredentialSelectKey.setPassword("testPassword");
+
+        // モックレスポンス作成
+        UserInfo mockUserInfo = new UserInfo();
+        mockUserInfo.setUserId("testUserId");
+        List<UserInfo> mockUserInfoList = new ArrayList<UserInfo>();
+        mockUserInfoList.add(mockUserInfo);
+
+        // repositoryモック化
+        Mockito.when(userInfoRepository.selectUserCredential(userCredentialSelectKey)).thenReturn(mockUserInfoList);
 
         try {
             // サービス呼び出し
@@ -53,6 +69,7 @@ public class AuthorizationServiceImplTest {
             // 結果のassert
             assertEquals("testUserId", certificateOutModel.getUserId());
             assertEquals("", certificateOutModel.getAuthorizationCode());
+            assertEquals("testRedirectUri", certificateOutModel.getRedirectUri());
         } catch (Exception e) {
             e.printStackTrace();
             fail();

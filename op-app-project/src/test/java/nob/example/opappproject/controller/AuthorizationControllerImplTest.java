@@ -50,9 +50,9 @@ public class AuthorizationControllerImplTest {
     @Test
     public void test_authorize_success() throws Exception {
 
-        mockMvc.perform(get("/api/op/authorization"))
+        mockMvc.perform(get("/api/op/authorization?redirectUri=sample"))
                 .andExpect(status().isFound())
-                .andExpect(view().name("redirect:http://localhost:3000/login"));
+                .andExpect(view().name("redirect:http://localhost:3001/login?redirectUri=sample"));
     }
 
     /**
@@ -67,16 +67,19 @@ public class AuthorizationControllerImplTest {
         CertificateRequest certificateRequest = new CertificateRequest();
         certificateRequest.setUserId("testUserId");
         certificateRequest.setPassword("testPassword");
+        certificateRequest.setRedirectUri("testRedirectUri");
 
         // サービス呼び出し想定のinModel作成
         CertificateInModel certificateInModel = new CertificateInModel();
         certificateInModel.setUserId("testUserId");
         certificateInModel.setPassword("testPassword");
+        certificateInModel.setRedirectUri("testRedirectUri");
 
         // モックレスポンス作成
         CertificateOutModel mockCertificateOutModel = new CertificateOutModel();
         mockCertificateOutModel.setUserId("testUserId");
         mockCertificateOutModel.setAuthorizationCode("testAuthorizationCode");
+        mockCertificateOutModel.setRedirectUri("testRedirectUri");
 
         // サービスのモック化
         Mockito.when(authorizationService.certificate(certificateInModel)).thenReturn(mockCertificateOutModel);
@@ -87,6 +90,7 @@ public class AuthorizationControllerImplTest {
             // 結果のassert
             assertEquals("testUserId", certificateResponse.getUserId());
             assertEquals("testAuthorizationCode", certificateResponse.getAuthorizationCode());
+            assertEquals("testRedirectUri", certificateResponse.getRedirectUri());
         } catch (Exception e) {
             e.printStackTrace();
             fail();

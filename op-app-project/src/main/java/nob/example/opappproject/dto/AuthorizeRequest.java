@@ -23,4 +23,10 @@ public class AuthorizeRequest {
      */
     @Schema(description = "codeVerifierのハッシュ化方式", type = "string", example = "S256")
     private String codeChallengeMethod;
+
+    /**
+     * リダイレクトURI
+     */
+    @Schema(description = "リダイレクトURI", type = "string", example = "http://example.nob/sample")
+    private String redirectUri;
 }
