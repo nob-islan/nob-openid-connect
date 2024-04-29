@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import nob.example.rpappproject.controller.AuthorizationController;
 import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
@@ -32,12 +34,18 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView redirectAuthorization(RedirectAuthorizationRequest redirectAuthorizationRequest) {
+    public ModelAndView redirectAuthorization(RedirectAuthorizationRequest redirectAuthorizationRequest,
+            HttpServletResponse httpServletResponse) {
 
         // サービスを呼び出してcodeChallengeを計算
         CalcCodeChallengeOutModel calcCodeChallengeOutModel = authorizationService.redirectAuthorization();
 
-        // TODO codeVerifierを保持（httpSession?）
+        // codeVerifierをCookieに保持
+        Cookie cookie = new Cookie("codeVerifier", calcCodeChallengeOutModel.getCodeVerifier());
+        cookie.setDomain("localhost");
+        cookie.setPath("/");
+        cookie.setMaxAge(600);
+        httpServletResponse.addCookie(cookie);
 
         // クエリパラメータを作成
         String queryParam = "?" + "codeChallenge=" + calcCodeChallengeOutModel.getCodeChallenge()
