@@ -72,7 +72,7 @@ public class AuthorizationControllerImplTest {
                 + "&codeChallengeMethod=testCodeChallengeMethod"
                 + "&redirectUri=sample";
 
-        mockMvc.perform(get("/api/rp/authorization/redirect?redirectUri=sample"))
+        mockMvc.perform(get("/api/rp/authorization?redirectUri=sample"))
                 .andExpect(status().isFound())
                 .andExpect(view().name(expectedViewName));
     }
