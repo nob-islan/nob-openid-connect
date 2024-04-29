@@ -43,7 +43,8 @@ export const verifyCredential = () => {
       userId: selector(store.getState(), 'userId'),
       password: selector(store.getState(), 'password')
     };
-    const response = await axios.post(UrlConst.CERTIFICATION, request);
-    console.log(response); // TODO 検証用ログ削除
+    await axios
+      .post(UrlConst.CERTIFICATION, request)
+      .then((response) => console.log(response)); // TODO 検証用ログ削除
   };
 };

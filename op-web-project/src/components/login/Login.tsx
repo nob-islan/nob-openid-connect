@@ -24,7 +24,7 @@ const Login: React.FC<Props> = (props) => {
   return (
     <div>
       <div className={styles.beginningMessage}>Nob OpenID Connect</div>
-      <form onSubmit={submit}>
+      <form>
         <table>
           <tbody>
             <tr>
@@ -41,12 +41,12 @@ const Login: React.FC<Props> = (props) => {
             </tr>
           </tbody>
         </table>
-        <div className={styles.buttonWrapper}>
-          <button className={styles.button} type="submit">
-            ログイン
-          </button>
-        </div>
       </form>
+      <div className={styles.buttonWrapper}>
+        <button className={styles.button} onClick={submit}>
+          ログイン
+        </button>
+      </div>
     </div>
   );
 };
