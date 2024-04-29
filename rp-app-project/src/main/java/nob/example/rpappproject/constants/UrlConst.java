@@ -15,7 +15,7 @@ public class UrlConst {
     /**
      * 認可エンドポイントへのリダイレクトAPI
      */
-    public static final String AUTHORIZATION_REDIRECT = "/authorization/redirect";
+    public static final String AUTHORIZATION = "/authorization";
 
     /**
      * アクセストークン取得API

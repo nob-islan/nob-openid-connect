@@ -29,7 +29,7 @@ public interface AuthorizationController {
      * 
      * @return 認証・ユーザ情報提供画面
      */
-    @GetMapping(value = UrlConst.AUTHORIZATION_REDIRECT)
+    @GetMapping(value = UrlConst.AUTHORIZATION)
     @Operation(summary = "認可エンドポイントへのリダイレクト", description = "${rpapidoc.describe.authorization.redirect-authorization:説明文}")
     ModelAndView redirectAuthorization(@ParameterObject RedirectAuthorizationRequest redirectAuthorizationRequest);
 
