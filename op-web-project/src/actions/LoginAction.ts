@@ -64,6 +64,16 @@ export const verifyCredential = () => {
     };
     await axios
       .post(UrlConst.CERTIFICATION, request)
-      .then((response) => console.log(response)); // TODO 検証用ログ削除
+      .then((response) => redirectFetchToken(response.data));
   };
+};
+
+/**
+ * アクセストークン取得APIへのリダイレクトを行います。
+ *
+ * @param redirectUri
+ */
+const redirectFetchToken = (responseData: any) => {
+  // TODO クエリパラメータ付与　そもそも画面まで戻すかも検討　codeVerifierの扱いとか
+  window.location.href = 'http://localhost:8080/api/rp/token/fetch';
 };

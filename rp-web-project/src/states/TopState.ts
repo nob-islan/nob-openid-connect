@@ -12,5 +12,5 @@ export type TopState = {
  * 初期値
  */
 export const initTopState: TopState = {
-  userName: 'nob'
+  userName: 'dummy'
 };

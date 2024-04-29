@@ -2,8 +2,6 @@ package nob.example.rpappproject.controller;
 
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,7 +37,7 @@ public interface AuthorizationController {
      * @param fetchTokenRequest
      * @return ログイン後トップ画面
      */
-    @PostMapping(value = UrlConst.TOKEN_FETCH)
+    @GetMapping(value = UrlConst.TOKEN_FETCH)
     @Operation(summary = "アクセストークンの取得", description = "${rpapidoc.describe.authorization.fetch-token:説明文}")
-    ModelAndView fetchToken(@RequestBody FetchTokenRequest fetchTokenRequest);
+    ModelAndView fetchToken(@ParameterObject FetchTokenRequest fetchTokenRequest);
 }
