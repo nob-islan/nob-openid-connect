@@ -1,3 +1,4 @@
+import { LoginActionType } from '../actions/LoginAction';
 import { LoginState, initLoginState } from '../states/LoginState';
 
 /**
@@ -8,6 +9,15 @@ export const LoginReducer = (
   action: any
 ): LoginState => {
   switch (action.type) {
+    /**
+     * リダイレクトURIを保持します。
+     */
+    case LoginActionType.UPDATE_REDIRECT_URI: {
+      return {
+        ...state,
+        redirectUri: action.payload.redirectUri
+      };
+    }
     default:
       return state;
   }
