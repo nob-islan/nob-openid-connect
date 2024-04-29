@@ -67,6 +67,8 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest) {
 
+        // TODO codeVerifierをCookieから取り出す
+
         // トークンリクエスト
         DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
         demandTokenInModel.setAuthorizationCode(fetchTokenRequest.getAuthorizationCode());
