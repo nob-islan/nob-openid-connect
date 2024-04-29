@@ -37,8 +37,6 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public ModelAndView authorize(AuthorizeRequest authorizeRequest) {
 
-        // TODO codeChallengeを保持
-
         // クエリパラメータを作成
         String queryParam = "?" + "redirectUri=" + authorizeRequest.getRedirectUri();
 
@@ -54,6 +52,8 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      */
     @Override
     public CertificateResponse certificate(CertificateRequest certificateRequest) {
+
+        // TODO codeChallengeを保持
 
         // inModel作成
         CertificateInModel certificateInModel = new CertificateInModel();

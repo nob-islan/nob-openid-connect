@@ -4,7 +4,7 @@
 %%{init:{'theme':'dark'}}%%
 graph TD;
     A(処理開始) --> B[codeVerifier生成、codeChallenge計算]
-    B --> C[codeVerifierを保持]
-    C --> |OP| D[認可エンドポイント呼び出し]
+    B --> C[codeVerifierをCookieに保持]
+    C --> |OP| D[クエリパラメータを作成して認可エンドポイント呼び出し]
     D --> E(処理終了)
 ```
