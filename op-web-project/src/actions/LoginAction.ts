@@ -74,5 +74,6 @@ export const verifyCredential = () => {
  * @param redirectUri
  */
 const redirectFetchToken = (responseData: any) => {
+  // TODO クエリパラメータ付与　そもそも画面まで戻すかも検討　codeVerifierの扱いとか
   window.location.href = 'http://localhost:8080/api/rp/token/fetch';
 };
