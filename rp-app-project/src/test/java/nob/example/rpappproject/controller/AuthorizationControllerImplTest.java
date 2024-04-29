@@ -67,10 +67,10 @@ public class AuthorizationControllerImplTest {
         // サービスのモック化
         Mockito.when(authorizationService.redirectAuthorization()).thenReturn(mockCalcCodeChallengeOutModel);
 
-        mockMvc.perform(get("/api/rp/authorization/redirect"))
+        mockMvc.perform(get("/api/rp/authorization/redirect?redirectUri=sample"))
                 .andExpect(status().isFound())
                 .andExpect(view().name(
-                        "redirect:http://localhost:8081/api/op/authorization?codeChallenge=testCodeChallenge&codeChallengeMethod=testCodeChallengeMethod"));
+                        "redirect:http://localhost:8081/api/op/authorization?codeChallenge=testCodeChallenge&codeChallengeMethod=testCodeChallengeMethod&redirectUri=sample"));
     }
 
     /**
