@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,8 +12,6 @@ import nob.example.rpappproject.controller.AuthorizationController;
 import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
-import nob.example.rpappproject.dto.DemandUserInfoInModel;
-import nob.example.rpappproject.dto.DemandUserInfoOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.dto.RedirectAuthorizationRequest;
 import nob.example.rpappproject.rest.constants.UrlConst;
@@ -65,7 +64,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest) {
+    public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest, RedirectAttributes redirectAttributes) {
 
         // TODO codeVerifierをCookieから取り出す
 
@@ -77,15 +76,16 @@ public class AuthorizationControllerImpl implements AuthorizationController {
 
         // TODO IDトークン検証
 
-        // ユーザ情報リクエスト // TODO アクセストークンを付与してコール
-        DemandUserInfoInModel demandUserInfoInModel = new DemandUserInfoInModel();
-        demandUserInfoInModel.setUserId(fetchTokenRequest.getUserId());
-        DemandUserInfoOutModel demandUserInfoOutModel = authorizationService.demandUserInfo(demandUserInfoInModel);
+        // // ユーザ情報リクエスト
+        // DemandUserInfoInModel demandUserInfoInModel = new DemandUserInfoInModel();
+        // demandUserInfoInModel.setUserId(fetchTokenRequest.getUserId());
+        // DemandUserInfoOutModel demandUserInfoOutModel =
+        // authorizationService.demandUserInfo(demandUserInfoInModel);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setStatus(HttpStatus.FOUND);
-        modelAndView.addObject("demandTokenOutModel", demandTokenOutModel);
-        modelAndView.addObject("demandUserInfoOutModel", demandUserInfoOutModel);
+        redirectAttributes.addFlashAttribute("demandTokenOutModel", demandTokenOutModel);
+        // modelAndView.addObject("demandUserInfoOutModel", demandUserInfoOutModel);
         modelAndView.setViewName("redirect:" + UrlConst.RP_WEB_ORIGIN + UrlConst.TOP);
 
         return modelAndView; // TODO リダイレクト方式はこれでOK? modelの返し方、画面側での参照の仕方も検討

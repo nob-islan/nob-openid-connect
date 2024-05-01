@@ -62,18 +62,7 @@ export const verifyCredential = () => {
       password: selector(store.getState(), 'password'),
       redirectUri: store.getState().login.redirectUri
     };
-    await axios
-      .post(UrlConst.CERTIFICATION, request)
-      .then((response) => redirectFetchToken(response.data));
+    await axios.post(UrlConst.CERTIFICATION, request);
+    // TODO 例外処理
   };
-};
-
-/**
- * アクセストークン取得APIへのリダイレクトを行います。
- *
- * @param redirectUri
- */
-const redirectFetchToken = (responseData: any) => {
-  // TODO クエリパラメータ付与　そもそも画面まで戻すかも検討　codeVerifierの扱いとか
-  window.location.href = 'http://localhost:8080/api/rp/token/fetch';
 };

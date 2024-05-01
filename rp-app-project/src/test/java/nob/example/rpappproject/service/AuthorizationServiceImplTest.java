@@ -23,9 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
-import nob.example.rpappproject.dto.DemandUserInfoInModel;
-import nob.example.rpappproject.dto.DemandUserInfoOutModel;
-import nob.example.rpappproject.rest.dto.OpFetchUserInfoResponse;
 import nob.example.rpappproject.rest.dto.OpIssueTokenResponse;
 
 /**
@@ -104,45 +101,6 @@ public class AuthorizationServiceImplTest {
             assertEquals("testAccessToken", demandTokenOutModel.getAccessToken());
             assertEquals("testRefleshToken", demandTokenOutModel.getRefleshToken());
             assertEquals("testIdToken", demandTokenOutModel.getIdToken());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
-
-    /**
-     * demandUserInfoのテスト 正常系
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void test_demandUserInfo_success() throws Exception {
-
-        // 入力値の作成
-        DemandUserInfoInModel demandUserInfoInModel = new DemandUserInfoInModel();
-        demandUserInfoInModel.setUserId("testUserId");
-
-        // モックレスポンスの作成
-        OpFetchUserInfoResponse opFetchUserInfoResponse = new OpFetchUserInfoResponse();
-        opFetchUserInfoResponse.setUserId("testUserId");
-        opFetchUserInfoResponse.setUserName("testUserName");
-        ObjectMapper objectMapper = new ObjectMapper();
-        String response = objectMapper.writeValueAsString(opFetchUserInfoResponse);
-
-        // リクエストURL
-        String url = "http://localhost:8081/api/op/userinfo";
-
-        // モックサーバの作成
-        MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
-        mockRestServiceServer.expect(requestTo(url)).andExpect(method(HttpMethod.POST)).andRespond(
-                withSuccess(response, MediaType.APPLICATION_JSON));
-
-        try {
-            // サービス呼び出し
-            DemandUserInfoOutModel demandUserInfoOutModel = authorizationService.demandUserInfo(demandUserInfoInModel);
-            // 結果のassert
-            assertEquals("testUserId", demandUserInfoOutModel.getUserId());
-            assertEquals("testUserName", demandUserInfoOutModel.getUserName());
         } catch (Exception e) {
             e.printStackTrace();
             fail();

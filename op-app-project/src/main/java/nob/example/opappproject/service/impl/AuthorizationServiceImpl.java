@@ -50,7 +50,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
         // 返却値の作成
         CertificateOutModel certificateOutModel = new CertificateOutModel();
-        certificateOutModel.setUserId(userInfoList.get(0).getUserId());
         certificateOutModel.setAuthorizationCode(authorizationCode);
         certificateOutModel.setRedirectUri(certificateInModel.getRedirectUri());
 
