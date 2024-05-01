@@ -10,11 +10,6 @@ import lombok.Data;
 public class CertificateOutModel {
 
     /**
-     * ユーザID
-     */
-    private String userId;
-
-    /**
      * 認可コード
      */
     private String authorizationCode;

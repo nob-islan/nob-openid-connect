@@ -2,7 +2,7 @@ package nob.example.rpappproject.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -22,8 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
-import nob.example.rpappproject.dto.DemandUserInfoInModel;
-import nob.example.rpappproject.dto.DemandUserInfoOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.service.AuthorizationService;
 
@@ -89,7 +87,6 @@ public class AuthorizationControllerImplTest {
         FetchTokenRequest fetchTokenRequest = new FetchTokenRequest();
         fetchTokenRequest.setAuthorizationCode("testAuthorizationCode");
         fetchTokenRequest.setCodeVerifier("testCodeVerifier");
-        fetchTokenRequest.setUserId("testUserId");
 
         // サービス呼び出し想定のinModel作成 トークンリクエスト
         DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
@@ -105,24 +102,14 @@ public class AuthorizationControllerImplTest {
         // サービスのモック化 トークンリクエスト
         Mockito.when(authorizationService.demandToken(demandTokenInModel)).thenReturn(mockDemandTokenOutModel);
 
-        // サービス呼び出し想定のinModel作成 ユーザ情報リクエスト
-        DemandUserInfoInModel demandUserInfoInModel = new DemandUserInfoInModel();
-        demandUserInfoInModel.setUserId("testUserId");
-
-        // モックレスポンスの作成 ユーザ情報リクエスト
-        DemandUserInfoOutModel demandUserInfoOutModel = new DemandUserInfoOutModel();
-        demandUserInfoOutModel.setUserId("testUserId");
-        demandUserInfoOutModel.setUserName("testUserName");
-
-        // サービスのモック化 ユーザ情報リクエスト
-        Mockito.when(authorizationService.demandUserInfo(demandUserInfoInModel)).thenReturn(demandUserInfoOutModel);
+        String expectedViewName = "redirect:http://localhost:3000/top";
 
         ObjectMapper objectMapper = new ObjectMapper();
 
         mockMvc.perform(post("/api/rp/token/fetch").content(objectMapper.writeValueAsString(fetchTokenRequest))
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isFound())
-                .andExpect(model().attribute("demandTokenOutModel", mockDemandTokenOutModel))
-                .andExpect(model().attribute("demandUserInfoOutModel", demandUserInfoOutModel));
+                .andExpect(flash().attribute("demandTokenOutModel", mockDemandTokenOutModel))
+                .andExpect(view().name(expectedViewName));
     }
 }

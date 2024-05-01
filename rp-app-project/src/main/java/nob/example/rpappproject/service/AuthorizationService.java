@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
-import nob.example.rpappproject.dto.DemandUserInfoInModel;
-import nob.example.rpappproject.dto.DemandUserInfoOutModel;
 
 /**
  * 認証向けサービスのインターフェースです。
@@ -31,11 +29,12 @@ public interface AuthorizationService {
      */
     DemandTokenOutModel demandToken(DemandTokenInModel demandTokenInModel);
 
-    /**
-     * ユーザ情報を要求します。
-     * 
-     * @param demandUserInfoInModel
-     * @return ユーザ情報
-     */
-    DemandUserInfoOutModel demandUserInfo(DemandUserInfoInModel demandUserInfoInModel);
+    // /**
+    // * ユーザ情報を要求します。
+    // *
+    // * @param demandUserInfoInModel
+    // * @return ユーザ情報
+    // */
+    // DemandUserInfoOutModel demandUserInfo(DemandUserInfoInModel
+    // demandUserInfoInModel);
 }

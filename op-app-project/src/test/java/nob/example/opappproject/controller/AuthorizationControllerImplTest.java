@@ -1,8 +1,7 @@
 package nob.example.opappproject.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -12,13 +11,15 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
-import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.service.AuthorizationService;
 
 /**
@@ -77,24 +78,18 @@ public class AuthorizationControllerImplTest {
 
         // モックレスポンス作成
         CertificateOutModel mockCertificateOutModel = new CertificateOutModel();
-        mockCertificateOutModel.setUserId("testUserId");
         mockCertificateOutModel.setAuthorizationCode("testAuthorizationCode");
         mockCertificateOutModel.setRedirectUri("testRedirectUri");
 
         // サービスのモック化
         Mockito.when(authorizationService.certificate(certificateInModel)).thenReturn(mockCertificateOutModel);
 
-        try {
-            // API呼び出し
-            CertificateResponse certificateResponse = authorizationController.certificate(certificateRequest);
-            // 結果のassert
-            assertEquals("testUserId", certificateResponse.getUserId());
-            assertEquals("testAuthorizationCode", certificateResponse.getAuthorizationCode());
-            assertEquals("testRedirectUri", certificateResponse.getRedirectUri());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/api/op/certification").content(objectMapper.writeValueAsString(certificateRequest))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isFound())
+                .andExpect(view().name("redirect:testRedirectUri?authorizationCode=testAuthorizationCode"));
     }
 
     // TODO 異常系テスト

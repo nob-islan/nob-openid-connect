@@ -10,7 +10,6 @@ import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.CertificateRequest;
-import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.dto.FetchUserInfoInModel;
 import nob.example.opappproject.dto.FetchUserInfoOutModel;
 import nob.example.opappproject.dto.FetchUserInfoRequest;
@@ -51,9 +50,9 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public CertificateResponse certificate(CertificateRequest certificateRequest) {
+    public ModelAndView certificate(CertificateRequest certificateRequest) {
 
-        // TODO codeChallengeを保持
+        // TODO DBにcodeChallengeを保持
 
         // inModel作成
         CertificateInModel certificateInModel = new CertificateInModel();
@@ -64,13 +63,13 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         // サービス呼び出し
         CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
 
-        // outModel作成
-        CertificateResponse certificateResponse = new CertificateResponse();
-        certificateResponse.setUserId(certificateOutModel.getUserId());
-        certificateResponse.setAuthorizationCode(certificateOutModel.getAuthorizationCode());
-        certificateResponse.setRedirectUri(certificateOutModel.getRedirectUri());
+        // クエリパラメータを作成
+        String queryParam = "?" + "authorizationCode=" + certificateOutModel.getAuthorizationCode();
 
-        return certificateResponse;
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:" + certificateOutModel.getRedirectUri() + queryParam);
+
+        return modelAndView;
     }
 
     /**
