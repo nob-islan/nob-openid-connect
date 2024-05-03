@@ -23,10 +23,4 @@ public class FetchTokenRequest {
      */
     @Schema(description = "検証用のランダム文字列", type = "string", example = "abc123")
     private String codeVerifier;
-
-    // /**
-    // * ユーザID
-    // */
-    // @Schema(description = "ユーザID", type = "string", example = "nob")
-    // private String userId;
 }
