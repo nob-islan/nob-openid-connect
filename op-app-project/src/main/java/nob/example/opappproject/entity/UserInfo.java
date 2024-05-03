@@ -28,10 +28,4 @@ public class UserInfo {
      */
     @Column(length = 32, nullable = false)
     private String password;
-
-    /**
-     * ユーザ名
-     */
-    @Column(length = 10, nullable = false)
-    private String userName;
 }

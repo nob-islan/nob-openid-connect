@@ -11,11 +11,6 @@
       "description": "A description for 'opapidoc.describe.authorization.certificate'"
     },
     {
-      "name": "opapidoc.describe.authorization.fetch-userinfo",
-      "type": "java.lang.String",
-      "description": "A description for 'opapidoc.describe.authorization.fetch-userinfo'"
-    },
-    {
       "name": "opapidoc.describe.authorization.issue-token",
       "type": "java.lang.String",
       "description": "A description for 'opapidoc.describe.authorization.issue-token'"

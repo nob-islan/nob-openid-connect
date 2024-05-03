@@ -13,8 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.CertificateRequest;
-import nob.example.opappproject.dto.FetchUserInfoRequest;
-import nob.example.opappproject.dto.FetchUserInfoResponse;
 import nob.example.opappproject.dto.IssueTokenRequest;
 import nob.example.opappproject.dto.IssueTokenResponse;
 
@@ -58,13 +56,4 @@ public interface AuthorizationController {
     @Operation(summary = "トークン発行", description = "${opapidoc.describe.authorization.issue-token:説明文}")
     IssueTokenResponse issueToken(@RequestBody IssueTokenRequest issueTokenRequest);
 
-    /**
-     * UserInfoを取得します。
-     * 
-     * @param fetchUserInfoRequest
-     * @return userInfo
-     */
-    @PostMapping(value = UrlConst.USERINFO)
-    @Operation(summary = "UserInfo取得", description = "${opapidoc.describe.authorization.fetch-userinfo:説明文}")
-    FetchUserInfoResponse fetchUserInfo(@RequestBody FetchUserInfoRequest fetchUserInfoRequest);
 }

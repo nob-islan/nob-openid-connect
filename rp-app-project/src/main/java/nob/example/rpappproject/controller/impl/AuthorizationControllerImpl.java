@@ -76,16 +76,9 @@ public class AuthorizationControllerImpl implements AuthorizationController {
 
         // TODO IDトークン検証
 
-        // // ユーザ情報リクエスト
-        // DemandUserInfoInModel demandUserInfoInModel = new DemandUserInfoInModel();
-        // demandUserInfoInModel.setUserId(fetchTokenRequest.getUserId());
-        // DemandUserInfoOutModel demandUserInfoOutModel =
-        // authorizationService.demandUserInfo(demandUserInfoInModel);
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setStatus(HttpStatus.FOUND);
         redirectAttributes.addFlashAttribute("demandTokenOutModel", demandTokenOutModel);
-        // modelAndView.addObject("demandUserInfoOutModel", demandUserInfoOutModel);
         modelAndView.setViewName("redirect:" + UrlConst.RP_WEB_ORIGIN + UrlConst.TOP);
 
         return modelAndView; // TODO リダイレクト方式はこれでOK? modelの返し方、画面側での参照の仕方も検討
