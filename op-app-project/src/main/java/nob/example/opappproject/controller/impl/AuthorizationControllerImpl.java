@@ -1,6 +1,7 @@
 package nob.example.opappproject.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,6 +37,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         String queryParam = "?" + "redirectUri=" + authorizeRequest.getRedirectUri();
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setStatus(HttpStatus.FOUND);
         modelAndView.setViewName("redirect:" + UrlConst.OP_WEB_ORIGIN + UrlConst.LOGIN + queryParam);
 
         return modelAndView;
@@ -63,7 +65,11 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         String queryParam = "?" + "authorizationCode=" + certificateOutModel.getAuthorizationCode();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + certificateOutModel.getRedirectUri() + queryParam);
+
+        String testRedirectUrl = "http://localhost:3000/redirect-fetchtoken";
+
+        modelAndView.setStatus(HttpStatus.FOUND);
+        modelAndView.setViewName("redirect:" + testRedirectUrl);
 
         return modelAndView;
     }
