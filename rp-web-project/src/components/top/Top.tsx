@@ -1,7 +1,3 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../..';
-import { TopState } from '../../states/TopState';
-
 interface Props {}
 
 /**
@@ -9,11 +5,7 @@ interface Props {}
  *
  */
 const Top: React.FC<Props> = (props) => {
-  const userName: string = useSelector<RootState, TopState['userName']>(
-    (state: RootState) => state.top.userName
-  );
-
-  return <>ようこそ、{userName}さん！</>;
+  return <>ログイン完了</>;
 };
 
 export default Top;
