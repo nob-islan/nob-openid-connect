@@ -10,5 +10,3 @@ opapidoc:
         ユーザID, パスワードによる認証を行い、認可コードを発行します。
       issue-token: |
         アクセストークンを発行します。
-      fetch-userinfo: |
-        UserInfoを取得します。

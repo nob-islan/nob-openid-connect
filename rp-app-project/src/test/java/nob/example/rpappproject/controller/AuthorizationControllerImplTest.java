@@ -88,18 +88,18 @@ public class AuthorizationControllerImplTest {
         fetchTokenRequest.setAuthorizationCode("testAuthorizationCode");
         fetchTokenRequest.setCodeVerifier("testCodeVerifier");
 
-        // サービス呼び出し想定のinModel作成 トークンリクエスト
+        // サービス呼び出し想定のinModel作成
         DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
         demandTokenInModel.setAuthorizationCode("testAuthorizationCode");
         demandTokenInModel.setCodeVerifier("testCodeVerifier");
 
-        // モックレスポンスの作成 トークンリクエスト
+        // モックレスポンスの作成
         DemandTokenOutModel mockDemandTokenOutModel = new DemandTokenOutModel();
         mockDemandTokenOutModel.setAccessToken("testAccessToken");
         mockDemandTokenOutModel.setRefleshToken("testRefleshToken");
         mockDemandTokenOutModel.setIdToken("testIdToken");
 
-        // サービスのモック化 トークンリクエスト
+        // サービスのモック化
         Mockito.when(authorizationService.demandToken(demandTokenInModel)).thenReturn(mockDemandTokenOutModel);
 
         String expectedViewName = "redirect:http://localhost:3000/top";

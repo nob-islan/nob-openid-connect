@@ -28,13 +28,4 @@ public interface AuthorizationService {
      * @return アクセストークン
      */
     DemandTokenOutModel demandToken(DemandTokenInModel demandTokenInModel);
-
-    // /**
-    // * ユーザ情報を要求します。
-    // *
-    // * @param demandUserInfoInModel
-    // * @return ユーザ情報
-    // */
-    // DemandUserInfoOutModel demandUserInfo(DemandUserInfoInModel
-    // demandUserInfoInModel);
 }

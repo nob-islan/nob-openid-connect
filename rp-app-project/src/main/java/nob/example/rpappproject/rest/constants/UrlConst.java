@@ -36,9 +36,4 @@ public class UrlConst {
      * OP トークン発行API
      */
     public static final String TOKEN = "/token";
-
-    /**
-     * OP UserInfo取得API
-     */
-    public static final String USERINFO = "/userinfo";
 }

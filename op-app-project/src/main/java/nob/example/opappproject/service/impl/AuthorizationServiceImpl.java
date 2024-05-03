@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
-import nob.example.opappproject.dto.FetchUserInfoInModel;
-import nob.example.opappproject.dto.FetchUserInfoOutModel;
 import nob.example.opappproject.dto.UserCredentialSelectKey;
-import nob.example.opappproject.dto.UserDataSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 import nob.example.opappproject.repository.UserInfoRepository;
 import nob.example.opappproject.service.AuthorizationService;
@@ -54,27 +51,5 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         certificateOutModel.setRedirectUri(certificateInModel.getRedirectUri());
 
         return certificateOutModel;
-    }
-
-    /**
-     * {@inheritDoc}
-     * 
-     */
-    @Override
-    public FetchUserInfoOutModel fetchUserInfo(FetchUserInfoInModel fetchUserInfoInModel) {
-
-        // DBアクセス用のリクエストモデルを作成
-        UserDataSelectKey userDataSelectKey = new UserDataSelectKey();
-        userDataSelectKey.setUserId(fetchUserInfoInModel.getUserId());
-
-        // repository呼び出し // TODO 結果が0件だった場合の例外処理
-        List<UserInfo> userInfoList = userInfoRepository.selectUserData(userDataSelectKey);
-
-        // レスポンス作成
-        FetchUserInfoOutModel fetchUserInfoOutModel = new FetchUserInfoOutModel();
-        fetchUserInfoOutModel.setUserId(userInfoList.get(0).getUserId());
-        fetchUserInfoOutModel.setUserName(userInfoList.get(0).getUserName());
-
-        return fetchUserInfoOutModel;
     }
 }

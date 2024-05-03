@@ -16,7 +16,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import nob.example.opappproject.dto.UserCredentialSelectKey;
-import nob.example.opappproject.dto.UserDataSelectKey;
 import nob.example.opappproject.entity.UserInfo;
 
 /**
@@ -52,31 +51,6 @@ public class UserInfoRepositoryImplTest {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
-
-    /**
-     * selectUserDataのテスト 正常系
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void test_selectUserData_success() throws Exception {
-
-        // 検索条件の設定
-        UserDataSelectKey userDataSelectKey = new UserDataSelectKey();
-        userDataSelectKey.setUserId("nob");
-
-        try {
-            // repository呼び出し
-            List<UserInfo> userInfoList = userInfoRepository.selectUserData(userDataSelectKey);
-            // 結果のassert
-            assertEquals(1, userInfoList.size());
-            assertEquals("nob", userInfoList.get(0).getUserId());
-            assertEquals("nobuhiro", userInfoList.get(0).getUserName());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
 
     /**
      * selectUserCredentialのテスト 正常系

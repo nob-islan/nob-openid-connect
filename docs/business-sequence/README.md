@@ -22,9 +22,6 @@ autonumber
     Note over oid_provider: トークン発行エンドポイント
     oid_provider-->>relying_party: アクセストークン、IDトークン発行
     relying_party->>relying_party: IDトークン検証
-    relying_party->>oid_provider: ユーザ情報リクエスト
-    Note over oid_provider: UserInfoエンドポイント
-    oid_provider-->>relying_party: ユーザ情報返却
     relying_party-->>+user: リダイレクト
     user->>-relying_party: <br>
     Note over relying_party: トップ画面

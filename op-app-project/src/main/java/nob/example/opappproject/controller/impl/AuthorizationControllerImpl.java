@@ -10,10 +10,6 @@ import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.CertificateRequest;
-import nob.example.opappproject.dto.FetchUserInfoInModel;
-import nob.example.opappproject.dto.FetchUserInfoOutModel;
-import nob.example.opappproject.dto.FetchUserInfoRequest;
-import nob.example.opappproject.dto.FetchUserInfoResponse;
 import nob.example.opappproject.dto.IssueTokenRequest;
 import nob.example.opappproject.dto.IssueTokenResponse;
 import nob.example.opappproject.service.AuthorizationService;
@@ -84,27 +80,5 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         // TODO アクセストークン、リフレッシュトークン、IDトークン作成
 
         return new IssueTokenResponse();
-    }
-
-    /**
-     * {@inheritDoc}
-     * 
-     */
-    @Override
-    public FetchUserInfoResponse fetchUserInfo(FetchUserInfoRequest fetchUserInfoRequest) {
-
-        // inModel作成
-        FetchUserInfoInModel fetchUserInfoInModel = new FetchUserInfoInModel();
-        fetchUserInfoInModel.setUserId(fetchUserInfoRequest.getUserId());
-
-        // サービス呼び出し
-        FetchUserInfoOutModel fetchUserInfoOutModel = authorizationService.fetchUserInfo(fetchUserInfoInModel);
-
-        // outModel作成
-        FetchUserInfoResponse fetchUserInfoResponse = new FetchUserInfoResponse();
-        fetchUserInfoResponse.setUserId(fetchUserInfoOutModel.getUserId());
-        fetchUserInfoResponse.setUserName(fetchUserInfoOutModel.getUserName());
-
-        return fetchUserInfoResponse;
     }
 }
