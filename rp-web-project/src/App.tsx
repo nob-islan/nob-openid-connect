@@ -10,7 +10,7 @@ function App() {
           <Routes>
             <Route path="/top" element={<Top />} />
             <Route
-              path="/redirect-fetchtoken"
+              path="/redirect/fetchtoken"
               element={<RedirectFetchToken />}
             />
           </Routes>

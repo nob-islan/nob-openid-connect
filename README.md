@@ -98,7 +98,7 @@ state を更新するクラスを配置します。
 
 ## 開発メモ
 
-認証開始: `localhost:8080/api/rp/authorization?redirectUri=http%3A%2F%2Flocalhost%3A3000%2Fredirect-fetchtoken`
+認証開始: `localhost:8080/api/rp/authorization?redirectUri=http%3A%2F%2Flocalhost%3A3000%2Fredirect%2Ffetchtoken    `
 
 ## 参考文献
 
