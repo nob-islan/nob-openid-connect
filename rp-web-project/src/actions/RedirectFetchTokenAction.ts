@@ -45,6 +45,9 @@ export const fetchToken = (authorizationCode: string, codeVerifier: string) => {
   };
 };
 
+/**
+ * トップ画面へリダイレクトします。
+ */
 const redirectTop = () => {
   // TODO アクセストークン管理
   // トップ画面へリダイレクト

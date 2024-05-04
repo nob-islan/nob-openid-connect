@@ -15,7 +15,14 @@ export type RedirectAuthorizeAction = {
   payload: RedirectAuthorizeActionPayload;
 };
 
-// 認可APIをコールします。
+/**
+ * 認可APIをコールします。
+ *
+ * @param redirectUri
+ * @param codeChallenge
+ * @param codeChallengeMethod
+ * @returns
+ */
 export const authorize = (
   redirectUri: string,
   codeChallenge: string,
