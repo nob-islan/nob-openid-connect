@@ -24,7 +24,7 @@ autonumber
     op_web->>op_app: 認証要求
     Note over op_app: 認証エンドポイント
     op_app-->>op_web: 認証結果
-    op_web-->>+user: 認可コードを付与してリダイレクト
+    op_web-->>+user: リダイレクト
     user->>-rp_web: <br>
     Note over rp_web: リダイレクトURI
     rp_web->>rp_app: アクセストークン発行要求
