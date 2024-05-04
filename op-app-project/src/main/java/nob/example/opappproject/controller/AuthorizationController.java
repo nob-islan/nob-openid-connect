@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.dto.AuthorizeRequest;
+import nob.example.opappproject.dto.AuthorizeResponse;
 import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.dto.IssueTokenRequest;
@@ -35,7 +35,7 @@ public interface AuthorizationController {
      */
     @GetMapping(value = UrlConst.AUTHORIZATION)
     @Operation(summary = "認可", description = "${opapidoc.describe.authorization.authorize:説明文}")
-    ModelAndView authorize(@ParameterObject AuthorizeRequest authorizeRequest);
+    AuthorizeResponse authorize(@ParameterObject AuthorizeRequest authorizeRequest);
 
     /**
      * ユーザID, パスワードによる認証を行い、認可コードを発行します。
