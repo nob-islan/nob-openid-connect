@@ -10,6 +10,7 @@ import {
 } from 'redux';
 import { reducers } from './reducers';
 import { thunk } from 'redux-thunk';
+import { CookiesProvider } from 'react-cookie';
 
 // 各種reducer, stateを用意
 const rootReducer = combineReducers(reducers);
@@ -21,7 +22,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <App />
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>
   </Provider>
 );
 
