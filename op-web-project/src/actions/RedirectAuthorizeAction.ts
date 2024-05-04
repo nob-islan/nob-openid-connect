@@ -34,7 +34,10 @@ export const authorize = (
       .get(UrlConst.AUTHORIZATION + queryParam)
       .then(
         (response) =>
-          (window.location.href = UrlConst.LOGIN + response.data.redirectUri)
+          (window.location.href =
+            UrlConst.LOGIN +
+            '?redirectUri=' +
+            encodeURIComponent(response.data.redirectUri))
       );
   };
 };
