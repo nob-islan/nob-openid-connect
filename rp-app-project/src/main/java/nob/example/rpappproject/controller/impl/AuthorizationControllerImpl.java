@@ -8,13 +8,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import nob.example.rpappproject.constants.UrlConst;
 import nob.example.rpappproject.controller.AuthorizationController;
 import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.dto.RedirectAuthorizationRequest;
-import nob.example.rpappproject.rest.constants.UrlConst;
 import nob.example.rpappproject.service.AuthorizationService;
 
 /**
@@ -54,7 +54,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setStatus(HttpStatus.FOUND);
         modelAndView.setViewName(
-                "redirect:" + UrlConst.OP_APP_ORIGIN + UrlConst.BASE_URL + UrlConst.AUTHORIZATION + queryParam);
+                "redirect:" + UrlConst.OP_WEB_ORIGIN + UrlConst.REDIRECT_AUTHORIZE + queryParam);
 
         return modelAndView;
     }

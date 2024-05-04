@@ -2,21 +2,17 @@ package nob.example.opappproject.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificateResponse;
+import nob.example.opappproject.dto.AuthorizeRequest;
+import nob.example.opappproject.dto.AuthorizeResponse;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.service.AuthorizationService;
@@ -35,13 +31,6 @@ public class AuthorizationControllerImplTest {
     @MockBean
     private AuthorizationService authorizationService;
 
-    private MockMvc mockMvc;
-
-    @BeforeEach
-    public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(authorizationController).build();
-    }
-
     /**
      * authorizeのテスト 正常系
      * 
@@ -50,9 +39,21 @@ public class AuthorizationControllerImplTest {
     @Test
     public void test_authorize_success() throws Exception {
 
-        mockMvc.perform(get("/api/op/authorization?redirectUri=sample"))
-                .andExpect(status().isFound())
-                .andExpect(view().name("redirect:http://localhost:3001/login?redirectUri=sample"));
+        // 入力値の作成
+        AuthorizeRequest authorizeRequest = new AuthorizeRequest();
+        authorizeRequest.setCodeChallenge("testCodeChallenge");
+        authorizeRequest.setCodeChallengeMethod("S256");
+        authorizeRequest.setRedirectUri("testRedirectUri");
+
+        try {
+            // API呼び出し
+            AuthorizeResponse authorizeResponse = authorizationController.authorize(authorizeRequest);
+            // 結果のassert
+            assertEquals("testRedirectUri", authorizeResponse.getRedirectUri());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
     /**

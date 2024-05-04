@@ -1,15 +1,13 @@
 package nob.example.opappproject.controller.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.controller.AuthorizationController;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.AuthorizeRequest;
+import nob.example.opappproject.dto.AuthorizeResponse;
 import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.dto.IssueTokenRequest;
@@ -32,16 +30,15 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView authorize(AuthorizeRequest authorizeRequest) {
+    public AuthorizeResponse authorize(AuthorizeRequest authorizeRequest) {
 
-        // クエリパラメータを作成
-        String queryParam = "?" + "redirectUri=" + authorizeRequest.getRedirectUri();
+        // TODO リダイレクトURI検証、OKであればoutModelにセットする。今は暫定でノールックでセットしている。
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setStatus(HttpStatus.FOUND);
-        modelAndView.setViewName("redirect:" + UrlConst.OP_WEB_ORIGIN + UrlConst.LOGIN + queryParam);
+        // 返却値の作成
+        AuthorizeResponse authorizeResponse = new AuthorizeResponse();
+        authorizeResponse.setRedirectUri(authorizeRequest.getRedirectUri());
 
-        return modelAndView;
+        return authorizeResponse;
     }
 
     /**
