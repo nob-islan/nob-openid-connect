@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +13,7 @@ import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
+import nob.example.rpappproject.dto.FetchTokenResponse;
 import nob.example.rpappproject.dto.RedirectAuthorizationRequest;
 import nob.example.rpappproject.service.AuthorizationService;
 
@@ -64,7 +64,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest, RedirectAttributes redirectAttributes) {
+    public FetchTokenResponse fetchToken(FetchTokenRequest fetchTokenRequest) {
 
         // トークンリクエスト
         DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
@@ -74,11 +74,14 @@ public class AuthorizationControllerImpl implements AuthorizationController {
 
         // TODO IDトークン検証
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setStatus(HttpStatus.FOUND);
-        redirectAttributes.addFlashAttribute("demandTokenOutModel", demandTokenOutModel);
-        modelAndView.setViewName("redirect:" + UrlConst.RP_WEB_ORIGIN + UrlConst.TOP);
+        // 返却値を作成
+        FetchTokenResponse fetchTokenResponse = new FetchTokenResponse();
+        fetchTokenResponse.setAccessToken(demandTokenOutModel.getAccessToken());
+        fetchTokenResponse.setRefleshToken(demandTokenOutModel.getRefleshToken());
+        fetchTokenResponse.setIdToken(demandTokenOutModel.getIdToken());
+        // modelAndView.setViewName("redirect:" + UrlConst.RP_WEB_ORIGIN +
+        // UrlConst.TOP);
 
-        return modelAndView; // TODO リダイレクトはやめて画面側に返す用の返却値を作成する
+        return fetchTokenResponse;
     }
 }

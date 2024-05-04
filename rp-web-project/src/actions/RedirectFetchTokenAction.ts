@@ -41,7 +41,12 @@ export const fetchToken = (authorizationCode: string, codeVerifier: string) => {
     };
     await axios
       .post(UrlConst.TOKEN_FETCH, request)
-      .then((response) => console.log(response.data));
-    // TODO トップ画面へのリダイレクト
+      .then((response) => redirectTop());
   };
+};
+
+const redirectTop = () => {
+  // TODO アクセストークン管理
+  // トップ画面へリダイレクト
+  window.location.href = '/top';
 };
