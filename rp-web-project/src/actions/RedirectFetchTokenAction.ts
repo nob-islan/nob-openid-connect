@@ -1,9 +1,22 @@
+import axios from 'axios';
+import UrlConst from '../constants/UrlConst';
+
 export const RedirectFetchTokenActionType = {};
 
 /**
  * リクエスト用のペイロード
  */
-export type RedirectFetchTokenActionPayload = {};
+export type RedirectFetchTokenActionPayload = {
+  /**
+   * 認可コード
+   */
+  authorizationCode: string;
+
+  /**
+   * 検証用のランダム文字列
+   */
+  codeVerifier: string;
+};
 
 type ValueOf<T> = T[keyof T];
 
@@ -20,6 +33,15 @@ export type RedirectFetchTokenAction = {
  *
  * @returns
  */
-export const callFetchToken = () => {
-  return async () => {}; // TODO 実装
+export const fetchToken = (authorizationCode: string, codeVerifier: string) => {
+  return async () => {
+    const request: RedirectFetchTokenActionPayload = {
+      authorizationCode: authorizationCode,
+      codeVerifier: codeVerifier
+    };
+    await axios
+      .post(UrlConst.TOKEN_FETCH, request)
+      .then((response) => console.log(response.data));
+    // TODO トップ画面へのリダイレクト
+  };
 };

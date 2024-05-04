@@ -64,7 +64,28 @@ export const verifyCredential = () => {
     };
     await axios
       .post(UrlConst.CERTIFICATION, request)
-      .then((response) => (window.location.href = response.data.redirectUri));
+      .then((response) =>
+        redirectToRedirectUri(
+          response.data.redirectUri,
+          response.data.authorizationCode
+        )
+      );
     // TODO 例外処理
   };
+};
+
+/**
+ * 認可コードをクエリパラメータに付与して指定されたリダイレクトURIにリダイレクトします。
+ *
+ * @param redirectUri
+ * @param authorizationCode
+ */
+const redirectToRedirectUri = (
+  redirectUri: string,
+  authorizationCode: string
+) => {
+  // クエリパラメータ作成
+  const queryParam = '?authorizationCode=' + authorizationCode;
+  // リダイレクト
+  window.location.href = redirectUri + queryParam;
 };

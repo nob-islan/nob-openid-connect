@@ -41,7 +41,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
 
         // TODO 認可コード発行
-        String authorizationCode = "";
+        String authorizationCode = "testAuthorizationCode";
 
         // 返却値の作成
         CertificateOutModel certificateOutModel = new CertificateOutModel();

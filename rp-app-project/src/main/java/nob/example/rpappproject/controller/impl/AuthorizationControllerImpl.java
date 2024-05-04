@@ -66,8 +66,6 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest, RedirectAttributes redirectAttributes) {
 
-        // TODO codeVerifierをCookieから取り出す
-
         // トークンリクエスト
         DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
         demandTokenInModel.setAuthorizationCode(fetchTokenRequest.getAuthorizationCode());
@@ -81,6 +79,6 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         redirectAttributes.addFlashAttribute("demandTokenOutModel", demandTokenOutModel);
         modelAndView.setViewName("redirect:" + UrlConst.RP_WEB_ORIGIN + UrlConst.TOP);
 
-        return modelAndView; // TODO リダイレクト方式はこれでOK? modelの返し方、画面側での参照の仕方も検討
+        return modelAndView; // TODO リダイレクトはやめて画面側に返す用の返却値を作成する
     }
 }
