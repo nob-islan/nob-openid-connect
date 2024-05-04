@@ -11,6 +11,7 @@ import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.CertificateRequest;
+import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.dto.IssueTokenRequest;
 import nob.example.opappproject.dto.IssueTokenResponse;
 import nob.example.opappproject.service.AuthorizationService;
@@ -48,7 +49,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public ModelAndView certificate(CertificateRequest certificateRequest) {
+    public CertificateResponse certificate(CertificateRequest certificateRequest) {
 
         // TODO DBにcodeChallengeを保持
 
@@ -61,17 +62,12 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         // サービス呼び出し
         CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
 
-        // クエリパラメータを作成
-        String queryParam = "?" + "authorizationCode=" + certificateOutModel.getAuthorizationCode();
+        // 返却値の作成
+        CertificateResponse certificateResponse = new CertificateResponse();
+        certificateResponse.setAuthorizationCode(certificateOutModel.getAuthorizationCode());
+        certificateResponse.setRedirectUri(certificateOutModel.getRedirectUri());
 
-        ModelAndView modelAndView = new ModelAndView();
-
-        String testRedirectUrl = "http://localhost:3000/redirect-fetchtoken";
-
-        modelAndView.setStatus(HttpStatus.FOUND);
-        modelAndView.setViewName("redirect:" + testRedirectUrl);
-
-        return modelAndView;
+        return certificateResponse;
     }
 
     /**

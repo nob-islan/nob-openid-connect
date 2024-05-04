@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.CertificateRequest;
+import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.dto.IssueTokenRequest;
 import nob.example.opappproject.dto.IssueTokenResponse;
 
@@ -44,7 +45,7 @@ public interface AuthorizationController {
      */
     @PostMapping(value = UrlConst.CERTIFICATION)
     @Operation(summary = "認証", description = "${opapidoc.describe.authorization.certificate:説明文}")
-    ModelAndView certificate(@RequestBody CertificateRequest certificateRequest);
+    CertificateResponse certificate(@RequestBody CertificateRequest certificateRequest);
 
     /**
      * アクセストークンを発行します。
