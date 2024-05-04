@@ -62,7 +62,9 @@ export const verifyCredential = () => {
       password: selector(store.getState(), 'password'),
       redirectUri: store.getState().login.redirectUri
     };
-    await axios.post(UrlConst.CERTIFICATION, request);
+    await axios
+      .post(UrlConst.CERTIFICATION, request)
+      .then((response) => (window.location.href = response.data.redirectUri));
     // TODO 例外処理
   };
 };
