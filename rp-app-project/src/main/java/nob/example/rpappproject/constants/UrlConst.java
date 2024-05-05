@@ -13,11 +13,6 @@ public class UrlConst {
     public static final String RP_WEB_ORIGIN = "http://localhost:3000";
 
     /**
-     * RP ログイン後トップ画面
-     */
-    public static final String TOP = "/top";
-
-    /**
      * RP ベースURL
      */
     public static final String BASE_URL = "/api/rp";
