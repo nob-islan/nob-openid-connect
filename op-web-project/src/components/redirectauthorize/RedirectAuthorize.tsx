@@ -20,7 +20,7 @@ const RedirectAuthorize: React.FC<Props> = (props) => {
    * 初期表示処理です。
    */
   useEffect(() => {
-    // リダイレクトURLを取得
+    // リダイレクトURIを取得
     const query = new URLSearchParams(search) || '';
     const redirectUri = query.get('redirectUri') || '';
     const codeChallenge = query.get('codeChallenge') || '';
