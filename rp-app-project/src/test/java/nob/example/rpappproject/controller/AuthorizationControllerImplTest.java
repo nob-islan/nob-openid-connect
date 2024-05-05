@@ -1,26 +1,19 @@
 package nob.example.rpappproject.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
+import nob.example.rpappproject.dto.FetchTokenResponse;
 import nob.example.rpappproject.service.AuthorizationService;
 
 /**
@@ -35,16 +28,8 @@ public class AuthorizationControllerImplTest {
     @Autowired
     private AuthorizationController authorizationController;
 
-    @Autowired
-    private MockMvc mockMvc;
-
     @MockBean
     private AuthorizationService authorizationService;
-
-    @BeforeEach
-    public void setup() {
-        mockMvc = MockMvcBuilders.standaloneSetup(authorizationController).build();
-    }
 
     /**
      * fetchTokenのテスト 正常系
@@ -73,14 +58,16 @@ public class AuthorizationControllerImplTest {
         // サービスのモック化
         Mockito.when(authorizationService.demandToken(demandTokenInModel)).thenReturn(mockDemandTokenOutModel);
 
-        String expectedViewName = "redirect:http://localhost:3000/top";
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        mockMvc.perform(post("/api/rp/token/fetch").content(objectMapper.writeValueAsString(fetchTokenRequest))
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isFound())
-                .andExpect(flash().attribute("demandTokenOutModel", mockDemandTokenOutModel))
-                .andExpect(view().name(expectedViewName));
+        try {
+            // API呼び出し
+            FetchTokenResponse fetchTokenResponse = authorizationController.fetchToken(fetchTokenRequest);
+            // 結果のassert
+            assertEquals("testAccessToken", fetchTokenResponse.getAccessToken());
+            assertEquals("testRefleshToken", fetchTokenResponse.getRefleshToken());
+            assertEquals("testIdToken", fetchTokenResponse.getIdToken());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 }

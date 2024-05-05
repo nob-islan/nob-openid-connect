@@ -64,7 +64,7 @@ public class AuthorizationServiceImplTest {
             // サービス呼び出し
             CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
             // 結果のassert
-            assertEquals("", certificateOutModel.getAuthorizationCode());
+            assertEquals("testAuthorizationCode", certificateOutModel.getAuthorizationCode());
             assertEquals("testRedirectUri", certificateOutModel.getRedirectUri());
         } catch (Exception e) {
             e.printStackTrace();
