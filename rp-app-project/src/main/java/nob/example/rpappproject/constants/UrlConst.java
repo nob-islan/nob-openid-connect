@@ -23,11 +23,6 @@ public class UrlConst {
     public static final String BASE_URL = "/api/rp";
 
     /**
-     * 認可エンドポイントへのリダイレクトAPI
-     */
-    public static final String AUTHORIZATION = "/authorization";
-
-    /**
      * アクセストークン取得API
      */
     public static final String TOKEN_FETCH = "/token/fetch";

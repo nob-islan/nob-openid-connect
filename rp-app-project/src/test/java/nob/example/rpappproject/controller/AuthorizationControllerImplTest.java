@@ -1,6 +1,5 @@
 package nob.example.rpappproject.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,7 +18,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
@@ -46,33 +44,6 @@ public class AuthorizationControllerImplTest {
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders.standaloneSetup(authorizationController).build();
-    }
-
-    /**
-     * redirectAuthorizationのテスト 正常系
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void test_redirectAuthorization_success() throws Exception {
-
-        // モック返却値の作成
-        CalcCodeChallengeOutModel mockCalcCodeChallengeOutModel = new CalcCodeChallengeOutModel();
-        mockCalcCodeChallengeOutModel.setCodeVerifier("testCodeVerifier");
-        mockCalcCodeChallengeOutModel.setCodeChallenge("testCodeChallenge");
-        mockCalcCodeChallengeOutModel.setCodeChallengeMethod("testCodeChallengeMethod");
-
-        // サービスのモック化
-        Mockito.when(authorizationService.redirectAuthorization()).thenReturn(mockCalcCodeChallengeOutModel);
-
-        String expectedViewName = "redirect:http://localhost:8081/api/op/authorization"
-                + "?codeChallenge=testCodeChallenge"
-                + "&codeChallengeMethod=testCodeChallengeMethod"
-                + "&redirectUri=sample";
-
-        mockMvc.perform(get("/api/rp/authorization?redirectUri=sample"))
-                .andExpect(status().isFound())
-                .andExpect(view().name(expectedViewName));
     }
 
     /**

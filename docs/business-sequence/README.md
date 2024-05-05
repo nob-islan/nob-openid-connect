@@ -10,8 +10,8 @@ autonumber
     participant op_web as OpenIDプロバイダ Web
     participant op_app as OpenIDプロバイダ App
 
-    user->>rp_app: OIDC認証開始
-    rp_app-->>+user: リダイレクト
+    user->>rp_web: OIDC認証開始
+    rp_web-->>+user: リダイレクト
     user->>-op_web: <br>
     Note over op_web: 認可要求URI
     op_web->>op_app: 認可要求
