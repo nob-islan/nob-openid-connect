@@ -10,12 +10,6 @@ class UrlConst {
   static readonly RP_APP_BASE_URL = '/api/rp';
 
   /**
-   * 認可エンドポイントへのリダイレクトAPI
-   */
-  static readonly AUTHORIZATION =
-    this.RP_APP_DOMAIN + this.RP_APP_BASE_URL + '/authorization';
-
-  /**
    * アクセストークン取得API
    */
   static readonly TOKEN_FETCH =
@@ -27,9 +21,10 @@ class UrlConst {
   static readonly OP_WEB_DOMAIN = 'http://localhost:3001';
 
   /**
-   * 認証・ユーザ情報提供同意画面
+   * 認可エンドポイントリダイレクト画面
    */
-  static readonly LOGIN = this.OP_WEB_DOMAIN + '/login';
+  static readonly REDIRECT_AUTHORIZE =
+    this.OP_WEB_DOMAIN + '/redirect/authorize';
 }
 
 export default UrlConst;
