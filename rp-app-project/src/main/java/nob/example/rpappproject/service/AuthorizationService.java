@@ -2,7 +2,6 @@ package nob.example.rpappproject.service;
 
 import org.springframework.stereotype.Service;
 
-import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 
@@ -13,13 +12,6 @@ import nob.example.rpappproject.dto.DemandTokenOutModel;
  */
 @Service
 public interface AuthorizationService {
-
-    /**
-     * codeChallengeを計算します。
-     * 
-     * @return codeChallenge
-     */
-    CalcCodeChallengeOutModel redirectAuthorization();
 
     /**
      * アクセストークンを要求します。

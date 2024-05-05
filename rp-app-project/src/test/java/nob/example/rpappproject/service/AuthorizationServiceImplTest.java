@@ -1,14 +1,10 @@
 package nob.example.rpappproject.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
-
-import java.security.MessageDigest;
-import java.util.HexFormat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import nob.example.rpappproject.dto.CalcCodeChallengeOutModel;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.rest.dto.OpIssueTokenResponse;
@@ -38,32 +33,6 @@ public class AuthorizationServiceImplTest {
 
     @Autowired
     private RestTemplate restTemplate;
-
-    /**
-     * redirectAuthorizationのテスト 正常系
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void test_redirectAuthorization_success() throws Exception {
-
-        try {
-            // サービス呼び出し
-            CalcCodeChallengeOutModel calcCodeChallengeOutModel = authorizationService.redirectAuthorization();
-            // 結果のassert
-            assertNotNull(calcCodeChallengeOutModel.getCodeVerifier());
-            assertNotNull(calcCodeChallengeOutModel.getCodeChallenge());
-            assertEquals(calcCodeChallengeOutModel.getCodeChallengeMethod(), "S256");
-            // codeVerifierをハッシュ化して、codeChallengeを一致することを確認
-            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            byte[] sha256Byte = sha256.digest(calcCodeChallengeOutModel.getCodeVerifier().getBytes());
-            HexFormat hex = HexFormat.of().withLowerCase();
-            assertEquals(calcCodeChallengeOutModel.getCodeChallenge(), hex.formatHex(sha256Byte));
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
 
     /**
      * demandTokenのテスト 正常系
