@@ -51,5 +51,5 @@ export const fetchToken = (authorizationCode: string, codeVerifier: string) => {
 const redirectTop = () => {
   // TODO アクセストークン管理
   // トップ画面へリダイレクト
-  window.location.href = '/top';
+  window.location.href = '/top'; // TODO URLを定数管理
 };

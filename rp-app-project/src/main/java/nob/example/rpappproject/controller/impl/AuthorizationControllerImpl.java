@@ -37,12 +37,13 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         // サービスを呼び出してcodeChallengeを計算
         CalcCodeChallengeOutModel calcCodeChallengeOutModel = authorizationService.redirectAuthorization();
 
-        // codeVerifierをCookieに保持
-        Cookie cookie = new Cookie("codeVerifier", calcCodeChallengeOutModel.getCodeVerifier());
-        cookie.setDomain("localhost");
-        cookie.setPath("/");
-        cookie.setMaxAge(600);
-        httpServletResponse.addCookie(cookie);
+        // // codeVerifierをCookieに保持
+        // Cookie cookie = new Cookie("codeVerifier",
+        // calcCodeChallengeOutModel.getCodeVerifier());
+        // cookie.setDomain("localhost");
+        // cookie.setPath("/");
+        // cookie.setMaxAge(600);
+        // httpServletResponse.addCookie(cookie);
 
         // 返却値を作成
         RedirectAuthorizationResponse redirectAuthorizationResponse = new RedirectAuthorizationResponse();
