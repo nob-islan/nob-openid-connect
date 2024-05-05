@@ -1,5 +1,10 @@
 class UrlConst {
   /**
+   * トップ画面
+   */
+  static readonly TOP = '/top';
+
+  /**
    * リライングパーティAPIのドメイン
    */
   static readonly RP_APP_DOMAIN = 'http://localhost:8080';
