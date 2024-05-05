@@ -87,8 +87,6 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         fetchTokenResponse.setAccessToken(demandTokenOutModel.getAccessToken());
         fetchTokenResponse.setRefleshToken(demandTokenOutModel.getRefleshToken());
         fetchTokenResponse.setIdToken(demandTokenOutModel.getIdToken());
-        // modelAndView.setViewName("redirect:" + UrlConst.RP_WEB_ORIGIN +
-        // UrlConst.TOP);
 
         return fetchTokenResponse;
     }
