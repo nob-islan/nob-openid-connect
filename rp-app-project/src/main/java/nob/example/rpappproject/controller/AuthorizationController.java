@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,6 +14,7 @@ import nob.example.rpappproject.constants.UrlConst;
 import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.dto.FetchTokenResponse;
 import nob.example.rpappproject.dto.RedirectAuthorizationRequest;
+import nob.example.rpappproject.dto.RedirectAuthorizationResponse;
 
 /**
  * 認証向けコントローラーのインターフェースです。
@@ -33,7 +33,8 @@ public interface AuthorizationController {
      */
     @GetMapping(value = UrlConst.AUTHORIZATION)
     @Operation(summary = "認可エンドポイントへのリダイレクト", description = "${rpapidoc.describe.authorization.redirect-authorization:説明文}")
-    ModelAndView redirectAuthorization(@ParameterObject RedirectAuthorizationRequest redirectAuthorizationRequest,
+    RedirectAuthorizationResponse redirectAuthorization(
+            @ParameterObject RedirectAuthorizationRequest redirectAuthorizationRequest,
             HttpServletResponse httpServletResponse);
 
     /**
