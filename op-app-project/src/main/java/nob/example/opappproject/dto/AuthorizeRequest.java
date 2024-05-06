@@ -13,6 +13,12 @@ import lombok.Data;
 public class AuthorizeRequest {
 
     /**
+     * クライアントID
+     */
+    @Schema(description = "クライアントID", type = "string", example = "nobClient")
+    private String clientId;
+
+    /**
      * codeVerifierをハッシュ化した値
      */
     @Schema(description = "codeVerifierをハッシュ化した値", type = "string", example = "xyz789")

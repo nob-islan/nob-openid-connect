@@ -1,18 +1,18 @@
 import axios from 'axios';
 import UrlConst from '../constants/UrlConst';
 
-export const RedirectAuthorizeActionType = {};
+export const CallAuthorizeActionType = {};
 
 /**
  * リクエスト用のペイロード
  */
-export type RedirectAuthorizeActionPayload = {};
+export type CallAuthorizeActionPayload = {};
 
 type ValueOf<T> = T[keyof T];
 
-export type RedirectAuthorizeAction = {
-  type: ValueOf<typeof RedirectAuthorizeActionType>;
-  payload: RedirectAuthorizeActionPayload;
+export type CallAuthorizeAction = {
+  type: ValueOf<typeof CallAuthorizeActionType>;
+  payload: CallAuthorizeActionPayload;
 };
 
 /**
@@ -24,18 +24,22 @@ export type RedirectAuthorizeAction = {
  * @returns
  */
 export const authorize = (
+  clientId: string,
   redirectUri: string,
   codeChallenge: string,
   codeChallengeMethod: string
 ) => {
-  // クエリパラメータ
+  // クエリパラメータ作成
   const queryParam =
-    '?redirectUri=' +
+    '?clientId=' +
+    clientId +
+    '&redirectUri=' +
     redirectUri +
     '&codeChallenge=' +
     codeChallenge +
     '&codeChallengeMethod=' +
     codeChallengeMethod;
+  // 認可APIをコールし、例外が発生しなければログイン画面に遷移
   return async () => {
     await axios
       .get(UrlConst.AUTHORIZATION + queryParam)

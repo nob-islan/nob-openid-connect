@@ -12,10 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import nob.example.opappproject.dto.AuthorizeInModel;
+import nob.example.opappproject.dto.AuthorizeOutModel;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
+import nob.example.opappproject.dto.RedirectUriSelectKey;
 import nob.example.opappproject.dto.UserCredentialSelectKey;
+import nob.example.opappproject.entity.ClientInfo;
 import nob.example.opappproject.entity.UserInfo;
+import nob.example.opappproject.repository.ClientInfoRepository;
 import nob.example.opappproject.repository.UserInfoRepository;
 
 /**
@@ -30,7 +35,47 @@ public class AuthorizationServiceImplTest {
     private AuthorizationService authorizationService;
 
     @MockBean
+    private ClientInfoRepository clientInfoRepository;
+
+    @MockBean
     private UserInfoRepository userInfoRepository;
+
+    /**
+     * authorizeのテスト 正常系
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_authorize_success() throws Exception {
+
+        // 入力値の作成
+        AuthorizeInModel authorizeInModel = new AuthorizeInModel();
+        authorizeInModel.setClientId("testClientId");
+        authorizeInModel.setRedirectUri("testRedirectUri");
+
+        // repository呼び出し想定のkey作成
+        RedirectUriSelectKey redirectUriSelectKey = new RedirectUriSelectKey();
+        redirectUriSelectKey.setClientId("testClientId");
+
+        // モックレスポンス作成
+        ClientInfo mockClientInfo = new ClientInfo();
+        mockClientInfo.setRedirectUri("testRedirectUri");
+        List<ClientInfo> mockClientInfoList = new ArrayList<ClientInfo>();
+        mockClientInfoList.add(mockClientInfo);
+
+        // repositoryモック化
+        Mockito.when(clientInfoRepository.selectRedirectUri(redirectUriSelectKey)).thenReturn(mockClientInfoList);
+
+        try {
+            // サービス呼び出し
+            AuthorizeOutModel authorizeOutModel = authorizationService.authorize(authorizeInModel);
+            // 結果のassert
+            assertEquals("testRedirectUri", authorizeOutModel.getRedirectUri());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 
     /**
      * certificateのテスト 正常系

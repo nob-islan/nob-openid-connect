@@ -15,19 +15,19 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import nob.example.opappproject.dto.UserCredentialSelectKey;
-import nob.example.opappproject.entity.UserInfo;
+import nob.example.opappproject.dto.RedirectUriSelectKey;
+import nob.example.opappproject.entity.ClientInfo;
 
 /**
- * UserInfoRepositoryImplのテストクラスです。
+ * ClientInfoRepositoryImplのテストクラスです。
  * 
  * @author nob
  */
 @SpringBootTest
 @Testcontainers(disabledWithoutDocker = true)
-public class UserInfoRepositoryImplTest {
+public class ClientInfoRepositoryImplTest {
 
-    // データベースのコンテナイメージなど、DB構築に必要な設定値
+    // データベースのコンテナイメージなど、DB構築に必要な設定値です。
     static final DockerImageName MARIA_DB_IMAGE_NAME = DockerImageName.parse("mariadb").withTag("10.5");
     static final String DATABASE_NAME = "OPDB";
     static final String USER_NAME = "root";
@@ -39,7 +39,7 @@ public class UserInfoRepositoryImplTest {
             .withDatabaseName(DATABASE_NAME)
             .withUsername(USER_NAME)
             .withPassword(PASSWORD)
-            .withInitScript("repository/userinfo/create_table.sql");
+            .withInitScript("repository/clientinfo/create_table.sql");
 
     // 接続情報などの設定値を投入
     @DynamicPropertySource
@@ -50,27 +50,27 @@ public class UserInfoRepositoryImplTest {
     }
 
     @Autowired
-    private UserInfoRepository userInfoRepository;
+    private ClientInfoRepository clientInfoRepository;
 
     /**
-     * selectUserCredentialのテスト 正常系
+     * selectRedirectUriのテスト 正常系
      * 
      * @throws Exception
      */
     @Test
-    public void test_selectUserCredential_success() throws Exception {
+    public void test_selectRedirectUri_success() throws Exception {
 
         // 検索条件の設定
-        UserCredentialSelectKey userCredentialSelectKey = new UserCredentialSelectKey();
-        userCredentialSelectKey.setUserId("nob");
-        userCredentialSelectKey.setPassword("p@ssw0rd");
+        RedirectUriSelectKey redirectUriSelectKey = new RedirectUriSelectKey();
+        redirectUriSelectKey.setClientId("testClient");
 
         try {
             // repository呼び出し
-            List<UserInfo> userInfoList = userInfoRepository.selectUserCredential(userCredentialSelectKey);
+            List<ClientInfo> clientInfoList = clientInfoRepository.selectRedirectUri(redirectUriSelectKey);
             // 結果のassert
-            assertEquals(1, userInfoList.size());
-            assertEquals("nob", userInfoList.get(0).getUserId());
+            assertEquals(1, clientInfoList.size());
+            assertEquals("http://example.nob/sample",
+                    clientInfoList.get(0).getRedirectUri());
         } catch (Exception e) {
             e.printStackTrace();
             fail();

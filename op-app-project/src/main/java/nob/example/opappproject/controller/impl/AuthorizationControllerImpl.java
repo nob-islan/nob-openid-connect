@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import nob.example.opappproject.controller.AuthorizationController;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
+import nob.example.opappproject.dto.AuthorizeInModel;
+import nob.example.opappproject.dto.AuthorizeOutModel;
 import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.AuthorizeResponse;
 import nob.example.opappproject.dto.CertificateRequest;
@@ -32,11 +34,15 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public AuthorizeResponse authorize(AuthorizeRequest authorizeRequest) {
 
-        // TODO リダイレクトURI検証、OKであればoutModelにセットする。今は暫定でノールックでセットしている。
+        // リダイレクトURI検証
+        AuthorizeInModel authorizeInModel = new AuthorizeInModel();
+        authorizeInModel.setClientId(authorizeRequest.getClientId());
+        authorizeInModel.setRedirectUri(authorizeRequest.getRedirectUri());
+        AuthorizeOutModel authorizeOutModel = authorizationService.authorize(authorizeInModel);
 
         // 返却値の作成
         AuthorizeResponse authorizeResponse = new AuthorizeResponse();
-        authorizeResponse.setRedirectUri(authorizeRequest.getRedirectUri());
+        authorizeResponse.setRedirectUri(authorizeOutModel.getRedirectUri());
 
         return authorizeResponse;
     }
@@ -48,7 +54,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public CertificateResponse certificate(CertificateRequest certificateRequest) {
 
-        // TODO DBにcodeChallengeを保持
+        // TODO DBにcodeChallengeを保持（ここでやる？authorizeでやる？ #59で対応）
 
         // inModel作成
         CertificateInModel certificateInModel = new CertificateInModel();

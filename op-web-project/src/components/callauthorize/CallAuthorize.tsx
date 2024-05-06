@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 import { store } from '../..';
-import { authorize } from '../../actions/RedirectAuthorizeAction';
+import { authorize } from '../../actions/CallAuthorizeAction';
 import { useLocation } from 'react-router-dom';
 
 interface Props {}
 
 /**
- * 認可APIをコールするリダイレクト用の画面です。
+ * 認可APIをコールする用の画面です。
  *
  * @param props
  * @returns
  */
-const RedirectAuthorize: React.FC<Props> = (props) => {
+const CallAuthorize: React.FC<Props> = (props) => {
   const search: string = useLocation().search;
 
   /**
@@ -20,14 +20,17 @@ const RedirectAuthorize: React.FC<Props> = (props) => {
   useEffect(() => {
     // リダイレクトURIを取得
     const query = new URLSearchParams(search) || '';
+    const clientId = query.get('clientId') || '';
     const redirectUri = query.get('redirectUri') || '';
     const codeChallenge = query.get('codeChallenge') || '';
     const codeChallengeMethod = query.get('codeChallengeMethod') || '';
     // 認可APIをコール
-    store.dispatch(authorize(redirectUri, codeChallenge, codeChallengeMethod));
+    store.dispatch(
+      authorize(clientId, redirectUri, codeChallenge, codeChallengeMethod)
+    );
   }, [search]);
 
   return <>リダイレクト中…</>;
 };
 
-export default RedirectAuthorize;
+export default CallAuthorize;
