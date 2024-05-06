@@ -47,7 +47,7 @@ export const redirectAuthorization = (
       codeChallenge +
       '&codeChallengeMethod=' +
       codeChallengeMethod;
-    window.location.href = UrlConst.REDIRECT_AUTHORIZE + queryParam;
+    window.location.href = UrlConst.LOGIN + queryParam;
   };
 };
 

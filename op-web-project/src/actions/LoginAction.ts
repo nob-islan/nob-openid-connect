@@ -37,6 +37,36 @@ export type LoginAction = {
 };
 
 /**
+ * 認可APIをコールします。
+ *
+ * @param redirectUri
+ * @param codeChallenge
+ * @param codeChallengeMethod
+ * @returns
+ */
+export const authorize = (
+  clientId: string,
+  redirectUri: string,
+  codeChallenge: string,
+  codeChallengeMethod: string
+) => {
+  // クエリパラメータ作成
+  const queryParam =
+    '?clientId=' +
+    clientId +
+    '&redirectUri=' +
+    redirectUri +
+    '&codeChallenge=' +
+    codeChallenge +
+    '&codeChallengeMethod=' +
+    codeChallengeMethod;
+  // 認可APIをコールし、例外が発生しなければログイン画面を表示
+  return async () => {
+    await axios.get(UrlConst.AUTHORIZATION + queryParam);
+  };
+};
+
+/**
  * 認証APIをコールしてユーザID, パスワードを検証します。
  *
  * @returns
