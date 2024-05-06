@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'browser-cookies';
 import UrlConst from '../constants/UrlConst';
 import { loginFormName } from '../components/login/Login';
 import { formValueSelector } from 'redux-form';
@@ -62,8 +63,17 @@ export const authorize = (
     codeChallengeMethod;
   // 認可APIをコールし、例外が発生しなければログイン画面を表示
   return async () => {
-    await axios.get(UrlConst.AUTHORIZATION + queryParam);
+    await axios
+      .get(UrlConst.AUTHORIZATION + queryParam)
+      .then(() => beforeDrawLogin(codeChallenge));
   };
+};
+
+/**
+ * ログイン画面描画前の処理です。
+ */
+const beforeDrawLogin = (codeChallenge: string) => {
+  Cookies.set('codeChallenge', codeChallenge);
 };
 
 /**
