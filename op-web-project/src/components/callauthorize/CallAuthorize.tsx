@@ -20,11 +20,14 @@ const CallAuthorize: React.FC<Props> = (props) => {
   useEffect(() => {
     // リダイレクトURIを取得
     const query = new URLSearchParams(search) || '';
+    const clientId = query.get('clientId') || '';
     const redirectUri = query.get('redirectUri') || '';
     const codeChallenge = query.get('codeChallenge') || '';
     const codeChallengeMethod = query.get('codeChallengeMethod') || '';
     // 認可APIをコール
-    store.dispatch(authorize(redirectUri, codeChallenge, codeChallengeMethod));
+    store.dispatch(
+      authorize(clientId, redirectUri, codeChallenge, codeChallengeMethod)
+    );
   }, [search]);
 
   return <>リダイレクト中…</>;

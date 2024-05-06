@@ -24,13 +24,16 @@ export type CallAuthorizeAction = {
  * @returns
  */
 export const authorize = (
+  clientId: string,
   redirectUri: string,
   codeChallenge: string,
   codeChallengeMethod: string
 ) => {
-  // クエリパラメータ
+  // クエリパラメータ作成
   const queryParam =
-    '?redirectUri=' +
+    '?clientId=' +
+    clientId +
+    '&redirectUri=' +
     redirectUri +
     '&codeChallenge=' +
     codeChallenge +

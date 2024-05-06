@@ -1,12 +1,12 @@
 import Cookies from 'browser-cookies';
 import UrlConst from '../constants/UrlConst';
 
-export const SigninActionType = {};
+export const RedirectAuthorizationActionType = {};
 
 /**
  * リクエスト用のペイロード
  */
-export type SigninActionPayload = {
+export type RedirectAuthorizationActionPayload = {
   redirectUri: string;
 };
 
@@ -16,8 +16,8 @@ type ValueOf<T> = T[keyof T];
  * 認証開始時のアクションです。
  */
 export type SigninAction = {
-  type: ValueOf<typeof SigninActionType>;
-  payload: SigninActionPayload;
+  type: ValueOf<typeof RedirectAuthorizationActionType>;
+  payload: RedirectAuthorizationActionPayload;
 };
 
 /**
@@ -26,7 +26,10 @@ export type SigninAction = {
  * @param redirectUri
  * @returns
  */
-export const redirectAuthorization = (redirectUri: string) => {
+export const redirectAuthorization = (
+  clientId: string,
+  redirectUri: string
+) => {
   return async () => {
     const codeChallengeMethod: string = 'S256';
     // codeVerifierを生成してCookieに保持
@@ -34,9 +37,11 @@ export const redirectAuthorization = (redirectUri: string) => {
     Cookies.set('codeVerifier', codeVerifier);
     // codeChallengeを計算
     const codeChallenge: string = calcCodeChallenge(codeVerifier);
-    // クエリパラメータ
+    // クエリパラメータ作成
     const queryParam =
-      '?redirectUri=' +
+      '?clientId=' +
+      clientId +
+      '&redirectUri=' +
       redirectUri +
       '&codeChallenge=' +
       codeChallenge +
