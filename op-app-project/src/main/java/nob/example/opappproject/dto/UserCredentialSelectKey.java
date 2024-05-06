@@ -3,7 +3,7 @@ package nob.example.opappproject.dto;
 import lombok.Data;
 
 /**
- * ユーザクレデンシャル検証の検索条件dtoです。
+ * ユーザクレデンシャル取得の検索条件dtoです。
  * 
  * @author nob
  */

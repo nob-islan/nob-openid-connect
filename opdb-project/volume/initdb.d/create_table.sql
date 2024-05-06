@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS user_info (
     , PRIMARY KEY(user_id)
 );
 
--- TODO テーブル作成 client_info
+-- テーブル作成 client_info
 CREATE TABLE IF NOT EXISTS client_info (
     client_id VARCHAR(10) NOT NULL
     , client_secret VARCHAR(32) NOT NULL
@@ -28,7 +28,7 @@ LOAD DATA LOCAL INFILE '/csv/user_info.csv'
     IGNORE 1 ROWS
         (user_id, password);
 
--- TODO client_info投入
+-- client_info投入
 LOAD DATA LOCAL INFILE '/csv/client_info.csv'
     INTO TABLE
         client_info
