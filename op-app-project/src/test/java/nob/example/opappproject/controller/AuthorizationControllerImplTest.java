@@ -11,6 +11,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificateResponse;
+import nob.example.opappproject.dto.AuthorizeInModel;
+import nob.example.opappproject.dto.AuthorizeOutModel;
 import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.AuthorizeResponse;
 import nob.example.opappproject.dto.CertificateInModel;
@@ -41,9 +43,22 @@ public class AuthorizationControllerImplTest {
 
         // 入力値の作成
         AuthorizeRequest authorizeRequest = new AuthorizeRequest();
+        authorizeRequest.setClientId("testClientId");
         authorizeRequest.setCodeChallenge("testCodeChallenge");
         authorizeRequest.setCodeChallengeMethod("S256");
         authorizeRequest.setRedirectUri("testRedirectUri");
+
+        // サービス呼び出し想定のinModel作成
+        AuthorizeInModel authorizeInModel = new AuthorizeInModel();
+        authorizeInModel.setClientId("testClientId");
+        authorizeInModel.setRedirectUri("testRedirectUri");
+
+        // モックレスポンス作成
+        AuthorizeOutModel mockAuthorizeOutModel = new AuthorizeOutModel();
+        mockAuthorizeOutModel.setRedirectUri("testRedirectUri");
+
+        // サービスのモック化
+        Mockito.when(authorizationService.authorize(authorizeInModel)).thenReturn(mockAuthorizeOutModel);
 
         try {
             // API呼び出し

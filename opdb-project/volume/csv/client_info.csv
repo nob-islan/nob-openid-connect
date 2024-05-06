@@ -1,2 +1,2 @@
 client_id,client_secret,redirect_uri
-nob_client,nob_client,http://localhost:3000/redirect/fetchtoken
+nobClient,nobClient,http://localhost:3000/redirect/fetchtoken
