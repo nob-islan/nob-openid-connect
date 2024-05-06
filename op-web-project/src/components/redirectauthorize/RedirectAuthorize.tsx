@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { store } from '../..';
 import { authorize } from '../../actions/RedirectAuthorizeAction';
 import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 interface Props {}
 
@@ -14,7 +13,6 @@ interface Props {}
  */
 const RedirectAuthorize: React.FC<Props> = (props) => {
   const search: string = useLocation().search;
-  const dispatch = useDispatch();
 
   /**
    * 初期表示処理です。
@@ -25,9 +23,9 @@ const RedirectAuthorize: React.FC<Props> = (props) => {
     const redirectUri = query.get('redirectUri') || '';
     const codeChallenge = query.get('codeChallenge') || '';
     const codeChallengeMethod = query.get('codeChallengeMethod') || '';
-    // 認可エンドポイントをコールします。
+    // 認可APIをコール
     store.dispatch(authorize(redirectUri, codeChallenge, codeChallengeMethod));
-  }, [dispatch, search]);
+  }, [search]);
 
   return <>リダイレクト中…</>;
 };

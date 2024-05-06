@@ -4,12 +4,7 @@ import { loginFormName } from '../components/login/Login';
 import { formValueSelector } from 'redux-form';
 import { store } from '..';
 
-export const LoginActionType = {
-  /**
-   * リダイレクトURIを保持します。
-   */
-  UPDATE_REDIRECT_URI: 'UPDATE_REDIRECT_URI'
-};
+export const LoginActionType = {};
 
 /**
  * リクエスト用のペイロード
@@ -18,17 +13,17 @@ export type LoginActionPayload = {
   /**
    *ユーザID
    */
-  userId?: string;
+  userId: string;
 
   /**
    * パスワード
    */
-  password?: string;
+  password: string;
 
   /**
    * リダイレクトURI
    */
-  redirectUri?: string;
+  redirectUri: string;
 };
 
 type ValueOf<T> = T[keyof T];
@@ -42,25 +37,17 @@ export type LoginAction = {
 };
 
 /**
- * リダイレクトURIを保持します。
- */
-export const updateRedirectUri = (redirectUri: string): LoginAction => ({
-  type: LoginActionType.UPDATE_REDIRECT_URI,
-  payload: { redirectUri: redirectUri }
-});
-
-/**
- * ユーザID, パスワードを検証します。
+ * 認証APIをコールしてユーザID, パスワードを検証します。
  *
  * @returns
  */
-export const verifyCredential = () => {
+export const certification = (redirectUri: string) => {
   const selector = formValueSelector(loginFormName);
   return async () => {
     const request: LoginActionPayload = {
       userId: selector(store.getState(), 'userId'),
       password: selector(store.getState(), 'password'),
-      redirectUri: store.getState().login.redirectUri
+      redirectUri: redirectUri
     };
     await axios
       .post(UrlConst.CERTIFICATION, request)
