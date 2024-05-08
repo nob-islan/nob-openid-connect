@@ -57,21 +57,18 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     public CertificateResponse certificate(CertificateRequest certificateRequest,
             HttpServletRequest httpServletRequest) {
 
-        // CookieからcodeChallengeを取得
-        String codeChallenge = "";
-        Cookie[] cookies = httpServletRequest.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("codeChallenge")) {
-                codeChallenge = cookie.getValue();
-            }
-        }
-
         // inModel作成
         CertificateInModel certificateInModel = new CertificateInModel();
         certificateInModel.setUserId(certificateRequest.getUserId());
         certificateInModel.setPassword(certificateRequest.getPassword());
         certificateInModel.setRedirectUri(certificateRequest.getRedirectUri());
-        certificateInModel.setCodeChallenge(codeChallenge);
+        Cookie[] cookies = httpServletRequest.getCookies();
+        for (Cookie cookie : cookies) {
+            // CookieからcodeChallengeを取得してinModelにセット
+            if (cookie.getName().equals("codeChallenge")) {
+                certificateInModel.setCodeChallenge(cookie.getValue());
+            }
+        }
 
         // TODO サービス内にて認可コードおよびcodeChallenge保存
 
