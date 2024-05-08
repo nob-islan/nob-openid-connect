@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { fetchToken } from '../../actions/RedirectFetchTokenAction';
 import { store } from '../..';
-import Cookies from 'browser-cookies';
 
 interface Props {}
 
@@ -21,7 +20,7 @@ const RedirectFetchToken: React.FC<Props> = (props) => {
     // 認可コードおよびcodeVerifierを取得
     const query = new URLSearchParams(search) || '';
     const authorizationCode = query.get('authorizationCode') || '';
-    const codeVerifier = Cookies.get('codeVerifier') || '';
+    const codeVerifier = sessionStorage.getItem('codeVerifier') || '';
     // 認可エンドポイントをコール
     store.dispatch(fetchToken(authorizationCode, codeVerifier));
   }, [search]);

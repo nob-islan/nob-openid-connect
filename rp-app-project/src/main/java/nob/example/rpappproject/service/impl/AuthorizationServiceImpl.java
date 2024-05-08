@@ -46,7 +46,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         opIssueTokenRequest.setAuthorizationCode(demandTokenInModel.getAuthorizationCode());
         opIssueTokenRequest.setCodeVerifier(demandTokenInModel.getCodeVerifier());
 
-        // OP トークン発行API呼び出し // TODO restTemplate.exchange共通化検討
+        // OP トークン発行API呼び出し
         ResponseEntity<OpIssueTokenResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
                 new HttpEntity(opIssueTokenRequest, new HttpHeaders()), OpIssueTokenResponse.class);
 
