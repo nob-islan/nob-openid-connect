@@ -1,4 +1,3 @@
-import Cookies from 'browser-cookies';
 import UrlConst from '../constants/UrlConst';
 
 export const RedirectAuthorizationActionType = {};
@@ -32,9 +31,9 @@ export const redirectAuthorization = (
 ) => {
   return async () => {
     const codeChallengeMethod: string = 'S256';
-    // codeVerifierを生成してCookieに保持
+    // codeVerifierを生成してセッションストレージに保持
     const codeVerifier: string = createCodeVerifer();
-    Cookies.set('codeVerifier', codeVerifier);
+    sessionStorage.setItem('codeVerifier', codeVerifier);
     // codeChallengeを計算
     const codeChallenge: string = calcCodeChallenge(codeVerifier);
     // クエリパラメータ作成
@@ -47,7 +46,7 @@ export const redirectAuthorization = (
       codeChallenge +
       '&codeChallengeMethod=' +
       codeChallengeMethod;
-    window.location.href = UrlConst.REDIRECT_AUTHORIZE + queryParam;
+    window.location.href = UrlConst.LOGIN + queryParam;
   };
 };
 

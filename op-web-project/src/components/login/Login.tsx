@@ -1,8 +1,9 @@
 import styles from './Login.module.scss';
-import { certification } from '../../actions/LoginAction';
+import { authorize, certification } from '../../actions/LoginAction';
 import { store } from '../..';
 import { Field, reduxForm } from 'redux-form';
 import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 interface Props {}
 
@@ -14,6 +15,22 @@ export const loginFormName = 'LoginForm';
  */
 const Login: React.FC<Props> = (props) => {
   const search: string = useLocation().search;
+
+  /**
+   * 初期表示処理です。
+   */
+  useEffect(() => {
+    // リダイレクトURIを取得
+    const query = new URLSearchParams(search) || '';
+    const clientId = query.get('clientId') || '';
+    const redirectUri = query.get('redirectUri') || '';
+    const codeChallenge = query.get('codeChallenge') || '';
+    const codeChallengeMethod = query.get('codeChallengeMethod') || '';
+    // 認可APIをコール
+    store.dispatch(
+      authorize(clientId, redirectUri, codeChallenge, codeChallengeMethod)
+    );
+  }, [search]);
 
   /**
    * 認証APIをコールします。

@@ -24,4 +24,9 @@ public class CertificateInModel {
      * リダイレクトURI
      */
     private String redirectUri;
+
+    /**
+     * codeVerifierをハッシュ化した値
+     */
+    private String codeChallenge;
 }

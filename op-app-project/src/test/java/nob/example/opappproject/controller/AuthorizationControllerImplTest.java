@@ -8,7 +8,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockHttpServletRequest;
 
+import jakarta.servlet.http.Cookie;
 import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.dto.AuthorizeInModel;
@@ -85,11 +87,18 @@ public class AuthorizationControllerImplTest {
         certificateRequest.setPassword("testPassword");
         certificateRequest.setRedirectUri("testRedirectUri");
 
+        // モックHttpServletRequest作成
+        MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+        Cookie mockCookie = new Cookie("codeChallenge", "testCodeChallenge");
+        Cookie[] mockCookies = { mockCookie };
+        mockHttpServletRequest.setCookies(mockCookies);
+
         // サービス呼び出し想定のinModel作成
         CertificateInModel certificateInModel = new CertificateInModel();
         certificateInModel.setUserId("testUserId");
         certificateInModel.setPassword("testPassword");
         certificateInModel.setRedirectUri("testRedirectUri");
+        certificateInModel.setCodeChallenge("testCodeChallenge");
 
         // モックレスポンス作成
         CertificateOutModel mockCertificateOutModel = new CertificateOutModel();
@@ -101,7 +110,8 @@ public class AuthorizationControllerImplTest {
 
         try {
             // API呼び出し
-            CertificateResponse certificateResponse = authorizationController.certificate(certificateRequest);
+            CertificateResponse certificateResponse = authorizationController.certificate(certificateRequest,
+                    mockHttpServletRequest);
             // 結果のassert
             assertEquals("testAuthorizationCode", certificateResponse.getAuthorizationCode());
             assertEquals("testRedirectUri", certificateResponse.getRedirectUri());

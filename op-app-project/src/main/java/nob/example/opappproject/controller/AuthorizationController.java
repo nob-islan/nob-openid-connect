@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import nob.example.opappproject.constants.UrlConst;
 import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.AuthorizeResponse;
@@ -45,7 +46,8 @@ public interface AuthorizationController {
      */
     @PostMapping(value = UrlConst.CERTIFICATION)
     @Operation(summary = "認証", description = "${opapidoc.describe.authorization.certificate:説明文}")
-    CertificateResponse certificate(@RequestBody CertificateRequest certificateRequest);
+    CertificateResponse certificate(@RequestBody CertificateRequest certificateRequest,
+            HttpServletRequest httpServletRequest);
 
     /**
      * アクセストークンを発行します。

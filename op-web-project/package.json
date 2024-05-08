@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.2.22",
     "@types/redux-form": "^8.3.10",
     "axios": "^1.6.8",
+    "browser-cookies": "^1.2.0",
     "node": "^21.7.1",
     "node-sass": "^9.0.0",
     "react": "^18.2.0",

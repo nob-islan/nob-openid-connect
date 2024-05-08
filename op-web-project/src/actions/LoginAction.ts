@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'browser-cookies';
 import UrlConst from '../constants/UrlConst';
 import { loginFormName } from '../components/login/Login';
 import { formValueSelector } from 'redux-form';
@@ -37,6 +38,45 @@ export type LoginAction = {
 };
 
 /**
+ * 認可APIをコールします。
+ *
+ * @param redirectUri
+ * @param codeChallenge
+ * @param codeChallengeMethod
+ * @returns
+ */
+export const authorize = (
+  clientId: string,
+  redirectUri: string,
+  codeChallenge: string,
+  codeChallengeMethod: string
+) => {
+  // クエリパラメータ作成
+  const queryParam =
+    '?clientId=' +
+    clientId +
+    '&redirectUri=' +
+    redirectUri +
+    '&codeChallenge=' +
+    codeChallenge +
+    '&codeChallengeMethod=' +
+    codeChallengeMethod;
+  // 認可APIをコールし、例外が発生しなければ描画前処理を行いログイン画面を表示
+  return async () => {
+    await axios
+      .get(UrlConst.AUTHORIZATION + queryParam)
+      .then(() => preDrawLogin(codeChallenge));
+  };
+};
+
+/**
+ * ログイン画面描画前の処理です。
+ */
+const preDrawLogin = (codeChallenge: string) => {
+  Cookies.set('codeChallenge', codeChallenge);
+};
+
+/**
  * 認証APIをコールしてユーザID, パスワードを検証します。
  *
  * @returns
@@ -50,7 +90,7 @@ export const certification = (redirectUri: string) => {
       redirectUri: redirectUri
     };
     await axios
-      .post(UrlConst.CERTIFICATION, request)
+      .post(UrlConst.CERTIFICATION, request, { withCredentials: true })
       .then((response) =>
         redirectToRedirectUri(
           response.data.redirectUri,

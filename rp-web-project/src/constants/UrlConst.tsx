@@ -26,10 +26,9 @@ class UrlConst {
   static readonly OP_WEB_DOMAIN = 'http://localhost:3001';
 
   /**
-   * 認可エンドポイントリダイレクト画面
+   * 認可要求URI
    */
-  static readonly REDIRECT_AUTHORIZE =
-    this.OP_WEB_DOMAIN + '/redirect/authorize';
+  static readonly LOGIN = this.OP_WEB_DOMAIN + '/login';
 }
 
 export default UrlConst;

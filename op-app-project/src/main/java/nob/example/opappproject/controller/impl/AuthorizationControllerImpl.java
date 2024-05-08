@@ -3,6 +3,8 @@ package nob.example.opappproject.controller.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import nob.example.opappproject.controller.AuthorizationController;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
@@ -52,15 +54,23 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * 
      */
     @Override
-    public CertificateResponse certificate(CertificateRequest certificateRequest) {
-
-        // TODO DBにcodeChallengeを保持（ここでやる？authorizeでやる？ #59で対応）
+    public CertificateResponse certificate(CertificateRequest certificateRequest,
+            HttpServletRequest httpServletRequest) {
 
         // inModel作成
         CertificateInModel certificateInModel = new CertificateInModel();
         certificateInModel.setUserId(certificateRequest.getUserId());
         certificateInModel.setPassword(certificateRequest.getPassword());
         certificateInModel.setRedirectUri(certificateRequest.getRedirectUri());
+        Cookie[] cookies = httpServletRequest.getCookies();
+        for (Cookie cookie : cookies) {
+            // CookieからcodeChallengeを取得してinModelにセット
+            if (cookie.getName().equals("codeChallenge")) {
+                certificateInModel.setCodeChallenge(cookie.getValue());
+            }
+        }
+
+        // TODO サービス内にて認可コードおよびcodeChallenge保存
 
         // サービス呼び出し
         CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
