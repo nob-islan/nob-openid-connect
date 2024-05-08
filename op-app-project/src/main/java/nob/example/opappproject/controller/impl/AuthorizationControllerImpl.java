@@ -53,7 +53,6 @@ public class AuthorizationControllerImpl implements AuthorizationController {
      * {@inheritDoc}
      * 
      */
-    @SuppressWarnings("unused")
     @Override
     public CertificateResponse certificate(CertificateRequest certificateRequest,
             HttpServletRequest httpServletRequest) {
