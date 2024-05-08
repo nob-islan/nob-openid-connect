@@ -58,16 +58,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     public CertificateResponse certificate(CertificateRequest certificateRequest,
             HttpServletRequest httpServletRequest) {
 
-        // inModel作成
-        CertificateInModel certificateInModel = new CertificateInModel();
-        certificateInModel.setUserId(certificateRequest.getUserId());
-        certificateInModel.setPassword(certificateRequest.getPassword());
-        certificateInModel.setRedirectUri(certificateRequest.getRedirectUri());
-
-        // サービス呼び出し
-        CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
-
-        // CookieからcodeChallengeを取得し、認可コードと紐づけて保存
+        // CookieからcodeChallengeを取得
         String codeChallenge = "";
         Cookie[] cookies = httpServletRequest.getCookies();
         for (Cookie cookie : cookies) {
@@ -75,7 +66,18 @@ public class AuthorizationControllerImpl implements AuthorizationController {
                 codeChallenge = cookie.getValue();
             }
         }
-        // TODO 認可コードおよびcodeChallenge保存
+
+        // inModel作成
+        CertificateInModel certificateInModel = new CertificateInModel();
+        certificateInModel.setUserId(certificateRequest.getUserId());
+        certificateInModel.setPassword(certificateRequest.getPassword());
+        certificateInModel.setRedirectUri(certificateRequest.getRedirectUri());
+        certificateInModel.setCodeChallenge(codeChallenge);
+
+        // TODO サービス内にて認可コードおよびcodeChallenge保存
+
+        // サービス呼び出し
+        CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
 
         // 返却値の作成
         CertificateResponse certificateResponse = new CertificateResponse();

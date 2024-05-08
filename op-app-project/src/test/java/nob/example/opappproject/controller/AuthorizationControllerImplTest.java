@@ -98,6 +98,7 @@ public class AuthorizationControllerImplTest {
         certificateInModel.setUserId("testUserId");
         certificateInModel.setPassword("testPassword");
         certificateInModel.setRedirectUri("testRedirectUri");
+        certificateInModel.setCodeChallenge("testCodeChallenge");
 
         // モックレスポンス作成
         CertificateOutModel mockCertificateOutModel = new CertificateOutModel();
