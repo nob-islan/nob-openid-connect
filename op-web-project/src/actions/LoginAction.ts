@@ -90,7 +90,7 @@ export const certification = (redirectUri: string) => {
       redirectUri: redirectUri
     };
     await axios
-      .post(UrlConst.CERTIFICATION, request)
+      .post(UrlConst.CERTIFICATION, request, { withCredentials: true })
       .then((response) =>
         redirectToRedirectUri(
           response.data.redirectUri,
