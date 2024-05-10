@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { store } from '../..';
 import { redirectAuthorization } from '../../actions/RedirectAuthorizationAction';
+import ParamConst from '../../constants/ParamConst';
 
 interface Props {}
 
@@ -17,12 +18,10 @@ const RedirectAuthorization: React.FC<Props> = (props) => {
    * 初期表示処理です。
    */
   useEffect(() => {
-    // リダイレクトURI、クライアントIDをクエリパラメータから取得
-    const query = new URLSearchParams(search) || '';
-    const redirectUri = query.get('redirectUri') || '';
-    const clientId = query.get('clientId') || '';
     // 認可エンドポイントへのリダイレクトAPIをコール
-    store.dispatch(redirectAuthorization(clientId, redirectUri));
+    store.dispatch(
+      redirectAuthorization(ParamConst.CLIENT_ID, ParamConst.REDIRECT_URI)
+    );
   }, [search]);
 
   return <>認証開始</>;
