@@ -98,7 +98,7 @@ state を更新するクラスを配置します。
 
 ## 開発メモ
 
-認証開始: `localhost:3000/redirect/authorization?clientId=nobClient&redirectUri=http%3A%2F%2Flocalhost%3A3000%2Fredirect%2Ffetchtoken`
+認証開始: `localhost:3000/redirect/authorization`
 
 ## 参考文献
 
