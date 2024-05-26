@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  rp-web:
+    container_name: rp-web
+    image: rp-web
+    ports:
+      - 3000:3000
+  rp-app:
+    container_name: rp-app
+    image: rp-app
+    ports:
+      - 8080:8080
+      - 8484:8484
+  op-web:
+    container_name: op-web
+    image: op-web
+    ports:
+      - 3001:3000
+  op-app:
+    container_name: op-app
+    image: op-app
+    ports:
+      - 8081:8081
+      - 8485:8484
+  opdb:
+    container_name: opdb
+    image: mariadb:10.5
+    ports:
+      - 3306:3306
+    volumes:
+      - ./volume/opdb/initdb.d:/docker-entrypoint-initdb.d
+      - ./volume/opdb/csv:/csv
+    environment:
+      - MYSQL_ROOT_PASSWORD=password

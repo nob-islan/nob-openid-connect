@@ -56,7 +56,7 @@ public class AuthorizationServiceImplTest {
         String response = objectMapper.writeValueAsString(opIssueTokenResponse);
 
         // リクエストURL
-        String url = "http://localhost:8081/api/op/token";
+        String url = "http://op-app:8081/api/op/token";
 
         // モックサーバの作成
         MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();

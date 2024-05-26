@@ -10,7 +10,7 @@ public class UrlConst {
     /**
      * OP Appのオリジン
      */
-    public static final String OP_APP_ORIGIN = "http://localhost:8081";
+    public static final String OP_APP_ORIGIN = "http://op-app:8081";
 
     /**
      * OP ベースURL
