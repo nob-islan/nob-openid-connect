@@ -36,7 +36,7 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public AuthorizeResponse authorize(AuthorizeRequest authorizeRequest) {
 
-        // リダイレクトURI検証
+        // サービスを呼び出してリダイレクトURI検証
         AuthorizeInModel authorizeInModel = new AuthorizeInModel();
         authorizeInModel.setClientId(authorizeRequest.getClientId());
         authorizeInModel.setRedirectUri(authorizeRequest.getRedirectUri());

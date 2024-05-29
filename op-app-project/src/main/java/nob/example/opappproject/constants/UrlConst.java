@@ -13,11 +13,6 @@ public class UrlConst {
     public static final String OP_WEB_ORIGIN = "http://localhost:3001";
 
     /**
-     * ログイン画面
-     */
-    public static final String LOGIN = "/login";
-
-    /**
      * ベースURL
      */
     public static final String BASE_URL = "/api/op";
