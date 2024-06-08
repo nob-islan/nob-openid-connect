@@ -8,6 +8,8 @@ services:
   rp-app:
     container_name: rp-app
     image: rp-app
+    environment:
+      - TZ=Asia/Tokyo
     ports:
       - 8080:8080
       - 8484:8484
@@ -19,6 +21,8 @@ services:
   op-app:
     container_name: op-app
     image: op-app
+    environment:
+      - TZ=Asia/Tokyo
     ports:
       - 8081:8081
       - 8485:8484
