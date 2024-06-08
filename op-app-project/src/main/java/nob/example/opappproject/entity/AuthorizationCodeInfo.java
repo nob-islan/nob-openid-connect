@@ -41,7 +41,7 @@ public class AuthorizationCodeInfo {
      * 有効期限
      */
     @Column(nullable = false)
-    private Date expirationDate;
+    private Date expirationDateTime;
 
     /**
      * 削除フラグ

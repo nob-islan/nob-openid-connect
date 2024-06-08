@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "rp-app",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 8484
+    },
+    {
+      "type": "java",
+      "name": "op-app",
+      "request": "attach",
+      "hostName": "localhost",
+      "port": 8485
+    }
+  ]
+}

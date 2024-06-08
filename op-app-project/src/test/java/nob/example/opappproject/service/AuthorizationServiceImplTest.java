@@ -1,7 +1,10 @@
 package nob.example.opappproject.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ import nob.example.opappproject.dto.RedirectUriSelectKey;
 import nob.example.opappproject.dto.UserCredentialSelectKey;
 import nob.example.opappproject.entity.ClientInfo;
 import nob.example.opappproject.entity.UserInfo;
+import nob.example.opappproject.repository.AuthorizationCodeInfoRepository;
 import nob.example.opappproject.repository.ClientInfoRepository;
 import nob.example.opappproject.repository.UserInfoRepository;
 
@@ -39,6 +43,9 @@ public class AuthorizationServiceImplTest {
 
     @MockBean
     private UserInfoRepository userInfoRepository;
+
+    @MockBean
+    private AuthorizationCodeInfoRepository authorizationCodeInfoRepository;
 
     /**
      * authorizeのテスト 正常系
@@ -91,7 +98,7 @@ public class AuthorizationServiceImplTest {
         certificateInModel.setPassword("testPassword");
         certificateInModel.setRedirectUri("testRedirectUri");
 
-        // repository呼び出し想定のkey作成
+        // repository呼び出し想定のkey作成 userCredentialSelect
         UserCredentialSelectKey userCredentialSelectKey = new UserCredentialSelectKey();
         userCredentialSelectKey.setUserId("testUserId");
         userCredentialSelectKey.setPassword("testPassword");
@@ -104,12 +111,13 @@ public class AuthorizationServiceImplTest {
 
         // repositoryモック化
         Mockito.when(userInfoRepository.selectUserCredential(userCredentialSelectKey)).thenReturn(mockUserInfoList);
+        doNothing().when(authorizationCodeInfoRepository).insert(any());
 
         try {
             // サービス呼び出し
             CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
             // 結果のassert
-            assertEquals("testAuthorizationCode", certificateOutModel.getAuthorizationCode());
+            assertNotNull(certificateOutModel.getAuthorizationCode());
             assertEquals("testRedirectUri", certificateOutModel.getRedirectUri());
         } catch (Exception e) {
             e.printStackTrace();

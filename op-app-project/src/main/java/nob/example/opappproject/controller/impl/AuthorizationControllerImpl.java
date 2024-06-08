@@ -70,8 +70,6 @@ public class AuthorizationControllerImpl implements AuthorizationController {
             }
         }
 
-        // TODO サービス内にて認可コードおよびcodeChallenge保存
-
         // サービス呼び出し
         CertificateOutModel certificateOutModel = authorizationService.certificate(certificateInModel);
 

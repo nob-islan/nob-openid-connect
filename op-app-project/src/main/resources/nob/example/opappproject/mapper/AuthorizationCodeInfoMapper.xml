@@ -9,13 +9,13 @@
             authorization_code_info (
                 code_value
                 , code_challenge
-                , expiration_date
+                , expiration_date_time
                 , is_deleted
             ) 
         VALUES (
             #{codeValue}
             , #{codeChallenge}
-            , #{expirationDate}
+            , #{expirationDateTime}
             , #{isDeleted}
         )
     </insert>

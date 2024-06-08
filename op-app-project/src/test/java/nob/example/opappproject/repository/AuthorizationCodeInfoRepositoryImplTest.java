@@ -63,13 +63,12 @@ public class AuthorizationCodeInfoRepositoryImplTest {
         AuthorizationCodeInfo authorizationCodeInfo = new AuthorizationCodeInfo();
         authorizationCodeInfo.setCodeValue("test_value");
         authorizationCodeInfo.setCodeChallenge("test_code_challenge");
-        authorizationCodeInfo.setExpirationDate(new Date());
+        authorizationCodeInfo.setExpirationDateTime(new Date());
         authorizationCodeInfo.setIsDeleted(false);
 
         try {
             // repository呼び出し
             authorizationCodeInfoRepository.insert(authorizationCodeInfo);
-            System.out.println("テスト終わり");
         } catch (Exception e) {
             e.printStackTrace();
             fail();
