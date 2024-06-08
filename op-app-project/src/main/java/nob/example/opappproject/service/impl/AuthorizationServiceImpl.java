@@ -1,6 +1,9 @@
 package nob.example.opappproject.service.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +14,10 @@ import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.RedirectUriSelectKey;
 import nob.example.opappproject.dto.UserCredentialSelectKey;
+import nob.example.opappproject.entity.AuthorizationCodeInfo;
 import nob.example.opappproject.entity.ClientInfo;
 import nob.example.opappproject.entity.UserInfo;
+import nob.example.opappproject.repository.AuthorizationCodeInfoRepository;
 import nob.example.opappproject.repository.ClientInfoRepository;
 import nob.example.opappproject.repository.UserInfoRepository;
 import nob.example.opappproject.service.AuthorizationService;
@@ -30,6 +35,9 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
+
+    @Autowired
+    private AuthorizationCodeInfoRepository authorizationCodeInfoRepository;
 
     /**
      * {@inheritDoc}
@@ -61,6 +69,13 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     @Override
     public CertificateOutModel certificate(CertificateInModel certificateInModel) {
 
+        // 認可コードの文字長
+        final int AUTHORIZATION_CODE_LENGTH = 32;
+        // 認可コードに使われる文字一覧
+        final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        // 認可コードの有効期限[分]
+        final int EXPIRATION_MINUTE = 10;
+
         // クレデンシャル検証
         UserCredentialSelectKey userCredentialSelectKey = new UserCredentialSelectKey();
         userCredentialSelectKey.setUserId(certificateInModel.getUserId());
@@ -71,8 +86,34 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             System.out.println("認証失敗"); // TODO 例外作成
         }
 
-        // TODO 認可コード発行
-        String authorizationCode = "testAuthorizationCode";
+        // 認可コード発行
+        Random random = new Random();
+        StringBuilder authorizationCodeBuilder = new StringBuilder();
+
+        for (int i = 0; i < AUTHORIZATION_CODE_LENGTH; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            authorizationCodeBuilder.append(CHARACTERS.charAt(index));
+        }
+
+        // 認可コード
+        String authorizationCode = authorizationCodeBuilder.toString();
+
+        // 現在日時を取得し、10分後を有効期限とする
+        Date nowDate = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(nowDate);
+        calendar.add(Calendar.MINUTE, EXPIRATION_MINUTE);
+        Date expirationDateTime = calendar.getTime();
+
+        // 認可コード情報テーブルに登録する内容を作成
+        AuthorizationCodeInfo authorizationCodeInfo = new AuthorizationCodeInfo();
+        authorizationCodeInfo.setCodeValue(authorizationCode);
+        authorizationCodeInfo.setCodeChallenge(certificateInModel.getCodeChallenge());
+        authorizationCodeInfo.setExpirationDateTime(expirationDateTime);
+        authorizationCodeInfo.setIsDeleted(false);
+
+        // 認可コード情報登録
+        authorizationCodeInfoRepository.insert(authorizationCodeInfo);
 
         // 返却値の作成
         CertificateOutModel certificateOutModel = new CertificateOutModel();

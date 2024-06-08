@@ -1,9 +1,8 @@
 package nob.example.opappproject.repository;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.List;
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +14,16 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import nob.example.opappproject.dto.RedirectUriSelectKey;
-import nob.example.opappproject.entity.ClientInfo;
+import nob.example.opappproject.entity.AuthorizationCodeInfo;
 
 /**
- * ClientInfoRepositoryImplのテストクラスです。
+ * AuthorizationCodeInfoRepositoryImplのテストクラスです。
  * 
  * @author nob
  */
 @SpringBootTest
 @Testcontainers(disabledWithoutDocker = true)
-public class ClientInfoRepositoryImplTest {
+public class AuthorizationCodeInfoRepositoryImplTest {
 
     // データベースのコンテナイメージなど、DB構築に必要な設定値です。
     static final DockerImageName MARIA_DB_IMAGE_NAME = DockerImageName.parse("mariadb").withTag("10.5");
@@ -40,7 +38,7 @@ public class ClientInfoRepositoryImplTest {
             .withDatabaseName(DATABASE_NAME)
             .withUsername(USER_NAME)
             .withPassword(PASSWORD)
-            .withInitScript("repository/clientinfo/create_table.sql");
+            .withInitScript("repository/authorizationcodeinfo/create_table.sql");
 
     // 接続情報などの設定値を投入
     @DynamicPropertySource
@@ -51,27 +49,26 @@ public class ClientInfoRepositoryImplTest {
     }
 
     @Autowired
-    private ClientInfoRepository clientInfoRepository;
+    private AuthorizationCodeInfoRepository authorizationCodeInfoRepository;
 
     /**
-     * selectRedirectUriのテスト 正常系
+     * insertのテスト 正常系
      * 
      * @throws Exception
      */
     @Test
-    public void test_selectRedirectUri_success() throws Exception {
+    public void test_insert_success() throws Exception {
 
-        // 検索条件の設定
-        RedirectUriSelectKey redirectUriSelectKey = new RedirectUriSelectKey();
-        redirectUriSelectKey.setClientId("testClient");
+        // 登録内容の作成
+        AuthorizationCodeInfo authorizationCodeInfo = new AuthorizationCodeInfo();
+        authorizationCodeInfo.setCodeValue("test_value");
+        authorizationCodeInfo.setCodeChallenge("test_code_challenge");
+        authorizationCodeInfo.setExpirationDateTime(new Date());
+        authorizationCodeInfo.setIsDeleted(false);
 
         try {
             // repository呼び出し
-            List<ClientInfo> clientInfoList = clientInfoRepository.selectRedirectUri(redirectUriSelectKey);
-            // 結果のassert
-            assertEquals(1, clientInfoList.size());
-            assertEquals("http://example.nob/sample",
-                    clientInfoList.get(0).getRedirectUri());
+            authorizationCodeInfoRepository.insert(authorizationCodeInfo);
         } catch (Exception e) {
             e.printStackTrace();
             fail();

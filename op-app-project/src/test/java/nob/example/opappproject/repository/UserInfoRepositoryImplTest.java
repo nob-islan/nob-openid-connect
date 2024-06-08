@@ -34,6 +34,7 @@ public class UserInfoRepositoryImplTest {
     static final String PASSWORD = "";
 
     // テスト用DBコンテナを作成
+    @SuppressWarnings("resource")
     @Container
     static final MariaDBContainer<?> mariaDbContainer = new MariaDBContainer<>(MARIA_DB_IMAGE_NAME)
             .withDatabaseName(DATABASE_NAME)
