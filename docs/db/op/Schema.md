@@ -31,10 +31,10 @@
 
 ### authorization_code_info
 
-| カラム名       | column_name     | 型          | NULL | PK  | 説明                           |
-| -------------- | --------------- | ----------- | ---- | --- | ------------------------------ |
-| コード ID      | code_id         | VARCHAR(10) | x    | o   | コード管理用 ID                |
-| コード値       | code_value      | VARCHAR(32) | x    |     | 認可コードの値                 |
-| code challenge | code_challenge  | VARCHAR(64) | x    |     | code challenge の値            |
-| 有効期限       | expiration_date | DATE        | x    |     | 有効期限（発行してから 10 分） |
-| 削除フラグ     | deleted         | BOOLEAN     | x    |     | 論理削除のフラグ               |
+| カラム名       | column_name     | 型          | NULL | PK  | 説明                      |
+| -------------- | --------------- | ----------- | ---- | --- | ------------------------- |
+| コード ID      | code_id         | INT         | x    | o   | 自動採番のコード管理用 ID |
+| コード値       | code_value      | VARCHAR(32) | x    |     | 認可コードの値            |
+| code challenge | code_challenge  | VARCHAR(64) | x    |     | code challenge の値       |
+| 有効期限       | expiration_date | DATE        | x    |     | 認可コードの有効期限      |
+| 削除フラグ     | is_deleted      | BOOLEAN     | x    |     | 論理削除のフラグ          |
