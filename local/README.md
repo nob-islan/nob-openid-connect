@@ -32,9 +32,15 @@
   bash image-build.sh
   ```
 
-## コンテナ起動
+## アプリ操作
+
+### docker compose 起動
 
 ```shell
 cd local/docker
 docker compose up -d
 ```
+
+### デバッグ
+
+`.vscode/launch.json`に設定を記載しています。VSCode の機能を使ってデバッグができます。
