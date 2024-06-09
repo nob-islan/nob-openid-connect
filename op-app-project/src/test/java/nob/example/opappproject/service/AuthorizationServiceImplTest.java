@@ -19,8 +19,10 @@ import nob.example.opappproject.dto.AuthorizeInModel;
 import nob.example.opappproject.dto.AuthorizeOutModel;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
+import nob.example.opappproject.dto.IssueTokenInModel;
 import nob.example.opappproject.dto.RedirectUriSelectKey;
 import nob.example.opappproject.dto.UserCredentialSelectKey;
+import nob.example.opappproject.entity.AuthorizationCodeInfo;
 import nob.example.opappproject.entity.ClientInfo;
 import nob.example.opappproject.entity.UserInfo;
 import nob.example.opappproject.repository.AuthorizationCodeInfoRepository;
@@ -98,7 +100,7 @@ public class AuthorizationServiceImplTest {
         certificateInModel.setPassword("testPassword");
         certificateInModel.setRedirectUri("testRedirectUri");
 
-        // repository呼び出し想定のkey作成 userCredentialSelect
+        // repository呼び出し想定のkey作成 selectUserCredential
         UserCredentialSelectKey userCredentialSelectKey = new UserCredentialSelectKey();
         userCredentialSelectKey.setUserId("testUserId");
         userCredentialSelectKey.setPassword("testPassword");
@@ -119,6 +121,40 @@ public class AuthorizationServiceImplTest {
             // 結果のassert
             assertNotNull(certificateOutModel.getAuthorizationCode());
             assertEquals("testRedirectUri", certificateOutModel.getRedirectUri());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    /**
+     * issueTokenのテスト 正常系
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_issueToken_success() throws Exception {
+
+        // 入力値の作成
+        IssueTokenInModel issueTokenInModel = new IssueTokenInModel();
+        issueTokenInModel.setAuthorizationCode("testAuthorizationCode");
+        issueTokenInModel.setCodeVerifier("testCodeVerifer");
+
+        // モックレスポンス作成
+        AuthorizationCodeInfo mockAuthorizationCodeInfo = new AuthorizationCodeInfo();
+        mockAuthorizationCodeInfo.setCodeValue("testAuthorizationCode");
+        mockAuthorizationCodeInfo.setCodeChallenge("b43a998c3ceeea516064cf9a4ec77c1a88a6bf9319aaa4ee474bca52ba80c1cd");
+        List<AuthorizationCodeInfo> mockAuthorizationCodeInfoList = new ArrayList<AuthorizationCodeInfo>();
+        mockAuthorizationCodeInfoList.add(mockAuthorizationCodeInfo);
+
+        // repositoryモック化
+        Mockito.when(authorizationCodeInfoRepository.selectAuthorizationCode(any()))
+                .thenReturn(mockAuthorizationCodeInfoList);
+
+        try {
+            // サービス呼び出し
+            authorizationService.issueToken(issueTokenInModel);
+            // TODO 結果のassert
         } catch (Exception e) {
             e.printStackTrace();
             fail();

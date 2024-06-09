@@ -6,6 +6,8 @@ import nob.example.opappproject.dto.AuthorizeInModel;
 import nob.example.opappproject.dto.AuthorizeOutModel;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
+import nob.example.opappproject.dto.IssueTokenInModel;
+import nob.example.opappproject.dto.IssueTokenOutModel;
 
 /**
  * 認証向けサービスのインターフェースです。
@@ -30,4 +32,12 @@ public interface AuthorizationService {
      * @return 認証の結果
      */
     CertificateOutModel certificate(CertificateInModel certificateInModel);
+
+    /**
+     * アクセストークンを発行します。
+     * 
+     * @param issueTokenInModel
+     * @return アクセストークン
+     */
+    IssueTokenOutModel issueToken(IssueTokenInModel issueTokenInModel);
 }

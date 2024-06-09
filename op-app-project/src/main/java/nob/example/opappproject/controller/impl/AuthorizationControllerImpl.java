@@ -14,6 +14,8 @@ import nob.example.opappproject.dto.AuthorizeRequest;
 import nob.example.opappproject.dto.AuthorizeResponse;
 import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificateResponse;
+import nob.example.opappproject.dto.IssueTokenInModel;
+import nob.example.opappproject.dto.IssueTokenOutModel;
 import nob.example.opappproject.dto.IssueTokenRequest;
 import nob.example.opappproject.dto.IssueTokenResponse;
 import nob.example.opappproject.service.AuthorizationService;
@@ -88,10 +90,20 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     @Override
     public IssueTokenResponse issueToken(IssueTokenRequest issueTokenRequest) {
 
-        // TODO 認可コード、codeVerifier検証
+        // inModel作成
+        IssueTokenInModel issueTokenInModel = new IssueTokenInModel();
+        issueTokenInModel.setAuthorizationCode(issueTokenRequest.getAuthorizationCode());
+        issueTokenInModel.setCodeVerifier(issueTokenRequest.getCodeVerifier());
 
-        // TODO アクセストークン、リフレッシュトークン、IDトークン作成
+        // サービス呼び出し
+        IssueTokenOutModel issueTokenOutModel = authorizationService.issueToken(issueTokenInModel);
 
-        return new IssueTokenResponse();
+        // 返却値の作成
+        IssueTokenResponse issueTokenResponse = new IssueTokenResponse();
+        issueTokenResponse.setAccessToken(issueTokenOutModel.getAccessToken());
+        issueTokenResponse.setRefleshToken(issueTokenOutModel.getRefleshToken());
+        issueTokenResponse.setIdToken(issueTokenOutModel.getIdToken());
+
+        return issueTokenResponse;
     }
 }
