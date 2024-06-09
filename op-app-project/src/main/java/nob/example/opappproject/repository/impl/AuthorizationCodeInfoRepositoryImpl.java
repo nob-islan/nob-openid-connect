@@ -41,4 +41,14 @@ public class AuthorizationCodeInfoRepositoryImpl implements AuthorizationCodeInf
 
         return authorizationCodeInfoMapper.selectAuthorizationCode(authorizationCodeInfoSelectKey);
     }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public void updateIsDeleted(AuthorizationCodeInfo authorizationCodeInfo) {
+
+        authorizationCodeInfoMapper.updateIsDeleted(authorizationCodeInfo);
+    }
 }

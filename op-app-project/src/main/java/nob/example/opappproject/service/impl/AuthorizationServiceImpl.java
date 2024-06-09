@@ -163,6 +163,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             e.printStackTrace();
         }
 
+        // TODO 検証済み認可コードを削除
+
         // TODO アクセストークン、リフレッシュトークン、IDトークン作成
 
         return new IssueTokenOutModel();

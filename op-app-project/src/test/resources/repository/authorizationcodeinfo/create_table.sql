@@ -46,3 +46,16 @@ INSERT INTO authorization_code_info (
     , '2124-06-09 00:00:00.000'
     , 1
 );
+
+-- テストデータ挿入 論理削除用
+INSERT INTO authorization_code_info (
+    code_value
+    , code_challenge
+    , expiration_date_time
+    , is_deleted
+) VALUES (
+    'testCodeValue4'
+    , 'testCodeChallenge4'
+    , '2124-06-09 00:00:00.000'
+    , 0
+);
