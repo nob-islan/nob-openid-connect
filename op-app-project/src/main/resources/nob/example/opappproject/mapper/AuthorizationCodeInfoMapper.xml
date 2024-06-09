@@ -19,4 +19,21 @@
             , #{isDeleted}
         )
     </insert>
+
+    <select id="selectAuthorizationCode" resultType="nob.example.opappproject.entity.AuthorizationCodeInfo">
+        SELECT
+            code_value
+            , code_challenge
+        FROM 
+            authorization_code_info
+        <where>
+            is_deleted = 0
+            <if test="codeValue != ''">
+                AND code_value = #{codeValue}
+            </if>
+            <if test="nowDate != null">
+                AND expiration_date_time <![CDATA[ > ]]> #{nowDate}
+            </if>
+        </where>
+    </select>
 </mapper>

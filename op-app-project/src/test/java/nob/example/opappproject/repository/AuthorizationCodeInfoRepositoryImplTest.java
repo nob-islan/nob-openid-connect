@@ -1,8 +1,10 @@
 package nob.example.opappproject.repository;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import nob.example.opappproject.dto.AuthorizationCodeInfoSelectKey;
 import nob.example.opappproject.entity.AuthorizationCodeInfo;
 
 /**
@@ -69,6 +72,83 @@ public class AuthorizationCodeInfoRepositoryImplTest {
         try {
             // repository呼び出し
             authorizationCodeInfoRepository.insert(authorizationCodeInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    /**
+     * selectAuthorizationCodeのテスト 有効な認可コードが取得できる
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_selectAuthorizationCode_valid_code() throws Exception {
+
+        // 検索条件の設定
+        AuthorizationCodeInfoSelectKey authorizationCodeInfoSelectKey = new AuthorizationCodeInfoSelectKey();
+        authorizationCodeInfoSelectKey.setCodeValue("testCodeValue1");
+        authorizationCodeInfoSelectKey.setNowDate(new Date());
+
+        try {
+            // repository呼び出し
+            List<AuthorizationCodeInfo> authorizationCodeInfoList = authorizationCodeInfoRepository
+                    .selectAuthorizationCode(authorizationCodeInfoSelectKey);
+            // 結果のassert
+            assertEquals(1, authorizationCodeInfoList.size());
+            assertEquals("testCodeValue1", authorizationCodeInfoList.get(0).getCodeValue());
+            assertEquals("testCodeChallenge1", authorizationCodeInfoList.get(0).getCodeChallenge());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    /**
+     * selectAuthorizationCodeのテスト 認可コードの期限が切れている
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_selectAuthorizationCode_expired_code() throws Exception {
+
+        // 検索条件の設定
+        AuthorizationCodeInfoSelectKey authorizationCodeInfoSelectKey = new AuthorizationCodeInfoSelectKey();
+        authorizationCodeInfoSelectKey.setCodeValue("testCodeValue2");
+        authorizationCodeInfoSelectKey.setNowDate(new Date());
+
+        try {
+            // repository呼び出し
+            List<AuthorizationCodeInfo> authorizationCodeInfoList = authorizationCodeInfoRepository
+                    .selectAuthorizationCode(authorizationCodeInfoSelectKey);
+            // 結果のassert
+            assertEquals(0, authorizationCodeInfoList.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    /**
+     * selectAuthorizationCodeのテスト 認可コードが論理削除済み
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_selectAuthorizationCode_deleted_code() throws Exception {
+
+        // 検索条件の設定
+        AuthorizationCodeInfoSelectKey authorizationCodeInfoSelectKey = new AuthorizationCodeInfoSelectKey();
+        authorizationCodeInfoSelectKey.setCodeValue("testCodeValue3");
+        authorizationCodeInfoSelectKey.setNowDate(new Date());
+
+        try {
+            // repository呼び出し
+            List<AuthorizationCodeInfo> authorizationCodeInfoList = authorizationCodeInfoRepository
+                    .selectAuthorizationCode(authorizationCodeInfoSelectKey);
+            // 結果のassert
+            assertEquals(0, authorizationCodeInfoList.size());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
