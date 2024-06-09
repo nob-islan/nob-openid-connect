@@ -36,4 +36,16 @@
             </if>
         </where>
     </select>
+
+    <update id="updateIsDeleted">
+        UPDATE 
+            authorization_code_info
+        SET
+            is_deleted = 1
+        <where>
+            <if test="codeValue != ''">
+                code_value = #{codeValue}
+            </if>
+        </where>
+    </update>
 </mapper>

@@ -28,4 +28,11 @@ public interface AuthorizationCodeInfoRepository {
      * @return 認可コード情報
      */
     List<AuthorizationCodeInfo> selectAuthorizationCode(AuthorizationCodeInfoSelectKey authorizationCodeInfoSelectKey);
+
+    /**
+     * 指定された認可コードを論理削除します。
+     * 
+     * @param authorizationCodeInfo
+     */
+    void updateIsDeleted(AuthorizationCodeInfo authorizationCodeInfo);
 }

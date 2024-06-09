@@ -154,4 +154,26 @@ public class AuthorizationCodeInfoRepositoryImplTest {
             fail();
         }
     }
+
+    /**
+     * updateIsDeletedのテスト 正常系
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_updateIsDeleted_success() throws Exception {
+
+        // 検索条件の設定
+        AuthorizationCodeInfo authorizationCodeInfo = new AuthorizationCodeInfo();
+        authorizationCodeInfo.setCodeValue("testCodeValue4");
+
+        try {
+            // repository呼び出し
+            authorizationCodeInfoRepository.updateIsDeleted(authorizationCodeInfo);
+            System.out.println("");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 }
