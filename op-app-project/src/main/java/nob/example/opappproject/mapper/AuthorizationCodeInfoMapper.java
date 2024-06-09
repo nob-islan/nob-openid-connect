@@ -1,7 +1,10 @@
 package nob.example.opappproject.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import nob.example.opappproject.dto.AuthorizationCodeInfoSelectKey;
 import nob.example.opappproject.entity.AuthorizationCodeInfo;
 
 /**
@@ -18,4 +21,11 @@ public interface AuthorizationCodeInfoMapper {
      * @param authorizationCodeInfo
      */
     void insert(AuthorizationCodeInfo authorizationCodeInfo);
+
+    /**
+     * 認可コードをキーとして、それに紐づく情報を取得します。
+     * 
+     * @return 認可コード情報
+     */
+    List<AuthorizationCodeInfo> selectAuthorizationCode(AuthorizationCodeInfoSelectKey authorizationCodeInfoSelectKey);
 }

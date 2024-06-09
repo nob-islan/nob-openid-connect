@@ -13,6 +13,10 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import jakarta.servlet.http.Cookie;
 import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificateResponse;
+import nob.example.opappproject.dto.IssueTokenInModel;
+import nob.example.opappproject.dto.IssueTokenOutModel;
+import nob.example.opappproject.dto.IssueTokenRequest;
+import nob.example.opappproject.dto.IssueTokenResponse;
 import nob.example.opappproject.dto.AuthorizeInModel;
 import nob.example.opappproject.dto.AuthorizeOutModel;
 import nob.example.opappproject.dto.AuthorizeRequest;
@@ -120,5 +124,46 @@ public class AuthorizationControllerImplTest {
             fail();
         }
     }
+
+    /**
+     * issueTokenのテスト 正常系
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_issueToken_success() throws Exception {
+
+        // 入力値の作成
+        IssueTokenRequest issueTokenRequest = new IssueTokenRequest();
+        issueTokenRequest.setAuthorizationCode("testAuthorizationCode");
+        issueTokenRequest.setCodeVerifier("testCodeVerifier");
+
+        // サービス呼び出し想定のinModel作成
+        IssueTokenInModel issueTokenInModel = new IssueTokenInModel();
+        issueTokenInModel.setAuthorizationCode("testAuthorizationCode");
+        issueTokenInModel.setCodeVerifier("testCodeVerifier");
+
+        // モックレスポンス作成
+        IssueTokenOutModel mockIssueTokenOutModel = new IssueTokenOutModel();
+        mockIssueTokenOutModel.setAccessToken("testAccessToken");
+        mockIssueTokenOutModel.setRefleshToken("testRefleshToken");
+        mockIssueTokenOutModel.setIdToken("testIdToken");
+
+        // サービスのモック化
+        Mockito.when(authorizationService.issueToken(issueTokenInModel)).thenReturn(mockIssueTokenOutModel);
+
+        try {
+            // API呼び出し
+            IssueTokenResponse issueTokenResponse = authorizationController.issueToken(issueTokenRequest);
+            // 結果のassert
+            assertEquals("testAccessToken", issueTokenResponse.getAccessToken());
+            assertEquals("testRefleshToken", issueTokenResponse.getRefleshToken());
+            assertEquals("testIdToken", issueTokenResponse.getIdToken());
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
     // TODO 異常系テスト
 }

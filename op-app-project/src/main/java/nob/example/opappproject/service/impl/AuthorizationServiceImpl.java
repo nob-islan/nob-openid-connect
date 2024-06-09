@@ -1,17 +1,23 @@
 package nob.example.opappproject.service.impl;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import nob.example.opappproject.dto.AuthorizationCodeInfoSelectKey;
 import nob.example.opappproject.dto.AuthorizeInModel;
 import nob.example.opappproject.dto.AuthorizeOutModel;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
+import nob.example.opappproject.dto.IssueTokenInModel;
+import nob.example.opappproject.dto.IssueTokenOutModel;
 import nob.example.opappproject.dto.RedirectUriSelectKey;
 import nob.example.opappproject.dto.UserCredentialSelectKey;
 import nob.example.opappproject.entity.AuthorizationCodeInfo;
@@ -121,5 +127,44 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         certificateOutModel.setRedirectUri(certificateInModel.getRedirectUri());
 
         return certificateOutModel;
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     */
+    @Override
+    public IssueTokenOutModel issueToken(IssueTokenInModel issueTokenInModel) {
+
+        // 保存されている認可コードを検索
+        AuthorizationCodeInfoSelectKey authorizationCodeInfoSelectKey = new AuthorizationCodeInfoSelectKey();
+        authorizationCodeInfoSelectKey.setCodeValue(issueTokenInModel.getAuthorizationCode());
+        authorizationCodeInfoSelectKey.setNowDate(new Date());
+        List<AuthorizationCodeInfo> authorizationCodeInfoList = authorizationCodeInfoRepository
+                .selectAuthorizationCode(authorizationCodeInfoSelectKey);
+        // 結果が1件でなければエラー
+        if (authorizationCodeInfoList.size() != 1) {
+            System.out.println("認証失敗"); // TODO 例外作成
+        }
+
+        // codeVerifier検証
+        MessageDigest sha256;
+        try {
+            // inModelのcodeVerifierをエンコード
+            sha256 = MessageDigest.getInstance("SHA-256");
+            byte[] sha256Byte = sha256.digest(issueTokenInModel.getCodeVerifier().getBytes());
+            HexFormat hex = HexFormat.of().withLowerCase();
+            String targetCodeChallenge = hex.formatHex(sha256Byte);
+            // DBに保存されているcodeChallengeと合致しなければエラー
+            if (!targetCodeChallenge.equals(authorizationCodeInfoList.get(0).getCodeChallenge())) {
+                System.out.println("認証失敗"); // TODO 例外作成
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        // TODO アクセストークン、リフレッシュトークン、IDトークン作成
+
+        return new IssueTokenOutModel();
     }
 }
