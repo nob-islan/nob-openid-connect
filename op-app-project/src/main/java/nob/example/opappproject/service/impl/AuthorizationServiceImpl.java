@@ -163,7 +163,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
             e.printStackTrace();
         }
 
-        // TODO 検証済み認可コードを削除
+        // 検証済みの認可コードを削除
+        AuthorizationCodeInfo authorizationCodeInfo = new AuthorizationCodeInfo();
+        authorizationCodeInfo.setCodeValue(authorizationCodeInfoList.get(0).getCodeValue());
+        authorizationCodeInfoRepository.updateIsDeleted(authorizationCodeInfo);
 
         // TODO アクセストークン、リフレッシュトークン、IDトークン作成
 

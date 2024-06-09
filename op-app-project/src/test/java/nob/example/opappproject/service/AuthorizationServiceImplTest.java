@@ -150,6 +150,7 @@ public class AuthorizationServiceImplTest {
         // repositoryモック化
         Mockito.when(authorizationCodeInfoRepository.selectAuthorizationCode(any()))
                 .thenReturn(mockAuthorizationCodeInfoList);
+        doNothing().when(authorizationCodeInfoRepository).updateIsDeleted(any());
 
         try {
             // サービス呼び出し
