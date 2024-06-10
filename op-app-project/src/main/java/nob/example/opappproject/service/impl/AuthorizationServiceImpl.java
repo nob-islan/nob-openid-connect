@@ -1,13 +1,11 @@
 package nob.example.opappproject.service.impl;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HexFormat;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -148,19 +146,10 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         }
 
         // codeVerifier検証
-        MessageDigest sha256;
-        try {
-            // inModelのcodeVerifierをエンコード
-            sha256 = MessageDigest.getInstance("SHA-256");
-            byte[] sha256Byte = sha256.digest(issueTokenInModel.getCodeVerifier().getBytes());
-            HexFormat hex = HexFormat.of().withLowerCase();
-            String targetCodeChallenge = hex.formatHex(sha256Byte);
-            // DBに保存されているcodeChallengeと合致しなければエラー
-            if (!targetCodeChallenge.equals(authorizationCodeInfoList.get(0).getCodeChallenge())) {
-                System.out.println("認証失敗"); // TODO 例外作成
-            }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        String targetCodeChallenge = DigestUtils.sha256Hex(issueTokenInModel.getCodeVerifier());
+        // DBに保存されているcodeChallengeと合致しなければエラー
+        if (!targetCodeChallenge.equals(authorizationCodeInfoList.get(0).getCodeChallenge())) {
+            System.out.println("認証失敗"); // TODO 例外作成
         }
 
         // 検証済みの認可コードを削除
