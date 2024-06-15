@@ -11,4 +11,19 @@ public class JwtConst {
      * アクセストークンのjwtエンコード・デコード時のシークレットキー
      */
     public static final String ACCESS_TOKEN_SECRET_KEY = "MAzVs6JfgzdrTRk8md47yYwu";
+
+    /**
+     * 有効期間（1日）
+     */
+    public static final Integer VALIDITY_PERIOD_DAY = 1;
+
+    /**
+     * audience
+     */
+    public static final String AUDIENCE = "nob-rp";
+
+    /**
+     * issuer
+     */
+    public static final String ISSUER = "nob-op";
 }

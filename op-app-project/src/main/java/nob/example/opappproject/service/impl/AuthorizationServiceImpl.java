@@ -116,6 +116,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         // 認可コード情報テーブルに登録する内容を作成
         AuthorizationCodeInfo authorizationCodeInfo = new AuthorizationCodeInfo();
         authorizationCodeInfo.setCodeValue(authorizationCode);
+        authorizationCodeInfo.setUserId(certificateInModel.getUserId());
         authorizationCodeInfo.setCodeChallenge(certificateInModel.getCodeChallenge());
         authorizationCodeInfo.setExpirationDateTime(expirationDateTime);
         authorizationCodeInfo.setIsDeleted(false);
@@ -163,11 +164,14 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
         // アクセストークン作成
         Algorithm algorithm = Algorithm.HMAC256(JwtConst.ACCESS_TOKEN_SECRET_KEY);
-        Date expiresAt = new Date(); // 有効期限
         Date issuedAt = new Date(); // トークン発行時刻
-        String audience = "nob-rp"; // トークン行使先
-        String issuer = "nob-op"; // トークン発行者の識別子
-        String subject = ""; // ユーザの識別子 // TODO DBからユーザIDを取る
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(issuedAt);
+        calendar.add(Calendar.DATE, JwtConst.VALIDITY_PERIOD_DAY);
+        Date expiresAt = calendar.getTime(); // 有効期限
+        String audience = JwtConst.AUDIENCE; // トークン行使先
+        String issuer = JwtConst.ISSUER; // トークン発行者の識別子
+        String subject = authorizationCodeInfoList.get(0).getUserId(); // ユーザの識別子
         String accessToken = JWT.create().withExpiresAt(expiresAt).withIssuedAt(issuedAt).withAudience(audience)
                 .withIssuer(issuer).withSubject(subject).sign(algorithm);
 
