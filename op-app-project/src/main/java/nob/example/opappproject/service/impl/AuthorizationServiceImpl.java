@@ -9,6 +9,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
+import nob.example.opappproject.constants.JwtConst;
 import nob.example.opappproject.dto.AuthorizationCodeInfoSelectKey;
 import nob.example.opappproject.dto.AuthorizeInModel;
 import nob.example.opappproject.dto.AuthorizeOutModel;
@@ -157,8 +161,20 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         authorizationCodeInfo.setCodeValue(authorizationCodeInfoList.get(0).getCodeValue());
         authorizationCodeInfoRepository.updateIsDeleted(authorizationCodeInfo);
 
-        // TODO アクセストークン、IDトークン作成
+        // アクセストークン作成
+        Algorithm algorithm = Algorithm.HMAC256(JwtConst.ACCESS_TOKEN_SECRET_KEY);
+        Date expiresAt = new Date(); // 有効期限
+        Date issuedAt = new Date(); // トークン発行時刻
+        String audience = "nob-rp"; // トークン行使先
+        String issuer = "nob-op"; // トークン発行者の識別子
+        String subject = ""; // ユーザの識別子 // TODO DBからユーザIDを取る
+        String accessToken = JWT.create().withExpiresAt(expiresAt).withIssuedAt(issuedAt).withAudience(audience)
+                .withIssuer(issuer).withSubject(subject).sign(algorithm);
 
-        return new IssueTokenOutModel();
+        // 返却値の作成
+        IssueTokenOutModel issueTokenOutModel = new IssueTokenOutModel();
+        issueTokenOutModel.setAccessToken(accessToken);
+
+        return issueTokenOutModel;
     }
 }
