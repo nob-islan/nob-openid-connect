@@ -8,12 +8,14 @@
         INSERT INTO
             authorization_code_info (
                 code_value
+                , user_id
                 , code_challenge
                 , expiration_date_time
                 , is_deleted
             ) 
         VALUES (
             #{codeValue}
+            , #{userId}
             , #{codeChallenge}
             , #{expirationDateTime}
             , #{isDeleted}
@@ -24,6 +26,7 @@
         SELECT
             code_value
             , code_challenge
+            , user_id
         FROM 
             authorization_code_info
         <where>

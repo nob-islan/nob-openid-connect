@@ -32,6 +32,12 @@ public class AuthorizationCodeInfo {
     private String codeValue;
 
     /**
+     * ユーザID
+     */
+    @Column(length = 10, nullable = false)
+    private String userId;
+
+    /**
      * codeChallenge
      */
     @Column(length = 64, nullable = false)

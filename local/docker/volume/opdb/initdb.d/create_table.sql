@@ -17,10 +17,11 @@ CREATE TABLE IF NOT EXISTS client_info (
     , PRIMARY KEY(client_id)
 );
 
--- テーブル作成
+-- テーブル作成 authorization_code_info
 CREATE TABLE IF NOT EXISTS authorization_code_info (
     code_id INT NOT NULL AUTO_INCREMENT
     , code_value VARCHAR(32) NOT NULL
+    , user_id VARCHAR(10) NOT NULL
     , code_challenge VARCHAR(64) NOT NULL
     , expiration_date_time DATETIME NOT NULL
     , is_deleted BOOLEAN NOT NULL
