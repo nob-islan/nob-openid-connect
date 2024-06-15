@@ -157,7 +157,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         authorizationCodeInfo.setCodeValue(authorizationCodeInfoList.get(0).getCodeValue());
         authorizationCodeInfoRepository.updateIsDeleted(authorizationCodeInfo);
 
-        // TODO アクセストークン、リフレッシュトークン、IDトークン作成
+        // TODO アクセストークン、IDトークン作成
 
         return new IssueTokenOutModel();
     }

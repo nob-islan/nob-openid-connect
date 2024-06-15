@@ -39,7 +39,6 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         // 返却値を作成
         FetchTokenResponse fetchTokenResponse = new FetchTokenResponse();
         fetchTokenResponse.setAccessToken(demandTokenOutModel.getAccessToken());
-        fetchTokenResponse.setRefleshToken(demandTokenOutModel.getRefleshToken());
         fetchTokenResponse.setIdToken(demandTokenOutModel.getIdToken());
 
         return fetchTokenResponse;

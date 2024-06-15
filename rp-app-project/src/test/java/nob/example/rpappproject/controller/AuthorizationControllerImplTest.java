@@ -52,7 +52,6 @@ public class AuthorizationControllerImplTest {
         // モックレスポンスの作成
         DemandTokenOutModel mockDemandTokenOutModel = new DemandTokenOutModel();
         mockDemandTokenOutModel.setAccessToken("testAccessToken");
-        mockDemandTokenOutModel.setRefleshToken("testRefleshToken");
         mockDemandTokenOutModel.setIdToken("testIdToken");
 
         // サービスのモック化
@@ -63,7 +62,6 @@ public class AuthorizationControllerImplTest {
             FetchTokenResponse fetchTokenResponse = authorizationController.fetchToken(fetchTokenRequest);
             // 結果のassert
             assertEquals("testAccessToken", fetchTokenResponse.getAccessToken());
-            assertEquals("testRefleshToken", fetchTokenResponse.getRefleshToken());
             assertEquals("testIdToken", fetchTokenResponse.getIdToken());
         } catch (Exception e) {
             e.printStackTrace();

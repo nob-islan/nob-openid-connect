@@ -19,12 +19,6 @@ public class IssueTokenResponse {
     private String accessToken;
 
     /**
-     * リフレッシュトークン
-     */
-    @Schema(description = "リフレッシュトークン", type = "string", example = "abc123")
-    private String refleshToken;
-
-    /**
      * IDトークン
      */
     @Schema(description = "IDトークン", type = "string", example = "abc123")

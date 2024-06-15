@@ -53,7 +53,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         // 返却値の作成
         DemandTokenOutModel demandTokenOutModel = new DemandTokenOutModel();
         demandTokenOutModel.setAccessToken(responseEntity.getBody().getAccessToken());
-        demandTokenOutModel.setRefleshToken(responseEntity.getBody().getRefleshToken());
         demandTokenOutModel.setIdToken(responseEntity.getBody().getIdToken());
 
         return demandTokenOutModel;
