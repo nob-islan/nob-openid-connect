@@ -50,6 +50,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         ResponseEntity<OpIssueTokenResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
                 new HttpEntity(opIssueTokenRequest, new HttpHeaders()), OpIssueTokenResponse.class);
 
+        // TODO IDトークン検証
+
         // 返却値の作成
         DemandTokenOutModel demandTokenOutModel = new DemandTokenOutModel();
         demandTokenOutModel.setAccessToken(responseEntity.getBody().getAccessToken());
