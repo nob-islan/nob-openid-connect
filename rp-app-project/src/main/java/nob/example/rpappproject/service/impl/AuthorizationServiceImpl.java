@@ -1,6 +1,7 @@
 package nob.example.rpappproject.service.impl;
 
 import java.net.URI;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -11,6 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+import nob.example.rpappproject.constants.JwtConst;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.rest.constants.UrlConst;
@@ -50,7 +57,23 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         ResponseEntity<OpIssueTokenResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST,
                 new HttpEntity(opIssueTokenRequest, new HttpHeaders()), OpIssueTokenResponse.class);
 
-        // TODO IDトークン検証
+        // IDトークン検証
+        Algorithm algorithm = Algorithm.HMAC256(JwtConst.SECRET_KEY);
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        DecodedJWT decodedIdToken = verifier.verify(responseEntity.getBody().getIdToken());
+        // issクレームがOPの識別子と一致すること
+        if (!decodedIdToken.getIssuer().equals(JwtConst.ISSUER)) {
+            System.out.println("認証失敗"); // TODO 例外作成
+        }
+        // audクレームがRPの識別子と一致すること
+        if (!decodedIdToken.getAudience().get(0).equals(JwtConst.AUDIENCE)) {
+            System.out.println("認証失敗"); // TODO 例外作成
+        }
+        // expクレームが現在時刻より後であること
+        if (!decodedIdToken.getExpiresAt().after(new Date())) {
+            System.out.println("認証失敗"); // TODO 例外作成
+        }
+        // TODO nonce検証
 
         // 返却値の作成
         DemandTokenOutModel demandTokenOutModel = new DemandTokenOutModel();
