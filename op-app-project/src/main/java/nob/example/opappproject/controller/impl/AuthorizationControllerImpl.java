@@ -101,7 +101,6 @@ public class AuthorizationControllerImpl implements AuthorizationController {
         // 返却値の作成
         IssueTokenResponse issueTokenResponse = new IssueTokenResponse();
         issueTokenResponse.setAccessToken(issueTokenOutModel.getAccessToken());
-        issueTokenResponse.setRefleshToken(issueTokenOutModel.getRefleshToken());
         issueTokenResponse.setIdToken(issueTokenOutModel.getIdToken());
 
         return issueTokenResponse;

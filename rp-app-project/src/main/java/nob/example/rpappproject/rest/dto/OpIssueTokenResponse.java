@@ -16,11 +16,6 @@ public class OpIssueTokenResponse {
     private String accessToken;
 
     /**
-     * リフレッシュトークン
-     */
-    private String refleshToken;
-
-    /**
      * IDトークン
      */
     private String idToken;

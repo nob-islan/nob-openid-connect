@@ -65,6 +65,7 @@ public class AuthorizationCodeInfoRepositoryImplTest {
         // 登録内容の作成
         AuthorizationCodeInfo authorizationCodeInfo = new AuthorizationCodeInfo();
         authorizationCodeInfo.setCodeValue("test_value");
+        authorizationCodeInfo.setUserId("test_uid");
         authorizationCodeInfo.setCodeChallenge("test_code_challenge");
         authorizationCodeInfo.setExpirationDateTime(new Date());
         authorizationCodeInfo.setIsDeleted(false);
@@ -99,6 +100,7 @@ public class AuthorizationCodeInfoRepositoryImplTest {
             assertEquals(1, authorizationCodeInfoList.size());
             assertEquals("testCodeValue1", authorizationCodeInfoList.get(0).getCodeValue());
             assertEquals("testCodeChallenge1", authorizationCodeInfoList.get(0).getCodeChallenge());
+            assertEquals("testUser1", authorizationCodeInfoList.get(0).getUserId());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -170,7 +172,6 @@ public class AuthorizationCodeInfoRepositoryImplTest {
         try {
             // repository呼び出し
             authorizationCodeInfoRepository.updateIsDeleted(authorizationCodeInfo);
-            System.out.println("");
         } catch (Exception e) {
             e.printStackTrace();
             fail();

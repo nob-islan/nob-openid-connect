@@ -50,7 +50,6 @@ public class AuthorizationServiceImplTest {
         // モックレスポンスの作成
         OpIssueTokenResponse opIssueTokenResponse = new OpIssueTokenResponse();
         opIssueTokenResponse.setAccessToken("testAccessToken");
-        opIssueTokenResponse.setRefleshToken("testRefleshToken");
         opIssueTokenResponse.setIdToken("testIdToken");
         ObjectMapper objectMapper = new ObjectMapper();
         String response = objectMapper.writeValueAsString(opIssueTokenResponse);
@@ -68,7 +67,6 @@ public class AuthorizationServiceImplTest {
             DemandTokenOutModel demandTokenOutModel = authorizationService.demandToken(demandTokenInModel);
             // 結果のassert
             assertEquals("testAccessToken", demandTokenOutModel.getAccessToken());
-            assertEquals("testRefleshToken", demandTokenOutModel.getRefleshToken());
             assertEquals("testIdToken", demandTokenOutModel.getIdToken());
         } catch (Exception e) {
             e.printStackTrace();
