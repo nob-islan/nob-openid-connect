@@ -15,11 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+import nob.example.opappproject.constants.JwtConst;
 import nob.example.opappproject.dto.AuthorizeInModel;
 import nob.example.opappproject.dto.AuthorizeOutModel;
 import nob.example.opappproject.dto.CertificateInModel;
 import nob.example.opappproject.dto.CertificateOutModel;
 import nob.example.opappproject.dto.IssueTokenInModel;
+import nob.example.opappproject.dto.IssueTokenOutModel;
 import nob.example.opappproject.dto.RedirectUriSelectKey;
 import nob.example.opappproject.dto.UserCredentialSelectKey;
 import nob.example.opappproject.entity.AuthorizationCodeInfo;
@@ -142,6 +149,7 @@ public class AuthorizationServiceImplTest {
 
         // モックレスポンス作成
         AuthorizationCodeInfo mockAuthorizationCodeInfo = new AuthorizationCodeInfo();
+        mockAuthorizationCodeInfo.setUserId("testNob");
         mockAuthorizationCodeInfo.setCodeValue("testAuthorizationCode");
         mockAuthorizationCodeInfo.setCodeChallenge("b43a998c3ceeea516064cf9a4ec77c1a88a6bf9319aaa4ee474bca52ba80c1cd");
         List<AuthorizationCodeInfo> mockAuthorizationCodeInfoList = new ArrayList<AuthorizationCodeInfo>();
@@ -154,8 +162,23 @@ public class AuthorizationServiceImplTest {
 
         try {
             // サービス呼び出し
-            authorizationService.issueToken(issueTokenInModel);
-            // TODO 結果のassert
+            IssueTokenOutModel issueTokenOutModel = authorizationService.issueToken(issueTokenInModel);
+            // 結果のassert
+            Algorithm algorithm = Algorithm.HMAC256(JwtConst.SECRET_KEY);
+            JWTVerifier verifier = JWT.require(algorithm).build();
+            DecodedJWT decodedAccessToken = verifier.verify(issueTokenOutModel.getAccessToken());
+            assertNotNull(decodedAccessToken.getExpiresAt());
+            assertNotNull(decodedAccessToken.getIssuedAt());
+            assertEquals("nob-rp", decodedAccessToken.getAudience().get(0));
+            assertEquals("nob-op", decodedAccessToken.getIssuer());
+            assertEquals("testNob", decodedAccessToken.getSubject());
+            DecodedJWT decodedIdToken = verifier.verify(issueTokenOutModel.getIdToken());
+            assertNotNull(decodedIdToken.getExpiresAt());
+            assertNotNull(decodedIdToken.getIssuedAt());
+            assertEquals("nob-rp", decodedIdToken.getAudience().get(0));
+            assertEquals("nob-op", decodedIdToken.getIssuer());
+            assertEquals("testNob", decodedIdToken.getSubject());
+            assertEquals("\"testNonce\"", decodedIdToken.getClaim("nonce").toString());
         } catch (Exception e) {
             e.printStackTrace();
             fail();

@@ -162,8 +162,8 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         authorizationCodeInfo.setCodeValue(authorizationCodeInfoList.get(0).getCodeValue());
         authorizationCodeInfoRepository.updateIsDeleted(authorizationCodeInfo);
 
-        // アクセストークン作成
-        Algorithm algorithm = Algorithm.HMAC256(JwtConst.ACCESS_TOKEN_SECRET_KEY);
+        // アクセストークンの各クレーム作成
+        Algorithm algorithm = Algorithm.HMAC256(JwtConst.SECRET_KEY);
         Date issuedAt = new Date(); // トークン発行時刻
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(issuedAt);
@@ -172,12 +172,19 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         String audience = JwtConst.AUDIENCE; // トークン行使先
         String issuer = JwtConst.ISSUER; // トークン発行者の識別子
         String subject = authorizationCodeInfoList.get(0).getUserId(); // ユーザの識別子
+        // アクセストークン作成
         String accessToken = JWT.create().withExpiresAt(expiresAt).withIssuedAt(issuedAt).withAudience(audience)
                 .withIssuer(issuer).withSubject(subject).sign(algorithm);
+
+        // IDトークンのクレーム作成（アクセストークンと同一でないもののみ）
+        String nonce = "testNonce"; // TODO nonce実装
+        String idToken = JWT.create().withExpiresAt(expiresAt).withIssuedAt(issuedAt).withAudience(audience)
+                .withIssuer(issuer).withSubject(subject).withClaim("nonce", nonce).sign(algorithm);
 
         // 返却値の作成
         IssueTokenOutModel issueTokenOutModel = new IssueTokenOutModel();
         issueTokenOutModel.setAccessToken(accessToken);
+        issueTokenOutModel.setIdToken(idToken);
 
         return issueTokenOutModel;
     }

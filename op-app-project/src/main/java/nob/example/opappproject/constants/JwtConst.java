@@ -8,9 +8,9 @@ package nob.example.opappproject.constants;
 public class JwtConst {
 
     /**
-     * アクセストークンのjwtエンコード・デコード時のシークレットキー
+     * トークンのjwtエンコード・デコード時のシークレットキー
      */
-    public static final String ACCESS_TOKEN_SECRET_KEY = "MAzVs6JfgzdrTRk8md47yYwu";
+    public static final String SECRET_KEY = "MAzVs6JfgzdrTRk8md47yYwu";
 
     /**
      * 有効期間（1日）
