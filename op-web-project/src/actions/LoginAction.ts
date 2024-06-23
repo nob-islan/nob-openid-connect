@@ -65,7 +65,8 @@ export const authorize = (
   return async () => {
     await axios
       .get(UrlConst.AUTHORIZATION + queryParam)
-      .then(() => preDrawLogin(codeChallenge));
+      .then(() => preDrawLogin(codeChallenge))
+      .catch((error) => window.confirm('エラーが発生しました。'));
   };
 };
 
@@ -96,8 +97,8 @@ export const certification = (redirectUri: string) => {
           response.data.redirectUri,
           response.data.authorizationCode
         )
-      );
-    // TODO 例外処理
+      )
+      .catch((error) => window.confirm('エラーが発生しました。'));
   };
 };
 
