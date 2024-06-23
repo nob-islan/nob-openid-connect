@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
+import nob.example.rpappproject.exceptions.RpAuthException;
 
 /**
  * 認証向けサービスのインターフェースです。
@@ -18,6 +19,7 @@ public interface AuthorizationService {
      * 
      * @param demandTokenInModel
      * @return アクセストークン
+     * @throws RpAuthException
      */
-    DemandTokenOutModel demandToken(DemandTokenInModel demandTokenInModel);
+    DemandTokenOutModel demandToken(DemandTokenInModel demandTokenInModel) throws RpAuthException;
 }

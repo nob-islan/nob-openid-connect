@@ -1,4 +1,4 @@
-package nob.example.opappproject.exceptions;
+package nob.example.rpappproject.exceptions;
 
 import lombok.Getter;
 
@@ -7,7 +7,7 @@ import lombok.Getter;
  * 
  * @author nob
  */
-public class OpAuthException extends Exception {
+public class RpAuthException extends Exception {
 
     /**
      * エラーコード
@@ -22,8 +22,7 @@ public class OpAuthException extends Exception {
     private String message;
 
     // コンストラクタ
-    public OpAuthException(String code, String message) {
-
+    public RpAuthException(String code, String message) {
         this.code = code;
         this.message = message;
     }

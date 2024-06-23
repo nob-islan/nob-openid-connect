@@ -1,7 +1,6 @@
 package nob.example.rpappproject.service.impl;
 
 import java.net.URI;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -15,11 +14,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
+import nob.example.rpappproject.constants.ErrorConst;
 import nob.example.rpappproject.constants.JwtConst;
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
+import nob.example.rpappproject.exceptions.RpAuthException;
 import nob.example.rpappproject.rest.constants.UrlConst;
 import nob.example.rpappproject.rest.dto.OpIssueTokenRequest;
 import nob.example.rpappproject.rest.dto.OpIssueTokenResponse;
@@ -39,10 +41,12 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     /**
      * {@inheritDoc}
      * 
+     * @throws RpAuthException
+     * 
      */
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public DemandTokenOutModel demandToken(DemandTokenInModel demandTokenInModel) {
+    public DemandTokenOutModel demandToken(DemandTokenInModel demandTokenInModel) throws RpAuthException {
 
         // URL作成
         String urlStr = UrlConst.OP_APP_ORIGIN + UrlConst.BASE_URL + UrlConst.TOKEN;
@@ -60,18 +64,20 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         // IDトークン検証
         Algorithm algorithm = Algorithm.HMAC256(JwtConst.SECRET_KEY);
         JWTVerifier verifier = JWT.require(algorithm).build();
-        DecodedJWT decodedIdToken = verifier.verify(responseEntity.getBody().getIdToken());
+        DecodedJWT decodedIdToken;
+        try {
+            decodedIdToken = verifier.verify(responseEntity.getBody().getIdToken());
+        } catch (TokenExpiredException e) {
+            // IDトークンが期限切れの場合はエラー
+            throw (new RpAuthException(ErrorConst.Code.INVALID_ID_TOKEN, ErrorConst.Message.BASE));
+        }
         // issクレームがOPの識別子と一致すること
         if (!decodedIdToken.getIssuer().equals(JwtConst.ISSUER)) {
-            System.out.println("認証失敗"); // TODO 例外作成
+            throw (new RpAuthException(ErrorConst.Code.INVALID_ID_TOKEN, ErrorConst.Message.BASE));
         }
         // audクレームがRPの識別子と一致すること
         if (!decodedIdToken.getAudience().get(0).equals(JwtConst.AUDIENCE)) {
-            System.out.println("認証失敗"); // TODO 例外作成
-        }
-        // expクレームが現在時刻より後であること
-        if (!decodedIdToken.getExpiresAt().after(new Date())) {
-            System.out.println("認証失敗"); // TODO 例外作成
+            throw (new RpAuthException(ErrorConst.Code.INVALID_ID_TOKEN, ErrorConst.Message.BASE));
         }
 
         // 返却値の作成

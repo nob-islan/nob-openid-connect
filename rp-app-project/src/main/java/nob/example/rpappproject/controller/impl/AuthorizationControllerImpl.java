@@ -8,6 +8,7 @@ import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
 import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.dto.FetchTokenResponse;
+import nob.example.rpappproject.exceptions.RpAuthException;
 import nob.example.rpappproject.service.AuthorizationService;
 
 /**
@@ -24,9 +25,11 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     /**
      * {@inheritDoc}
      * 
+     * @throws RpAuthException
+     * 
      */
     @Override
-    public FetchTokenResponse fetchToken(FetchTokenRequest fetchTokenRequest) {
+    public FetchTokenResponse fetchToken(FetchTokenRequest fetchTokenRequest) throws RpAuthException {
 
         // トークンリクエスト
         DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
