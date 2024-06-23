@@ -18,6 +18,7 @@ import nob.example.opappproject.dto.IssueTokenInModel;
 import nob.example.opappproject.dto.IssueTokenOutModel;
 import nob.example.opappproject.dto.IssueTokenRequest;
 import nob.example.opappproject.dto.IssueTokenResponse;
+import nob.example.opappproject.exceptions.OpAuthException;
 import nob.example.opappproject.service.AuthorizationService;
 
 /**
@@ -34,9 +35,11 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     /**
      * {@inheritDoc}
      * 
+     * @throws OpAuthException
+     * 
      */
     @Override
-    public AuthorizeResponse authorize(AuthorizeRequest authorizeRequest) {
+    public AuthorizeResponse authorize(AuthorizeRequest authorizeRequest) throws OpAuthException {
 
         // サービスを呼び出してリダイレクトURI検証
         AuthorizeInModel authorizeInModel = new AuthorizeInModel();
@@ -54,10 +57,12 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     /**
      * {@inheritDoc}
      * 
+     * @throws OpAuthException
+     * 
      */
     @Override
     public CertificateResponse certificate(CertificateRequest certificateRequest,
-            HttpServletRequest httpServletRequest) {
+            HttpServletRequest httpServletRequest) throws OpAuthException {
 
         // inModel作成
         CertificateInModel certificateInModel = new CertificateInModel();
@@ -86,9 +91,11 @@ public class AuthorizationControllerImpl implements AuthorizationController {
     /**
      * {@inheritDoc}
      * 
+     * @throws OpAuthException
+     * 
      */
     @Override
-    public IssueTokenResponse issueToken(IssueTokenRequest issueTokenRequest) {
+    public IssueTokenResponse issueToken(IssueTokenRequest issueTokenRequest) throws OpAuthException {
 
         // inModel作成
         IssueTokenInModel issueTokenInModel = new IssueTokenInModel();

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import nob.example.rpappproject.dto.DemandTokenInModel;
 import nob.example.rpappproject.dto.DemandTokenOutModel;
+import nob.example.rpappproject.exceptions.RpAuthException;
 import nob.example.rpappproject.rest.dto.OpIssueTokenResponse;
 
 /**
@@ -74,6 +75,120 @@ public class AuthorizationServiceImplTest {
         } catch (Exception e) {
             e.printStackTrace();
             fail();
+        }
+    }
+
+    /**
+     * demandTokenのテスト issuerが不正
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_demandToken_invalidIssuer() throws Exception {
+
+        // 入力値の作成
+        DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
+        demandTokenInModel.setAuthorizationCode("testAuthorizationCode");
+        demandTokenInModel.setCodeVerifier("testCodeVerifier");
+
+        // モックレスポンスの作成
+        OpIssueTokenResponse opIssueTokenResponse = new OpIssueTokenResponse();
+        opIssueTokenResponse.setAccessToken("testAccessToken");
+        opIssueTokenResponse.setIdToken(
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkyMDIzNTIsImlhdCI6MTcxOTExNTk1MiwiYXVkIjoibm9iLXJwIiwiaXNzIjoiaW52YWxpZC1ub2Itb3AiLCJzdWIiOiJ0ZXN0Tm9iIn0.toczPUpA4iXY7yVhu7obOTqAfxyZr_-b8F4TPfqKhvA");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String response = objectMapper.writeValueAsString(opIssueTokenResponse);
+
+        // リクエストURL
+        String url = "http://op-app:8081/api/op/token";
+
+        // モックサーバの作成
+        MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
+        mockRestServiceServer.expect(requestTo(url)).andExpect(method(HttpMethod.POST)).andRespond(
+                withSuccess(response, MediaType.APPLICATION_JSON));
+
+        try {
+            // サービス呼び出し
+            authorizationService.demandToken(demandTokenInModel);
+        } catch (RpAuthException e) {
+            assertEquals("INVALID_ID_TOKEN", e.getCode());
+            assertEquals("認証に失敗しました。", e.getMessage());
+        }
+    }
+
+    /**
+     * demandTokenのテスト audienceが不正
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_demandToken_invalidAudience() throws Exception {
+
+        // 入力値の作成
+        DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
+        demandTokenInModel.setAuthorizationCode("testAuthorizationCode");
+        demandTokenInModel.setCodeVerifier("testCodeVerifier");
+
+        // モックレスポンスの作成
+        OpIssueTokenResponse opIssueTokenResponse = new OpIssueTokenResponse();
+        opIssueTokenResponse.setAccessToken("testAccessToken");
+        opIssueTokenResponse.setIdToken(
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTkyMDI0MzcsImlhdCI6MTcxOTExNjAzNywiYXVkIjoiaW52YWxpZC1ub2ItcnAiLCJpc3MiOiJub2Itb3AiLCJzdWIiOiJ0ZXN0Tm9iIn0.ou8vX4mhiyus1NQ_seK9zB-tqRD7U3BEglFFulMXj94");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String response = objectMapper.writeValueAsString(opIssueTokenResponse);
+
+        // リクエストURL
+        String url = "http://op-app:8081/api/op/token";
+
+        // モックサーバの作成
+        MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
+        mockRestServiceServer.expect(requestTo(url)).andExpect(method(HttpMethod.POST)).andRespond(
+                withSuccess(response, MediaType.APPLICATION_JSON));
+
+        try {
+            // サービス呼び出し
+            authorizationService.demandToken(demandTokenInModel);
+        } catch (RpAuthException e) {
+            assertEquals("INVALID_ID_TOKEN", e.getCode());
+            assertEquals("認証に失敗しました。", e.getMessage());
+        }
+    }
+
+    /**
+     * demandTokenのテスト expiresAtが不正
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void test_demandToken_invalidExpiresAt() throws Exception {
+
+        // 入力値の作成
+        DemandTokenInModel demandTokenInModel = new DemandTokenInModel();
+        demandTokenInModel.setAuthorizationCode("testAuthorizationCode");
+        demandTokenInModel.setCodeVerifier("testCodeVerifier");
+
+        // モックレスポンスの作成
+        OpIssueTokenResponse opIssueTokenResponse = new OpIssueTokenResponse();
+        opIssueTokenResponse.setAccessToken("testAccessToken");
+        opIssueTokenResponse.setIdToken(
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTgyNTIwOTAsImlhdCI6MTcxOTExNjA5MCwiYXVkIjoibm9iLXJwIiwiaXNzIjoibm9iLW9wIiwic3ViIjoidGVzdE5vYiJ9.BC_Xua-PgRVsNENX5CkiBep08Am_13g87F825z2hoPQ");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String response = objectMapper.writeValueAsString(opIssueTokenResponse);
+
+        // リクエストURL
+        String url = "http://op-app:8081/api/op/token";
+
+        // モックサーバの作成
+        MockRestServiceServer mockRestServiceServer = MockRestServiceServer.bindTo(restTemplate).build();
+        mockRestServiceServer.expect(requestTo(url)).andExpect(method(HttpMethod.POST)).andRespond(
+                withSuccess(response, MediaType.APPLICATION_JSON));
+
+        try {
+            // サービス呼び出し
+            authorizationService.demandToken(demandTokenInModel);
+        } catch (RpAuthException e) {
+            assertEquals("INVALID_ID_TOKEN", e.getCode());
+            assertEquals("認証に失敗しました。", e.getMessage());
         }
     }
 }

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import nob.example.rpappproject.constants.UrlConst;
 import nob.example.rpappproject.dto.FetchTokenRequest;
 import nob.example.rpappproject.dto.FetchTokenResponse;
+import nob.example.rpappproject.exceptions.RpAuthException;
 
 /**
  * 認証向けコントローラーのインターフェースです。
@@ -26,8 +27,9 @@ public interface AuthorizationController {
      * 
      * @param fetchTokenRequest
      * @return アクセストークン
+     * @throws RpAuthException
      */
     @PostMapping(value = UrlConst.TOKEN_FETCH)
     @Operation(summary = "アクセストークンの取得", description = "${rpapidoc.describe.authorization.fetch-token:説明文}")
-    FetchTokenResponse fetchToken(@RequestBody FetchTokenRequest fetchTokenRequest);
+    FetchTokenResponse fetchToken(@RequestBody FetchTokenRequest fetchTokenRequest) throws RpAuthException;
 }

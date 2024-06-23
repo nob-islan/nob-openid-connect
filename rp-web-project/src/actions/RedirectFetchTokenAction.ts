@@ -41,7 +41,8 @@ export const fetchToken = (authorizationCode: string, codeVerifier: string) => {
     };
     await axios
       .post(UrlConst.TOKEN_FETCH, request)
-      .then((response) => redirectTop());
+      .then((response) => redirectTop())
+      .catch((error) => window.confirm('エラーが発生しました。'));
   };
 };
 
