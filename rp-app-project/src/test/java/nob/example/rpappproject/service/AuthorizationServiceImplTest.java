@@ -50,7 +50,8 @@ public class AuthorizationServiceImplTest {
         // モックレスポンスの作成
         OpIssueTokenResponse opIssueTokenResponse = new OpIssueTokenResponse();
         opIssueTokenResponse.setAccessToken("testAccessToken");
-        opIssueTokenResponse.setIdToken("testIdToken");
+        opIssueTokenResponse.setIdToken(
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1ODI5ODQzOTgsImlhdCI6MTcxOTA3MDc5OCwiYXVkIjoibm9iLXJwIiwiaXNzIjoibm9iLW9wIiwic3ViIjoidGVzdE5vYiIsIm5vbmNlIjoidGVzdE5vbmNlIn0.VSA43whpqJ1wY4W3Dh_6lIfiMPi3TNuxn1djHj8XphU");
         ObjectMapper objectMapper = new ObjectMapper();
         String response = objectMapper.writeValueAsString(opIssueTokenResponse);
 
@@ -67,7 +68,9 @@ public class AuthorizationServiceImplTest {
             DemandTokenOutModel demandTokenOutModel = authorizationService.demandToken(demandTokenInModel);
             // 結果のassert
             assertEquals("testAccessToken", demandTokenOutModel.getAccessToken());
-            assertEquals("testIdToken", demandTokenOutModel.getIdToken());
+            assertEquals(
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1ODI5ODQzOTgsImlhdCI6MTcxOTA3MDc5OCwiYXVkIjoibm9iLXJwIiwiaXNzIjoibm9iLW9wIiwic3ViIjoidGVzdE5vYiIsIm5vbmNlIjoidGVzdE5vbmNlIn0.VSA43whpqJ1wY4W3Dh_6lIfiMPi3TNuxn1djHj8XphU",
+                    demandTokenOutModel.getIdToken());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
