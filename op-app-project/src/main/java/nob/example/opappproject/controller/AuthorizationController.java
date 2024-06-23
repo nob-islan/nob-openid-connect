@@ -17,6 +17,7 @@ import nob.example.opappproject.dto.CertificateRequest;
 import nob.example.opappproject.dto.CertificateResponse;
 import nob.example.opappproject.dto.IssueTokenRequest;
 import nob.example.opappproject.dto.IssueTokenResponse;
+import nob.example.opappproject.exceptions.OpAuthException;
 
 /**
  * 認証向けコントローラーのインターフェースです。
@@ -33,30 +34,33 @@ public interface AuthorizationController {
      * 
      * @param authorizeRequest
      * @return 認証・ユーザ情報提供画面
+     * @throws OpAuthException
      */
     @GetMapping(value = UrlConst.AUTHORIZATION)
     @Operation(summary = "認可", description = "${opapidoc.describe.authorization.authorize:説明文}")
-    AuthorizeResponse authorize(@ParameterObject AuthorizeRequest authorizeRequest);
+    AuthorizeResponse authorize(@ParameterObject AuthorizeRequest authorizeRequest) throws OpAuthException;
 
     /**
      * ユーザID, パスワードによる認証を行い、認可コードを発行します。
      * 
      * @param certificateRequest
      * @return 認証の結果
+     * @throws OpAuthException
      */
     @PostMapping(value = UrlConst.CERTIFICATION)
     @Operation(summary = "認証", description = "${opapidoc.describe.authorization.certificate:説明文}")
     CertificateResponse certificate(@RequestBody CertificateRequest certificateRequest,
-            HttpServletRequest httpServletRequest);
+            HttpServletRequest httpServletRequest) throws OpAuthException;
 
     /**
      * アクセストークンを発行します。
      * 
      * @param issueTokenRequest
      * @return アクセストークン
+     * @throws OpAuthException
      */
     @PostMapping(value = UrlConst.TOKEN)
     @Operation(summary = "トークン発行", description = "${opapidoc.describe.authorization.issue-token:説明文}")
-    IssueTokenResponse issueToken(@RequestBody IssueTokenRequest issueTokenRequest);
+    IssueTokenResponse issueToken(@RequestBody IssueTokenRequest issueTokenRequest) throws OpAuthException;
 
 }

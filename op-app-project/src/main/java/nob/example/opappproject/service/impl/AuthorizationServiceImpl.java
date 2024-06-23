@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
+import nob.example.opappproject.constants.ErrorConst;
 import nob.example.opappproject.constants.JwtConst;
 import nob.example.opappproject.dto.AuthorizationCodeInfoSelectKey;
 import nob.example.opappproject.dto.AuthorizeInModel;
@@ -25,6 +26,7 @@ import nob.example.opappproject.dto.UserCredentialSelectKey;
 import nob.example.opappproject.entity.AuthorizationCodeInfo;
 import nob.example.opappproject.entity.ClientInfo;
 import nob.example.opappproject.entity.UserInfo;
+import nob.example.opappproject.exceptions.OpAuthException;
 import nob.example.opappproject.repository.AuthorizationCodeInfoRepository;
 import nob.example.opappproject.repository.ClientInfoRepository;
 import nob.example.opappproject.repository.UserInfoRepository;
@@ -50,9 +52,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     /**
      * {@inheritDoc}
      * 
+     * @throws OpAuthException
+     * 
      */
     @Override
-    public AuthorizeOutModel authorize(AuthorizeInModel authorizeInModel) {
+    public AuthorizeOutModel authorize(AuthorizeInModel authorizeInModel) throws OpAuthException {
 
         // DBからリダイレクトURI取得
         RedirectUriSelectKey redirectUriSelectKey = new RedirectUriSelectKey();
@@ -60,7 +64,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         List<ClientInfo> clientInfoList = clientInfoRepository.selectRedirectUri(redirectUriSelectKey);
         // DBから取得したリダイレクトURLとinModelのリダイレクトURLとを比較
         if (!clientInfoList.get(0).getRedirectUri().equals(authorizeInModel.getRedirectUri())) {
-            System.out.println("認証失敗"); // TODO 例外作成
+            throw (new OpAuthException(ErrorConst.Code.INVALID_REDIRECT_URI, ErrorConst.Message.BASE));
         }
 
         // 検証OKであればリダイレクトURIをそのまま返却
@@ -73,9 +77,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     /**
      * {@inheritDoc}
      * 
+     * @throws OpAuthException
+     * 
      */
     @Override
-    public CertificateOutModel certificate(CertificateInModel certificateInModel) {
+    public CertificateOutModel certificate(CertificateInModel certificateInModel) throws OpAuthException {
 
         // 認可コードの文字長
         final int AUTHORIZATION_CODE_LENGTH = 32;
@@ -91,7 +97,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         List<UserInfo> userInfoList = userInfoRepository.selectUserCredential(userCredentialSelectKey);
         // ヒットした件数が1件でなければ認証失敗とする
         if (userInfoList.size() != 1) {
-            System.out.println("認証失敗"); // TODO 例外作成
+            throw (new OpAuthException(ErrorConst.Code.INVALID_CREDENTIAL, ErrorConst.Message.BASE));
         }
 
         // 認可コード発行
@@ -135,9 +141,11 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     /**
      * {@inheritDoc}
      * 
+     * @throws OpAuthException
+     * 
      */
     @Override
-    public IssueTokenOutModel issueToken(IssueTokenInModel issueTokenInModel) {
+    public IssueTokenOutModel issueToken(IssueTokenInModel issueTokenInModel) throws OpAuthException {
 
         // 保存されている認可コードを検索
         AuthorizationCodeInfoSelectKey authorizationCodeInfoSelectKey = new AuthorizationCodeInfoSelectKey();
@@ -147,14 +155,14 @@ public class AuthorizationServiceImpl implements AuthorizationService {
                 .selectAuthorizationCode(authorizationCodeInfoSelectKey);
         // 結果が1件でなければエラー
         if (authorizationCodeInfoList.size() != 1) {
-            System.out.println("認証失敗"); // TODO 例外作成
+            throw (new OpAuthException(ErrorConst.Code.INVALID_AUTHORIZATION_CODE, ErrorConst.Message.BASE));
         }
 
         // codeVerifier検証
         String targetCodeChallenge = DigestUtils.sha256Hex(issueTokenInModel.getCodeVerifier());
         // DBに保存されているcodeChallengeと合致しなければエラー
         if (!targetCodeChallenge.equals(authorizationCodeInfoList.get(0).getCodeChallenge())) {
-            System.out.println("認証失敗"); // TODO 例外作成
+            throw (new OpAuthException(ErrorConst.Code.INVALID_CODE_VERIFIER, ErrorConst.Message.BASE));
         }
 
         // 検証済みの認可コードを削除

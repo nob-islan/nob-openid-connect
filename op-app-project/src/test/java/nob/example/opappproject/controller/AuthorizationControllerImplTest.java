@@ -162,6 +162,4 @@ public class AuthorizationControllerImplTest {
             fail();
         }
     }
-
-    // TODO 異常系テスト
 }
