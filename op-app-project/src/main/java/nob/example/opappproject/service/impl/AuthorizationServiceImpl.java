@@ -176,10 +176,9 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         String accessToken = JWT.create().withExpiresAt(expiresAt).withIssuedAt(issuedAt).withAudience(audience)
                 .withIssuer(issuer).withSubject(subject).sign(algorithm);
 
-        // IDトークンのクレーム作成（アクセストークンと同一でないもののみ）
-        String nonce = "testNonce"; // TODO nonce実装
+        // IDトークンのクレーム作成
         String idToken = JWT.create().withExpiresAt(expiresAt).withIssuedAt(issuedAt).withAudience(audience)
-                .withIssuer(issuer).withSubject(subject).withClaim("nonce", nonce).sign(algorithm);
+                .withIssuer(issuer).withSubject(subject).sign(algorithm);
 
         // 返却値の作成
         IssueTokenOutModel issueTokenOutModel = new IssueTokenOutModel();

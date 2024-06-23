@@ -178,7 +178,6 @@ public class AuthorizationServiceImplTest {
             assertEquals("nob-rp", decodedIdToken.getAudience().get(0));
             assertEquals("nob-op", decodedIdToken.getIssuer());
             assertEquals("testNob", decodedIdToken.getSubject());
-            assertEquals("\"testNonce\"", decodedIdToken.getClaim("nonce").toString());
         } catch (Exception e) {
             e.printStackTrace();
             fail();

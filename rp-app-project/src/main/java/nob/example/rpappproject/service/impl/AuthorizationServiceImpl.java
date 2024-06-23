@@ -73,7 +73,6 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         if (!decodedIdToken.getExpiresAt().after(new Date())) {
             System.out.println("認証失敗"); // TODO 例外作成
         }
-        // TODO nonce検証
 
         // 返却値の作成
         DemandTokenOutModel demandTokenOutModel = new DemandTokenOutModel();
