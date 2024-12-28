@@ -14,11 +14,16 @@ import com.example.rp_project.controller.AuthenticationController;
 @Controller
 public class AuthenticationControllerImpl implements AuthenticationController {
 
+    /**
+     * OpenIDプロバイダの認可リクエスト検証API
+     */
+    private final String OP_VALIDATE_AUTHORIZATION_REQUEST_API = "http://localhost:8081/v1/api/auth/authorization";
+
     @Override
     public ModelAndView init() {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(PageConstant.LOGIN);
+        modelAndView.setViewName(PageConstant.WELCOME);
 
         return modelAndView;
     }
@@ -27,7 +32,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     public ModelAndView requestAuthorization() {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:http://localhost:8081/v1/api/auth/authorization"); // TODO 定数クラス管理
+        modelAndView.setViewName("redirect:" + OP_VALIDATE_AUTHORIZATION_REQUEST_API);
 
         return modelAndView;
     }

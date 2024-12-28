@@ -6,6 +6,8 @@
   </head>
 
   <body>
-    ログインを開始する画面です。
+    <form th:action="@{/auth/authorization}" method="get">
+      <input type="submit" value="ログイン開始" />
+    </form>
   </body>
 </html>
