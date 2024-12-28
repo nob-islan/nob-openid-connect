@@ -1,10 +1,15 @@
 package com.example.op_project.controller.impl;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.op_project.controller.AuthenticationController;
-import com.example.op_project.controller.form.ValidateAuthenticationRequestForm;
+import com.example.op_project.controller.reqres.AuthenticateRequest;
+import com.example.op_project.controller.reqres.AuthorizeRequest;
+import com.example.op_project.service.AuthenticationService;
+import com.example.op_project.service.inout.AuthorizeInModel;
 
 /**
  * OpenIDプロバイダとしての認証を行うコントローラ実装です。
@@ -14,23 +19,27 @@ import com.example.op_project.controller.form.ValidateAuthenticationRequestForm;
 @RestController
 public class AuthenticationControllerImpl implements AuthenticationController {
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @Override
-    public ModelAndView validateAuthorizationRequest() {
+    public ModelAndView authorize(AuthorizeRequest authorizeRequest) {
 
-        // TODO 認可リクエスト検証
+        // 認可リクエストを検証 不正であれば例外を投げる
+        AuthorizeInModel authorizeInModel = new AuthorizeInModel();
+        BeanUtils.copyProperties(authorizeRequest, authorizeInModel);
+        authenticationService.authorize(authorizeInModel);
 
+        // 返却値を作成
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
-        // ユーザ名、パスワード入力用フォームをセット
-        ValidateAuthenticationRequestForm validateAuthenticationRequestForm = new ValidateAuthenticationRequestForm();
-        modelAndView.addObject("validateAuthenticationRequestForm", validateAuthenticationRequestForm);
+        modelAndView.addObject("authenticateRequest", new AuthenticateRequest());
 
         return modelAndView;
     }
 
     @Override
-    public ModelAndView validateAuthenticationRequest(
-            ValidateAuthenticationRequestForm validateAuthenticationRequestForm) {
+    public ModelAndView authenticate(AuthenticateRequest authenticateRequest) {
 
         // TODO 認証リクエスト検証
 

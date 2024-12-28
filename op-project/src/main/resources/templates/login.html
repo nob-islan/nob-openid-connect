@@ -8,7 +8,7 @@
   <body>
     <form
       th:action="@{/v1/api/auth/authentication}"
-      th:object="${validateAuthenticationRequestForm}"
+      th:object="${authenticateRequest}"
       method="post"
     >
       ログイン情報を入力してください。<br />

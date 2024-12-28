@@ -1,14 +1,14 @@
-package com.example.op_project.controller.form;
+package com.example.op_project.controller.reqres;
 
 import lombok.Data;
 
 /**
- * ユーザID, パスワード入力時の情報を格納するformです。
+ * 認証のリクエストモデルです。
  * 
  * @author nob
  */
 @Data
-public class ValidateAuthenticationRequestForm {
+public class AuthenticateRequest {
 
     /**
      * ユーザ名

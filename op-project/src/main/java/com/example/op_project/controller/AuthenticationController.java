@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.op_project.constant.UrlConstant;
-import com.example.op_project.controller.form.ValidateAuthenticationRequestForm;
+import com.example.op_project.controller.reqres.AuthenticateRequest;
+import com.example.op_project.controller.reqres.AuthorizeRequest;
 
 /**
  * OpenIDプロバイダとしての認証を行うコントローラインターフェースです。
@@ -24,7 +25,7 @@ public interface AuthenticationController {
      * @return ログインページ
      */
     @GetMapping(value = "/authorization")
-    ModelAndView validateAuthorizationRequest();
+    ModelAndView authorize(AuthorizeRequest authorizeRequest);
 
     /**
      * 認証リクエストの検証を行います。
@@ -32,5 +33,5 @@ public interface AuthenticationController {
      * @return RPによって指定されたリダイレクト先ページ
      */
     @PostMapping(value = "/authentication")
-    ModelAndView validateAuthenticationRequest(ValidateAuthenticationRequestForm validateAuthenticationRequestForm);
+    ModelAndView authenticate(AuthenticateRequest authenticateRequest);
 }
