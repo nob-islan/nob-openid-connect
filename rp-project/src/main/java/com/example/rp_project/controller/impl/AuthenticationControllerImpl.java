@@ -22,4 +22,10 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
         return modelAndView;
     }
+
+    @Override
+    public String requestAuthorization() {
+
+        return "redirect:http://localhost:8081/v1/api/auth/authorization"; // TODO 定数クラス管理
+    }
 }

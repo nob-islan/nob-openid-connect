@@ -19,7 +19,16 @@ public interface AuthenticationController {
     /**
      * OIDC開始用の初期ページを表示します。
      * 
+     * @return
      */
     @GetMapping(value = "/login")
     ModelAndView init();
+
+    /**
+     * OpenIDプロバイダに認可要求を行います。
+     * 
+     * @return OpenIDプロバイダが提供するログイン画面
+     */
+    @GetMapping(value = "/authorization")
+    String requestAuthorization();
 }
