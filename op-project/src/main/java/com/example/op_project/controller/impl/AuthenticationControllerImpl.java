@@ -35,7 +35,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         // TODO 認証リクエスト検証
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(""); // TODO RPから指定されたリダイレクトURLをセット
+        modelAndView.setViewName("redirect:http://localhost:8080/auth/token"); // TODO RPから指定されたリダイレクトURLをセット
 
         return modelAndView;
     }

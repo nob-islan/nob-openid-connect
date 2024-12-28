@@ -16,4 +16,9 @@ public class PageConstant {
      * ログイン開始ページ
      */
     public static final String WELCOME = AUTH + "/welcome";
+
+    /**
+     * ログイン完了ページ
+     */
+    public static final String COMPLETE = AUTH + "/complete";
 }

@@ -19,7 +19,7 @@ public interface AuthenticationController {
     /**
      * OIDC開始用の初期ページを表示します。
      * 
-     * @return
+     * @return ログイン開始用の初期ページ
      */
     @GetMapping(value = "/login")
     ModelAndView init();
@@ -31,4 +31,12 @@ public interface AuthenticationController {
      */
     @GetMapping(value = "/authorization")
     ModelAndView requestAuthorization();
+
+    /**
+     * OpenIDプロバイダにトークン発行要求を行い、受け取ったトークンを検証します。検証が正常に完了したらログイン完了画面に遷移します。
+     * 
+     * @return ログイン完了画面
+     */
+    @GetMapping(value = "/token")
+    ModelAndView requestToken();
 }
