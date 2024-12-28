@@ -43,6 +43,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
         // TODO トークン検証
 
+        // ログイン完了ページのビュー名をセット
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(PageConstant.COMPLETE);
 
