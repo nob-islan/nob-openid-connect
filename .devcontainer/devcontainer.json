@@ -1,0 +1,24 @@
+{
+  "name": "nob-openid-connect",
+  "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "java.inlayHints.parameterNames.enabled": "none",
+        "java.compile.nullAnalysis.mode": "disabled",
+        "java.configuration.updateBuildConfiguration": "interactive"
+      },
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-boot-dev-pack",
+        "vscjava.vscode-lombok",
+        "arjun.swagger-viewer",
+        "shd101wyy.markdown-preview-enhanced",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}
