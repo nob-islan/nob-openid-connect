@@ -24,8 +24,11 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     }
 
     @Override
-    public String requestAuthorization() {
+    public ModelAndView requestAuthorization() {
 
-        return "redirect:http://localhost:8081/v1/api/auth/authorization"; // TODO 定数クラス管理
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:http://localhost:8081/v1/api/auth/authorization"); // TODO 定数クラス管理
+
+        return modelAndView;
     }
 }

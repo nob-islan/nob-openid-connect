@@ -30,5 +30,5 @@ public interface AuthenticationController {
      * @return OpenIDプロバイダが提供するログイン画面
      */
     @GetMapping(value = "/authorization")
-    String requestAuthorization();
+    ModelAndView requestAuthorization();
 }
