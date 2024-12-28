@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.rp_project.constant.UrlConstant;
+import com.example.rp_project.controller.reqres.FetchTokenRequest;
 
 /**
  * 認証のコントローラインターフェースです。
@@ -30,7 +31,7 @@ public interface AuthenticationController {
      * @return OpenIDプロバイダが提供するログイン画面
      */
     @GetMapping(value = "/authorization")
-    ModelAndView requestAuthorization();
+    ModelAndView authorize();
 
     /**
      * OpenIDプロバイダにトークン発行要求を行い、受け取ったトークンを検証します。検証が正常に完了したらログイン完了画面に遷移します。
@@ -38,5 +39,5 @@ public interface AuthenticationController {
      * @return ログイン完了画面
      */
     @GetMapping(value = "/token")
-    ModelAndView requestToken();
+    ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest);
 }

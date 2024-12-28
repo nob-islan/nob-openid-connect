@@ -25,7 +25,10 @@ public interface AuthenticationController {
     /**
      * 認可リクエストの検証を行います。
      * 
+     * @param httpSession      HTTPセッション
+     * @param authorizeRequest 認可リクエスト
      * @return ログインページ
+     * @throws OpException
      */
     @GetMapping(value = "/authorization")
     ModelAndView authorize(HttpSession httpSession, AuthorizeRequest authorizeRequest) throws OpException;
@@ -33,7 +36,10 @@ public interface AuthenticationController {
     /**
      * 認証リクエストの検証を行います。
      * 
+     * @param httpSession         HTTPセッション
+     * @param authenticateRequest 認証リクエスト
      * @return RPによって指定されたリダイレクト先ページ
+     * @throws OpException
      */
     @PostMapping(value = "/authentication")
     ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest) throws OpException;
