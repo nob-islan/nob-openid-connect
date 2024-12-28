@@ -6,6 +6,15 @@
   </head>
 
   <body>
-    ログイン画面です。
+    <form
+      th:action="@{/v1/api/auth/authentication}"
+      th:object="${validateAuthenticationRequestForm}"
+      method="post"
+    >
+      ログイン情報を入力してください。<br />
+      ユーザ名: <input type="text" th:field="*{username}" /><br />
+      パスワード: <input type="password" th:field="*{password}" /><br />
+      <input type="submit" value="ログイン" />
+    </form>
   </body>
 </html>

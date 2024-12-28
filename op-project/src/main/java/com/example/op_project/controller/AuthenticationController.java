@@ -1,11 +1,13 @@
 package com.example.op_project.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.op_project.constant.UrlConstant;
+import com.example.op_project.controller.form.ValidateAuthenticationRequestForm;
 
 /**
  * OpenIDプロバイダとしての認証を行うコントローラインターフェースです。
@@ -29,6 +31,6 @@ public interface AuthenticationController {
      * 
      * @return RPによって指定されたリダイレクト先ページ
      */
-    @GetMapping(value = "/authentication")
-    ModelAndView validateAuthenticationRequest();
+    @PostMapping(value = "/authentication")
+    ModelAndView validateAuthenticationRequest(ValidateAuthenticationRequestForm validateAuthenticationRequestForm);
 }
