@@ -26,7 +26,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     @Override
     public ModelAndView requestAuthorization() {
 
-        // OpenIDプロバイダの認可リクエスト検証API // TODO 定数ではなく環境変数などに外出ししたい
+        // OpenIDプロバイダの認可リクエスト検証API // TODO 管理方法検討
         final String OP_VALIDATE_AUTHORIZATION_REQUEST_API = "http://localhost:8081/v1/api/auth/authorization?clientId=first-client&redirectUri=http://localhost:8080/auth/token";
 
         ModelAndView modelAndView = new ModelAndView();
