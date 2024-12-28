@@ -10,7 +10,11 @@ import com.example.op_project.controller.reqres.AuthenticateRequest;
 import com.example.op_project.controller.reqres.AuthorizeRequest;
 import com.example.op_project.exception.OpException;
 import com.example.op_project.service.AuthenticationService;
+import com.example.op_project.service.inout.AuthenticateInModel;
+import com.example.op_project.service.inout.AuthenticateOutModel;
 import com.example.op_project.service.inout.AuthorizeInModel;
+
+import jakarta.servlet.http.HttpSession;
 
 /**
  * OpenIDプロバイダとしての認証を行うコントローラ実装です。
@@ -24,12 +28,15 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     private AuthenticationService authenticationService;
 
     @Override
-    public ModelAndView authorize(AuthorizeRequest authorizeRequest) throws OpException {
+    public ModelAndView authorize(HttpSession httpSession, AuthorizeRequest authorizeRequest) throws OpException {
 
         // 認可リクエストを検証 不正であれば例外を投げる
         AuthorizeInModel authorizeInModel = new AuthorizeInModel();
         BeanUtils.copyProperties(authorizeRequest, authorizeInModel);
         authenticationService.authorize(authorizeInModel);
+
+        // httpSessionにリダイレクトURIをセット
+        httpSession.setAttribute("redirectUri", authorizeInModel.getRedirectUri());
 
         // 返却値を作成
         ModelAndView modelAndView = new ModelAndView();
@@ -40,12 +47,20 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     }
 
     @Override
-    public ModelAndView authenticate(AuthenticateRequest authenticateRequest) {
+    public ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest)
+            throws OpException {
 
-        // TODO 認証リクエスト検証
+        // 認証リクエスト検証 不正であれば例外を投げる
+        AuthenticateInModel authenticateInModel = new AuthenticateInModel();
+        BeanUtils.copyProperties(authenticateRequest, authenticateInModel);
+        AuthenticateOutModel authenticateOutModel = authenticationService.authenticate(authenticateInModel);
+
+        // httpSessionからリダイレクトURIを取得し、認可コードをクエリパラメータとして付与
+        String redirectUri = (String) httpSession.getAttribute("redirectUri");
+        redirectUri = redirectUri + "?code=" + authenticateOutModel.getAuthorizationCode();
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:http://localhost:8080/auth/token"); // TODO RPから指定されたリダイレクトURIをセット
+        modelAndView.setViewName("redirect:" + redirectUri);
 
         return modelAndView;
     }

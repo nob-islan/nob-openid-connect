@@ -15,11 +15,11 @@ import com.example.op_project.repository.entity.ClientInfo;
 public interface ClientInfoRepository extends JpaRepository<ClientInfo, String> {
 
     /**
-     * 検索条件からクライアント情報を抽出します。
+     * クライアントIDからクライアント情報を抽出します。
      * 
      * @param clientId クライアントID
      * @return クライアント情報
      */
     @Query(value = "SELECT * FROM client_info WHERE client_id = ?1", nativeQuery = true)
-    ClientInfo selectByKey(String clientId); // TODO このメソッド自体省略できないかドキュメントを確認
+    ClientInfo selectByClientId(String clientId); // TODO このメソッド自体省略できないかドキュメントを確認
 }

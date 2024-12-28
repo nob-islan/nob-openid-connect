@@ -11,6 +11,8 @@ import com.example.op_project.controller.reqres.AuthenticateRequest;
 import com.example.op_project.controller.reqres.AuthorizeRequest;
 import com.example.op_project.exception.OpException;
 
+import jakarta.servlet.http.HttpSession;
+
 /**
  * OpenIDプロバイダとしての認証を行うコントローラインターフェースです。
  * 
@@ -26,7 +28,7 @@ public interface AuthenticationController {
      * @return ログインページ
      */
     @GetMapping(value = "/authorization")
-    ModelAndView authorize(AuthorizeRequest authorizeRequest) throws OpException;
+    ModelAndView authorize(HttpSession httpSession, AuthorizeRequest authorizeRequest) throws OpException;
 
     /**
      * 認証リクエストの検証を行います。
@@ -34,5 +36,5 @@ public interface AuthenticationController {
      * @return RPによって指定されたリダイレクト先ページ
      */
     @PostMapping(value = "/authentication")
-    ModelAndView authenticate(AuthenticateRequest authenticateRequest);
+    ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest) throws OpException;
 }
