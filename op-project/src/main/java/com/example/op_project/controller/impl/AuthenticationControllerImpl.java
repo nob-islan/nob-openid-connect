@@ -38,7 +38,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         // httpSessionにリダイレクトURIをセット
         httpSession.setAttribute("redirectUri", authorizeInModel.getRedirectUri());
 
-        // 返却値を作成
+        // ログイン画面のビュー名およびモデルをセット
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         modelAndView.addObject("authenticateRequest", new AuthenticateRequest());
@@ -59,6 +59,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         String redirectUri = (String) httpSession.getAttribute("redirectUri");
         redirectUri = redirectUri + "?code=" + authenticateOutModel.getAuthorizationCode();
 
+        // RPによって指定されたリダイレクトURIをビュー名にセット
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + redirectUri);
 
