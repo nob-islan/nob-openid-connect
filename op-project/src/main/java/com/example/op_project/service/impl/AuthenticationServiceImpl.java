@@ -1,7 +1,11 @@
 package com.example.op_project.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.op_project.exception.OpException;
+import com.example.op_project.repository.ClientInfoRepository;
+import com.example.op_project.repository.entity.ClientInfo;
 import com.example.op_project.service.AuthenticationService;
 import com.example.op_project.service.inout.AuthorizeInModel;
 
@@ -13,9 +17,23 @@ import com.example.op_project.service.inout.AuthorizeInModel;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    @Override
-    public void authorize(AuthorizeInModel authorizeInModel) {
+    @Autowired
+    private ClientInfoRepository clientInfoRepository;
 
-        // TODO クライアントIDに紐づくリダイレクトURL検証
+    @Override
+    public void authorize(AuthorizeInModel authorizeInModel) throws OpException {
+
+        // repository呼び出し
+        ClientInfo clientInfo = clientInfoRepository.selectByKey(authorizeInModel.getClientId());
+
+        // クライアント情報が取得できなければエラー
+        if (clientInfo == null) {
+            throw new OpException("クライアント情報が不正です。"); // TODO エラーメッセージを外出し
+        }
+
+        // リダイレクトURI検証
+        if (!clientInfo.getRedirectUri().equals(authorizeInModel.getRedirectUri())) {
+            throw new OpException("クライアント情報が不正です。"); // TODO エラーメッセージを外出し
+        }
     }
 }

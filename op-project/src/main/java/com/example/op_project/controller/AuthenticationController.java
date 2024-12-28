@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.op_project.constant.UrlConstant;
 import com.example.op_project.controller.reqres.AuthenticateRequest;
 import com.example.op_project.controller.reqres.AuthorizeRequest;
+import com.example.op_project.exception.OpException;
 
 /**
  * OpenIDプロバイダとしての認証を行うコントローラインターフェースです。
@@ -25,7 +26,7 @@ public interface AuthenticationController {
      * @return ログインページ
      */
     @GetMapping(value = "/authorization")
-    ModelAndView authorize(AuthorizeRequest authorizeRequest);
+    ModelAndView authorize(AuthorizeRequest authorizeRequest) throws OpException;
 
     /**
      * 認証リクエストの検証を行います。

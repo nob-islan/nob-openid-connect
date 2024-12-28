@@ -2,6 +2,7 @@ package com.example.op_project.service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.op_project.exception.OpException;
 import com.example.op_project.service.inout.AuthorizeInModel;
 
 /**
@@ -17,5 +18,5 @@ public interface AuthenticationService {
      * 
      * @param authorizeInModel 認可リクエスト
      */
-    void authorize(AuthorizeInModel authorizeInModel);
+    void authorize(AuthorizeInModel authorizeInModel) throws OpException;
 }

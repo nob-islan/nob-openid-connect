@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.op_project.controller.AuthenticationController;
 import com.example.op_project.controller.reqres.AuthenticateRequest;
 import com.example.op_project.controller.reqres.AuthorizeRequest;
+import com.example.op_project.exception.OpException;
 import com.example.op_project.service.AuthenticationService;
 import com.example.op_project.service.inout.AuthorizeInModel;
 
@@ -23,7 +24,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     private AuthenticationService authenticationService;
 
     @Override
-    public ModelAndView authorize(AuthorizeRequest authorizeRequest) {
+    public ModelAndView authorize(AuthorizeRequest authorizeRequest) throws OpException {
 
         // 認可リクエストを検証 不正であれば例外を投げる
         AuthorizeInModel authorizeInModel = new AuthorizeInModel();
@@ -44,7 +45,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         // TODO 認証リクエスト検証
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:http://localhost:8080/auth/token"); // TODO RPから指定されたリダイレクトURLをセット
+        modelAndView.setViewName("redirect:http://localhost:8080/auth/token"); // TODO RPから指定されたリダイレクトURIをセット
 
         return modelAndView;
     }
