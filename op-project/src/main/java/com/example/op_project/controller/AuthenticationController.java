@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.op_project.constant.UrlConstant;
 import com.example.op_project.controller.reqres.AuthenticateRequest;
 import com.example.op_project.controller.reqres.AuthorizeRequest;
+import com.example.op_project.controller.reqres.FetchTokenRequest;
+import com.example.op_project.controller.reqres.FetchTokenResponse;
 import com.example.op_project.exception.OpException;
 
 import jakarta.servlet.http.HttpSession;
@@ -43,4 +45,13 @@ public interface AuthenticationController {
      */
     @PostMapping(value = "/authentication")
     ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest) throws OpException;
+
+    /**
+     * トークンリクエストの検証を行います。
+     * 
+     * @param fetchTokenRequest トークンリクエスト
+     * @return トークン
+     */
+    @PostMapping(value = "/token")
+    FetchTokenResponse fetchToken(FetchTokenRequest fetchTokenRequest) throws OpException;
 }

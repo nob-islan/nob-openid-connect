@@ -8,11 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.op_project.controller.AuthenticationController;
 import com.example.op_project.controller.reqres.AuthenticateRequest;
 import com.example.op_project.controller.reqres.AuthorizeRequest;
+import com.example.op_project.controller.reqres.FetchTokenRequest;
+import com.example.op_project.controller.reqres.FetchTokenResponse;
 import com.example.op_project.exception.OpException;
 import com.example.op_project.service.AuthenticationService;
 import com.example.op_project.service.inout.AuthenticateInModel;
 import com.example.op_project.service.inout.AuthenticateOutModel;
 import com.example.op_project.service.inout.AuthorizeInModel;
+import com.example.op_project.service.inout.FetchTokenInModel;
+import com.example.op_project.service.inout.FetchTokenOutModel;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -57,12 +61,33 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
         // httpSessionからリダイレクトURIを取得し、認可コードをクエリパラメータとして付与
         String redirectUri = (String) httpSession.getAttribute("redirectUri");
-        redirectUri = redirectUri + "?code=" + authenticateOutModel.getAuthorizationCode();
+        redirectUri = redirectUri + "?code=" + authenticateOutModel.getCode();
+
+        // 認可コードをhttpSessionに保持
+        httpSession.setAttribute("code", authenticateOutModel.getCode());
 
         // RPによって指定されたリダイレクトURIをビュー名にセット
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + redirectUri);
 
         return modelAndView;
+    }
+
+    @Override
+    public FetchTokenResponse fetchToken(FetchTokenRequest fetchTokenRequest)
+            throws OpException {
+
+        // サービス呼び出しモデル作成
+        FetchTokenInModel fetchTokenInModel = new FetchTokenInModel();
+        BeanUtils.copyProperties(fetchTokenRequest, fetchTokenInModel);
+
+        // トークンリクエスト検証 不正であれば例外を投げる
+        FetchTokenOutModel fetchTokenOutModel = authenticationService.fetchToken(fetchTokenInModel);
+
+        // 返却値を作成
+        FetchTokenResponse fetchTokenResponse = new FetchTokenResponse();
+        BeanUtils.copyProperties(fetchTokenOutModel, fetchTokenResponse);
+
+        return fetchTokenResponse;
     }
 }

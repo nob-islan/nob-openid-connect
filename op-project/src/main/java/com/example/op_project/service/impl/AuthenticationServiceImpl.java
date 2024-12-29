@@ -14,6 +14,8 @@ import com.example.op_project.service.AuthenticationService;
 import com.example.op_project.service.inout.AuthenticateInModel;
 import com.example.op_project.service.inout.AuthenticateOutModel;
 import com.example.op_project.service.inout.AuthorizeInModel;
+import com.example.op_project.service.inout.FetchTokenInModel;
+import com.example.op_project.service.inout.FetchTokenOutModel;
 
 /**
  * OpenIDプロバイダとしての認証を行うサービス実装です。
@@ -68,10 +70,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             stringBuilder.append(CHARACTERS.charAt(randomIndex));
         }
 
-        // 返却値作成
+        // 返却値を作成
         AuthenticateOutModel authenticateOutModel = new AuthenticateOutModel();
-        authenticateOutModel.setAuthorizationCode(stringBuilder.toString());
+        authenticateOutModel.setCode(stringBuilder.toString());
 
         return authenticateOutModel;
+    }
+
+    @Override
+    public FetchTokenOutModel fetchToken(FetchTokenInModel fetchTokenInModel) throws OpException {
+
+        // 返却値を作成
+        FetchTokenOutModel fetchTokenOutModel = new FetchTokenOutModel();
+
+        return fetchTokenOutModel;
     }
 }

@@ -13,5 +13,5 @@ public class AuthenticateOutModel {
     /**
      * 認可コード
      */
-    private String authorizationCode;
+    private String code;
 }

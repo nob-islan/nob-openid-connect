@@ -1,5 +1,10 @@
 package com.example.rp_project.controller.impl;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,7 +36,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
         // OpenIDプロバイダの認可リクエスト先のビュー名をセット
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + OpConstant.AUTHORIZE_API);
+        modelAndView.setViewName("redirect:" + OpConstant.AUTHORIZE_REQUEST);
 
         return modelAndView;
     }
@@ -39,7 +44,21 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     @Override
     public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest) {
 
-        // TODO OpenIDプロバイダのトークン発行API呼び出し
+        // OpenIDプロバイダのトークン発行API呼び出し // TODO サービスでやれ
+        try {
+            HttpClient httpClient = HttpClient.newHttpClient();
+            // リクエストの作成
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(OpConstant.TOKEN_API))
+                    .POST(HttpRequest.BodyPublishers.ofString(
+                            "{ \"name\" : \"Qiita Neko\" }"))
+                    .build();
+
+            // リクエストの送信とレスポンスの取得
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            e.printStackTrace(); // TODO エラーハンドリング
+        }
 
         // TODO トークン検証
 

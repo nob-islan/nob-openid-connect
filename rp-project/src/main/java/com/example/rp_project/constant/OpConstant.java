@@ -8,7 +8,28 @@ package com.example.rp_project.constant;
 public class OpConstant {
 
     /**
-     * OpenIDプロバイダの認可リクエスト検証API
+     * 認可リクエスト検証API
      */
-    public static final String AUTHORIZE_API = "http://localhost:8081/v1/api/auth/authorization?clientId=first-client&redirectUri=http://localhost:8080/auth/token";
+    public static final String AUTHORIZE_API = "http://localhost:8081/v1/api/auth/authorization";
+
+    /**
+     * クライアントID
+     */
+    public static final String CLIENT_ID = "first-client";
+
+    /**
+     * リダイレクトURI
+     */
+    public static final String REDIRECT_URI = "http://localhost:8080/auth/token";
+
+    /**
+     * 認可リクエスト
+     */
+    public static final String AUTHORIZE_REQUEST = AUTHORIZE_API + "?clientId=" + CLIENT_ID + "&redirectUri="
+            + REDIRECT_URI;
+
+    /**
+     * トークンリクエスト検証API
+     */
+    public static final String TOKEN_API = "http://localhost:8081/v1/api/auth/token";
 }
