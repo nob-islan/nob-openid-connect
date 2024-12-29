@@ -5,7 +5,7 @@ Authentication system via OpenID connect.
 ログイン開始ページ
 
 ```
-http://localhost:8080/auth/login
+http://localhost:8080/auth/welcome
 ```
 
 opdb ログイン

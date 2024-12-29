@@ -10,7 +10,7 @@ public class PageConstant {
     /**
      * 認証ディレクトリ
      */
-    public static final String AUTH = "auth";
+    public static final String AUTH = "/auth";
 
     /**
      * ログイン開始ページ

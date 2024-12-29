@@ -13,6 +13,9 @@ import com.example.rp_project.service.AuthenticationService;
 import com.example.rp_project.service.inout.FetchTokenInModel;
 import com.example.rp_project.service.inout.FetchTokenOutModel;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+
 /**
  * 認証のコントローラ実装です。
  * 
@@ -45,17 +48,31 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     }
 
     @Override
-    public ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest) {
+    public ModelAndView fetchToken(HttpServletResponse httpServletResponse, FetchTokenRequest fetchTokenRequest) {
 
         // サービス呼び出し
         FetchTokenInModel fetchTokenInModel = new FetchTokenInModel();
         BeanUtils.copyProperties(fetchTokenRequest, fetchTokenInModel);
         FetchTokenOutModel fetchTokenOutModel = authenticationService.fetchToken(fetchTokenInModel);
 
-        // TODO トークンをcookieにセット
-        System.out.println(fetchTokenOutModel);
+        // トークンをcookieにセット
+        Cookie cookie = new Cookie("accessToken", fetchTokenOutModel.getAccessToken());
+        cookie.setSecure(true);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        httpServletResponse.addCookie(cookie);
 
-        // ログイン完了ページのビュー名をセット
+        // ログイン完了処理APIのビュー名をセット
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/auth/complete"); // TODO 定数で管理したい
+
+        return modelAndView;
+    }
+
+    @Override
+    public ModelAndView complete() {
+
+        // ログイン完了画面のビュー名をセット
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(PageConstant.COMPLETE);
 

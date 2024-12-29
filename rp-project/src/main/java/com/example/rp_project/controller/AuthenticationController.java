@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.rp_project.constant.UrlConstant;
 import com.example.rp_project.controller.reqres.FetchTokenRequest;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 /**
  * 認証のコントローラインターフェースです。
  * 
@@ -22,7 +24,7 @@ public interface AuthenticationController {
      * 
      * @return ログイン開始用の初期ページ
      */
-    @GetMapping(value = "/login")
+    @GetMapping(value = "/welcome")
     ModelAndView init();
 
     /**
@@ -39,5 +41,13 @@ public interface AuthenticationController {
      * @return ログイン完了画面
      */
     @GetMapping(value = "/token")
-    ModelAndView fetchToken(FetchTokenRequest fetchTokenRequest);
+    ModelAndView fetchToken(HttpServletResponse httpServletResponse, FetchTokenRequest fetchTokenRequest);
+
+    /**
+     * ログイン完了ページを表示します。
+     * 
+     * @return ログイン完了画面
+     */
+    @GetMapping(value = "/complete")
+    ModelAndView complete();
 }
