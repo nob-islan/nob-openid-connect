@@ -1,6 +1,5 @@
 package com.example.rp_project.controller.impl;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,7 +51,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
         // サービス呼び出し
         FetchTokenInModel fetchTokenInModel = new FetchTokenInModel();
-        BeanUtils.copyProperties(fetchTokenRequest, fetchTokenInModel);
+        fetchTokenInModel.setCode(fetchTokenRequest.getCode());
         FetchTokenOutModel fetchTokenOutModel = authenticationService.fetchToken(fetchTokenInModel);
 
         // トークンをcookieにセット

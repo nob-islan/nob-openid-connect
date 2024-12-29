@@ -2,6 +2,7 @@ package com.example.op_project.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +25,8 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping(value = UrlConstant.AUTH)
 public interface AuthenticationController {
 
+    // TODO ページを表示するメソッドとAPIとで分離する？
+
     /**
      * 認可リクエストの検証を行います。
      * 
@@ -44,14 +47,16 @@ public interface AuthenticationController {
      * @throws OpException
      */
     @PostMapping(value = "/authentication")
-    ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest) throws OpException;
+    ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest)
+            throws OpException;
 
     /**
      * トークンリクエストの検証を行います。
      * 
      * @param fetchTokenRequest トークンリクエスト
      * @return トークン
+     * @throws OpException
      */
     @PostMapping(value = "/token")
-    FetchTokenResponse fetchToken(FetchTokenRequest fetchTokenRequest) throws OpException;
+    FetchTokenResponse fetchToken(@RequestBody FetchTokenRequest fetchTokenRequest) throws OpException;
 }

@@ -9,7 +9,7 @@
     <form
       th:action="@{/v1/api/auth/authentication}"
       th:object="${authenticateRequest}"
-      method="post"
+      th:method="post"
     >
       ログイン情報を入力してください。<br />
       ユーザ名: <input type="text" th:field="*{username}" /><br />

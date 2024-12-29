@@ -14,8 +14,4 @@ public class FetchTokenRequest {
      * 認可コード
      */
     private String code;
-
-    // TODO クライアントID
-
-    // TODO クライアントシークレット
 }

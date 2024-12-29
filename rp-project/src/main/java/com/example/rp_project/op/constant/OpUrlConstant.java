@@ -18,6 +18,11 @@ public class OpUrlConstant {
     public static final String CLIENT_ID = "first-client";
 
     /**
+     * クライアントシークレット
+     */
+    public static final String CLIENT_SECRET = "123123123";
+
+    /**
      * リダイレクトURI
      */
     public static final String REDIRECT_URI = "http://localhost:8080/auth/token";

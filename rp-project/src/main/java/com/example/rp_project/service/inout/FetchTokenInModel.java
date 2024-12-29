@@ -14,8 +14,4 @@ public class FetchTokenInModel {
      * 認可コード
      */
     private String code;
-
-    // TODO クライアントID
-
-    // TODO クライアントシークレット
 }

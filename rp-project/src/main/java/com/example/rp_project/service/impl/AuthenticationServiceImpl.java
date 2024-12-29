@@ -33,6 +33,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         // リクエストモデル
         OpFetchTokenRequest opFetchTokenRequest = new OpFetchTokenRequest();
+        opFetchTokenRequest.setCode(fetchTokenInModel.getCode());
+        opFetchTokenRequest.setClientId(OpUrlConstant.CLIENT_ID);
+        opFetchTokenRequest.setClientSecret(OpUrlConstant.CLIENT_SECRET);
 
         // OpenIDプロバイダのトークン発行API呼び出し
         ResponseEntity<OpFetchTokenResponse> responseEntity = restTemplate.exchange(OpUrlConstant.TOKEN_API,
