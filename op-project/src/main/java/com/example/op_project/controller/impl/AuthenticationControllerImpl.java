@@ -63,8 +63,6 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         String redirectUri = (String) httpSession.getAttribute("redirectUri");
         redirectUri = redirectUri + "?code=" + authenticateOutModel.getCode();
 
-        // TODO 認可コードをどこかに保持、fetchToken内で検証できるようにする。
-
         // RPによって指定されたリダイレクトURIをビュー名にセット
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:" + redirectUri);

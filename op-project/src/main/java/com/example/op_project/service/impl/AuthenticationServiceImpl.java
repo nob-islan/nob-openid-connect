@@ -1,13 +1,17 @@
 package com.example.op_project.service.impl;
 
 import java.security.SecureRandom;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.op_project.exception.OpException;
+import com.example.op_project.repository.AuthorizationInfoRepository;
 import com.example.op_project.repository.ClientInfoRepository;
 import com.example.op_project.repository.UserInfoRepository;
+import com.example.op_project.repository.entity.AuthorizationInfo;
 import com.example.op_project.repository.entity.ClientInfo;
 import com.example.op_project.repository.entity.UserInfo;
 import com.example.op_project.service.AuthenticationService;
@@ -30,6 +34,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
+
+    @Autowired
+    private AuthorizationInfoRepository authorizationInfoRepository;
 
     @Override
     public void authorize(AuthorizeInModel authorizeInModel) throws OpException {
@@ -70,9 +77,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             stringBuilder.append(CHARACTERS.charAt(randomIndex));
         }
 
+        // 認可コード
+        String code = stringBuilder.toString();
+
+        // 認可コードをDBに保持
+        AuthorizationInfo authorizationInfo = new AuthorizationInfo();
+        authorizationInfo.setCode(code);
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.MINUTE, 10); // 有効期限を現在時刻から10分後とする
+        Date expirationDateTime = calendar.getTime();
+        authorizationInfo.setExpirationDateTime(expirationDateTime);
+        authorizationInfo.setIsDeleted(false);
+        authorizationInfoRepository.save(authorizationInfo);
+
         // 返却値を作成
         AuthenticateOutModel authenticateOutModel = new AuthenticateOutModel();
-        authenticateOutModel.setCode(stringBuilder.toString());
+        authenticateOutModel.setCode(code);
 
         return authenticateOutModel;
     }
@@ -80,16 +102,40 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public FetchTokenOutModel fetchToken(FetchTokenInModel fetchTokenInModel) throws OpException {
 
-        // TODO 認可コード検証
+        // 検証用に認可コードを検索
+        AuthorizationInfo authorizationInfo = authorizationInfoRepository.selectByCode(fetchTokenInModel.getCode());
+        // 認可コードが取得できなければエラー
+        if (authorizationInfo == null) {
+            throw new OpException("認可コードが不正です。"); // TODO エラーメッセージを外出し
+        }
+        // 認可コードが取得できた時点で使用済みとする
+        authorizationInfo.setIsDeleted(true);
+        authorizationInfoRepository.save(authorizationInfo);
+        // 認可コードの期限が切れていたらエラー
+        Date now = new Date();
+        if (now.after(authorizationInfo.getExpirationDateTime())) {
+            throw new OpException("認可コードが不正です。"); // TODO エラーメッセージを外出し
+        }
 
-        // TODO クライアント検証
+        // 検証用にクライアント情報を検索
+        ClientInfo clientInfo = clientInfoRepository.selectByClientId(fetchTokenInModel.getClientId());
+        // クライアント情報が取得できなければエラー
+        if (clientInfo == null) {
+            throw new OpException("クライアント情報が不正です。"); // TODO エラーメッセージを外出し
+        }
+        // クライアントシークレットが一致しなければエラー
+        if (!clientInfo.getClientSecret().equals(fetchTokenInModel.getClientSecret())) {
+            throw new OpException("クライアント情報が不正です。"); // TODO エラーメッセージを外出し
+        }
 
         // TODO トークン発行
+        String accessToken = "dummyToken";
+        String idToken = "idToken";
 
         // 返却値を作成
         FetchTokenOutModel fetchTokenOutModel = new FetchTokenOutModel();
-        fetchTokenOutModel.setAccessToken("dummyAccessToken");
-        fetchTokenOutModel.setIdToken("dummyIdToken");
+        fetchTokenOutModel.setAccessToken(accessToken);
+        fetchTokenOutModel.setIdToken(idToken);
 
         return fetchTokenOutModel;
     }
