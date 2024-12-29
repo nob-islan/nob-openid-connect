@@ -1,11 +1,11 @@
-package com.example.rp_project.constant;
+package com.example.rp_project.op.constant;
 
 /**
  * OpenIDプロバイダ向けの定数を管理するクラスです。
  * 
  * @author nob
  */
-public class OpConstant {
+public class OpUrlConstant {
 
     /**
      * 認可リクエスト検証API

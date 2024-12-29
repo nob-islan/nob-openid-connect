@@ -80,8 +80,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public FetchTokenOutModel fetchToken(FetchTokenInModel fetchTokenInModel) throws OpException {
 
+        // TODO 認可コード検証
+
+        // TODO クライアント検証
+
+        // TODO トークン発行
+
         // 返却値を作成
         FetchTokenOutModel fetchTokenOutModel = new FetchTokenOutModel();
+        fetchTokenOutModel.setAccessToken("dummyAccessToken");
+        fetchTokenOutModel.setIdToken("dummyIdToken");
 
         return fetchTokenOutModel;
     }
