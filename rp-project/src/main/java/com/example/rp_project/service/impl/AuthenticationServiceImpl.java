@@ -1,5 +1,6 @@
 package com.example.rp_project.service.impl;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -34,13 +35,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         OpFetchTokenRequest opFetchTokenRequest = new OpFetchTokenRequest();
 
         // OpenIDプロバイダのトークン発行API呼び出し
-        ResponseEntity<OpFetchTokenResponse> opFetchTokenResponse = restTemplate.exchange(OpUrlConstant.TOKEN_API,
+        ResponseEntity<OpFetchTokenResponse> responseEntity = restTemplate.exchange(OpUrlConstant.TOKEN_API,
                 HttpMethod.POST, new HttpEntity(opFetchTokenRequest, new HttpHeaders()), OpFetchTokenResponse.class);
 
         // TODO トークン検証
 
         // 返却値を作成
         FetchTokenOutModel fetchTokenOutModel = new FetchTokenOutModel();
+        BeanUtils.copyProperties(responseEntity.getBody(), fetchTokenOutModel);
 
         return fetchTokenOutModel;
     }

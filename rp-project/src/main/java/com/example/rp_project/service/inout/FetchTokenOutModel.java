@@ -10,5 +10,13 @@ import lombok.Data;
 @Data
 public class FetchTokenOutModel {
 
-    // TODO パラメータ設定
+    /**
+     * アクセストークン
+     */
+    private String accessToken;
+
+    /**
+     * IDトークン
+     */
+    private String idToken;
 }
