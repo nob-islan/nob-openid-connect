@@ -22,7 +22,7 @@ public interface AuthenticationController {
     /**
      * OIDC開始用の初期ページを表示します。
      * 
-     * @return ログイン開始用の初期ページ
+     * @return ログイン開始用の初期画面
      */
     @GetMapping(value = "/welcome")
     ModelAndView init();
