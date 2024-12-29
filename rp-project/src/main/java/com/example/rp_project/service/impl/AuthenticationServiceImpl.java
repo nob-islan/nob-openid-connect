@@ -29,19 +29,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @SuppressWarnings({ "deprecation", "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public FetchTokenOutModel fetchToken(FetchTokenInModel fetchTokenInModel) {
-
-        // uri
-        URI uri = UriComponentsBuilder.fromHttpUrl(OpUrlConstant.TOKEN_API).build().toUri();
 
         // リクエストモデル
         OpFetchTokenRequest opFetchTokenRequest = new OpFetchTokenRequest();
 
-        // TODO OpenIDプロバイダのトークン発行API呼び出し
-        ResponseEntity<OpFetchTokenResponse> opFetchTokenResponse = restTemplate.exchange(uri, HttpMethod.POST,
-                new HttpEntity(opFetchTokenRequest, new HttpHeaders()), OpFetchTokenResponse.class);
+        // OpenIDプロバイダのトークン発行API呼び出し
+        ResponseEntity<OpFetchTokenResponse> opFetchTokenResponse = restTemplate.exchange(OpUrlConstant.TOKEN_API,
+                HttpMethod.POST, new HttpEntity(opFetchTokenRequest, new HttpHeaders()), OpFetchTokenResponse.class);
 
         // TODO トークン検証
 
