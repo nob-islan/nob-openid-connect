@@ -86,7 +86,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
-        calendar.add(Calendar.MINUTE, 10); // 有効期限を現在時刻から10分後とする
+        calendar.add(Calendar.MINUTE, 10); // 有効期限を現在時刻から10分後とする // TODO 「10分」を定数化
         Date expirationDateTime = calendar.getTime();
         authorizationInfo.setExpirationDateTime(expirationDateTime);
         authorizationInfo.setIsDeleted(false);
