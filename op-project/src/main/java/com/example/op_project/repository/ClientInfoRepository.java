@@ -21,5 +21,5 @@ public interface ClientInfoRepository extends JpaRepository<ClientInfo, String> 
      * @return クライアント情報
      */
     @Query(value = "SELECT * FROM client_info WHERE client_id = ?1", nativeQuery = true)
-    ClientInfo selectByClientId(String clientId); // TODO このメソッド自体省略できないかドキュメントを確認
+    ClientInfo selectByClientId(String clientId);
 }

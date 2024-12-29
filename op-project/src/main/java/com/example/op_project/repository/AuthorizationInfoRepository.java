@@ -21,5 +21,5 @@ public interface AuthorizationInfoRepository extends JpaRepository<Authorization
      * @return 認可情報
      */
     @Query(value = "SELECT * FROM authorization_info WHERE code = ?1 AND is_deleted = false", nativeQuery = true)
-    AuthorizationInfo selectByCode(String code); // TODO このメソッド自体省略できないかドキュメントを確認
+    AuthorizationInfo selectByCode(String code);
 }

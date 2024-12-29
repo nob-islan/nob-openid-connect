@@ -22,5 +22,5 @@ public interface UserInfoRepository extends JpaRepository<UserInfo, String> {
      * @return ユーザ情報
      */
     @Query(value = "SELECT * FROM user_info WHERE username = ?1 AND password = ?2", nativeQuery = true)
-    UserInfo selectByUserInfo(String username, String password); // TODO このメソッド自体省略できないかドキュメントを確認
+    UserInfo selectByUserInfo(String username, String password);
 }
