@@ -19,6 +19,4 @@ public class AuthorizeRequest {
      * リダイレクトURI
      */
     private String redirectUri;
-
-    // TODO codeVerifier対応
 }

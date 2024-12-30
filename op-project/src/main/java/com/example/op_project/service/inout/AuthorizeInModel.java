@@ -19,6 +19,4 @@ public class AuthorizeInModel {
      * リダイレクトURI
      */
     private String redirectUri;
-
-    // TODO codeVerifier対応
 }
