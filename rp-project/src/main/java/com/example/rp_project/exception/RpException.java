@@ -1,7 +1,7 @@
 package com.example.rp_project.exception;
 
 /**
- * リライングパーティとしてのれいがいくらすです。
+ * リライングパーティとしての例外クラスです。
  * 
  * @author nob
  */

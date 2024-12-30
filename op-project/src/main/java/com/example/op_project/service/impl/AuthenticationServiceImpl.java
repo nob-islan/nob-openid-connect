@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.op_project.constant.ErrorMessageConstant;
-import com.example.op_project.exception.OpException;
+import com.example.op_project.exception.OpSecurityException;
 import com.example.op_project.repository.AuthorizationInfoRepository;
 import com.example.op_project.repository.ClientInfoRepository;
 import com.example.op_project.repository.TokenManagementRepository;
@@ -51,24 +51,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private String tokenIssuer;
 
     @Override
-    public void authorize(AuthorizeInModel authorizeInModel) throws OpException {
+    public void authorize(AuthorizeInModel authorizeInModel) throws OpSecurityException {
 
         // repository呼び出し
         ClientInfo clientInfo = clientInfoRepository.selectByClientId(authorizeInModel.getClientId());
 
         // クライアント情報が取得できなければエラー
         if (clientInfo == null) {
-            throw new OpException(ErrorMessageConstant.INVALID_CLIENT_INFO);
+            throw new OpSecurityException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
 
         // リダイレクトURI検証
         if (!clientInfo.getRedirectUri().equals(authorizeInModel.getRedirectUri())) {
-            throw new OpException(ErrorMessageConstant.INVALID_CLIENT_INFO);
+            throw new OpSecurityException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
     }
 
     @Override
-    public AuthenticateOutModel authenticate(AuthenticateInModel authenticateInModel) throws OpException {
+    public AuthenticateOutModel authenticate(AuthenticateInModel authenticateInModel) throws OpSecurityException {
 
         // 認可コード向け文字列
         final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -83,7 +83,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         UserInfo userInfo = userInfoRepository.selectByUserInfo(authenticateInModel.getUsername(),
                 authenticateInModel.getPassword());
         if (userInfo == null) {
-            throw new OpException(ErrorMessageConstant.INVALID_USER_INFO);
+            throw new OpSecurityException(ErrorMessageConstant.INVALID_USER_INFO);
         }
 
         // 認可コード生成
@@ -119,7 +119,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public FetchTokenOutModel fetchToken(FetchTokenInModel fetchTokenInModel) throws OpException {
+    public FetchTokenOutModel fetchToken(FetchTokenInModel fetchTokenInModel) throws OpSecurityException {
 
         // 認可コードの有効期限[分]
         final Integer ACCESS_TOKEN_DEADLINE = 10;
@@ -128,7 +128,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         AuthorizationInfo authorizationInfo = authorizationInfoRepository.selectByCode(fetchTokenInModel.getCode());
         // 認可コードが取得できなければエラー
         if (authorizationInfo == null) {
-            throw new OpException(ErrorMessageConstant.INVALID_AUTHORIZATION_CODE);
+            throw new OpSecurityException(ErrorMessageConstant.INVALID_AUTHORIZATION_CODE);
         }
         // 認可コードが取得できた時点で使用済みとする
         authorizationInfo.setIsDeleted(true);
@@ -136,18 +136,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // 認可コードの期限が切れていたらエラー
         Date now = new Date();
         if (now.after(authorizationInfo.getExpirationDateTime())) {
-            throw new OpException(ErrorMessageConstant.INVALID_AUTHORIZATION_CODE);
+            throw new OpSecurityException(ErrorMessageConstant.INVALID_AUTHORIZATION_CODE);
         }
 
         // 検証用にクライアント情報を検索
         ClientInfo clientInfo = clientInfoRepository.selectByClientId(fetchTokenInModel.getClientId());
         // クライアント情報が取得できなければエラー
         if (clientInfo == null) {
-            throw new OpException(ErrorMessageConstant.INVALID_CLIENT_INFO);
+            throw new OpSecurityException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
         // クライアントシークレットが一致しなければエラー
         if (!clientInfo.getClientSecret().equals(fetchTokenInModel.getClientSecret())) {
-            throw new OpException(ErrorMessageConstant.INVALID_CLIENT_INFO);
+            throw new OpSecurityException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
 
         // トークン生成向けの情報を検索

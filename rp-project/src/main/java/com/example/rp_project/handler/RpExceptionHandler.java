@@ -18,27 +18,27 @@ import lombok.Data;
 public class RpExceptionHandler {
 
     /**
-     * サンプル例外が投げられた際に呼ばれるメソッドです。
+     * RpExceptionが投げられた際に呼ばれるメソッドです。
      *
      * @param e
      * @return 例外メッセージ
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @ExceptionHandler(RpException.class)
-    public ResponseEntity<RpExceptionHandlerResponseBody> rpExceptionHandle(RpException e) {
+    public ResponseEntity<RpExceptionResponseBody> rpExceptionHandle(RpException e) {
 
-        RpExceptionHandlerResponseBody responseBody = new RpExceptionHandlerResponseBody();
+        RpExceptionResponseBody responseBody = new RpExceptionResponseBody();
         responseBody.setMessage(e.getMessage());
 
-        return new ResponseEntity(responseBody, HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity(responseBody, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
-     * サンプル例外発生時のレスポンスボディです。
+     * RpException発生時のレスポンスボディです。
      *
      */
     @Data
-    private class RpExceptionHandlerResponseBody {
+    private class RpExceptionResponseBody {
 
         /**
          * エラーメッセージ

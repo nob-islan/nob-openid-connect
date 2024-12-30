@@ -12,7 +12,7 @@ import com.example.op_project.controller.reqres.AuthenticateRequest;
 import com.example.op_project.controller.reqres.AuthorizeRequest;
 import com.example.op_project.controller.reqres.FetchTokenRequest;
 import com.example.op_project.controller.reqres.FetchTokenResponse;
-import com.example.op_project.exception.OpException;
+import com.example.op_project.exception.OpSecurityException;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -31,10 +31,10 @@ public interface AuthenticationController {
      * @param httpSession      HTTPセッション
      * @param authorizeRequest 認可リクエスト
      * @return ログインページ
-     * @throws OpException
+     * @throws OpSecurityException
      */
     @GetMapping(value = "/authorization")
-    ModelAndView authorize(HttpSession httpSession, AuthorizeRequest authorizeRequest) throws OpException;
+    ModelAndView authorize(HttpSession httpSession, AuthorizeRequest authorizeRequest) throws OpSecurityException;
 
     /**
      * 認証リクエストの検証を行います。
@@ -42,19 +42,19 @@ public interface AuthenticationController {
      * @param httpSession         HTTPセッション
      * @param authenticateRequest 認証リクエスト
      * @return RPによって指定されたリダイレクト先ページ
-     * @throws OpException
+     * @throws OpSecurityException
      */
     @PostMapping(value = "/authentication")
     ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest)
-            throws OpException;
+            throws OpSecurityException;
 
     /**
      * トークンリクエストの検証を行います。
      * 
      * @param fetchTokenRequest トークンリクエスト
      * @return トークン
-     * @throws OpException
+     * @throws OpSecurityException
      */
     @PostMapping(value = "/token")
-    FetchTokenResponse fetchToken(@RequestBody FetchTokenRequest fetchTokenRequest) throws OpException;
+    FetchTokenResponse fetchToken(@RequestBody FetchTokenRequest fetchTokenRequest) throws OpSecurityException;
 }

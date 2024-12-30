@@ -10,7 +10,7 @@ import com.example.op_project.controller.reqres.AuthenticateRequest;
 import com.example.op_project.controller.reqres.AuthorizeRequest;
 import com.example.op_project.controller.reqres.FetchTokenRequest;
 import com.example.op_project.controller.reqres.FetchTokenResponse;
-import com.example.op_project.exception.OpException;
+import com.example.op_project.exception.OpSecurityException;
 import com.example.op_project.service.AuthenticationService;
 import com.example.op_project.service.inout.AuthenticateInModel;
 import com.example.op_project.service.inout.AuthenticateOutModel;
@@ -32,7 +32,8 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     private AuthenticationService authenticationService;
 
     @Override
-    public ModelAndView authorize(HttpSession httpSession, AuthorizeRequest authorizeRequest) throws OpException {
+    public ModelAndView authorize(HttpSession httpSession, AuthorizeRequest authorizeRequest)
+            throws OpSecurityException {
 
         // 認可リクエストを検証 不正であれば例外を投げる
         AuthorizeInModel authorizeInModel = new AuthorizeInModel();
@@ -53,7 +54,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
     @Override
     public ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest)
-            throws OpException {
+            throws OpSecurityException {
 
         // 認証リクエスト検証用inModel作成
         AuthenticateInModel authenticateInModel = new AuthenticateInModel();
@@ -75,7 +76,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
     @Override
     public FetchTokenResponse fetchToken(FetchTokenRequest fetchTokenRequest)
-            throws OpException {
+            throws OpSecurityException {
 
         // サービス呼び出しモデル作成
         FetchTokenInModel fetchTokenInModel = new FetchTokenInModel();
