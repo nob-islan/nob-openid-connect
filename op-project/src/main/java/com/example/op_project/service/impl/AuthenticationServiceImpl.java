@@ -64,6 +64,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // 認可コードの有効期限[分]
         final Integer AUTHORIZATION_CODE_DEADLINE = 1;
 
+        // 認可コードの長さの最小値
+        final Integer MIN_AUTHORIZATION_CODE_LENGTH = 20;
+
+        // 認可コードの長さの幅
+        final Integer AUTHORIZATION_CODE_LENGTH_RANGE = 10;
+
         // ユーザ名、パスワード検証
         UserInfo userInfo = userInfoRepository.selectByUserInfo(authenticateInModel.getUsername(),
                 authenticateInModel.getPassword());
@@ -71,8 +77,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new OpException("ユーザ情報が間違っています。"); // TODO エラーメッセージを外出し
         }
 
-        // 認可コード生成 // TODO 認可コードはランダム文字列でOKか再度確認
-        Integer length = 32 + (int) (Math.random() * 9); // 暫定として32~40文字のランダム文字列とする
+        // 認可コード生成
+        Integer length = MIN_AUTHORIZATION_CODE_LENGTH + (int) (Math.random() * AUTHORIZATION_CODE_LENGTH_RANGE);
         StringBuilder stringBuilder = new StringBuilder(length);
         SecureRandom secureRandom = new SecureRandom();
         for (int i = 0; i < length; i++) {

@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS user_info (
 -- テーブル作成 authorization_info
 CREATE TABLE IF NOT EXISTS authorization_info (
     authorization_id INT NOT NULL AUTO_INCREMENT
-    , code VARCHAR(40) NOT NULL
+    , code VARCHAR(30) NOT NULL
     , PRIMARY KEY(authorization_id)
     , expiration_date_time DATETIME NOT NULL
     , is_deleted BOOLEAN NOT NULL
