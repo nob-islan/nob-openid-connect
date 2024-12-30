@@ -25,7 +25,7 @@ public class OpUrlConstant {
     /**
      * リダイレクトURI
      */
-    public static final String REDIRECT_URI = "http://localhost:8080/auth/token";
+    public static final String REDIRECT_URI = "http://localhost:8080/login/token";
 
     /**
      * 認可リクエスト

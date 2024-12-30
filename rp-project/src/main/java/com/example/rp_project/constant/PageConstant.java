@@ -8,17 +8,17 @@ package com.example.rp_project.constant;
 public class PageConstant {
 
     /**
-     * 認証ディレクトリ
+     * ログイン
      */
-    public static final String AUTH = "/auth";
+    public static final String LOGIN = "/login";
 
     /**
      * ログイン開始ページ
      */
-    public static final String WELCOME = AUTH + "/welcome";
+    public static final String WELCOME = LOGIN + "/welcome";
 
     /**
      * ログイン完了ページ
      */
-    public static final String COMPLETE = AUTH + "/complete";
+    public static final String COMPLETE = LOGIN + "/complete";
 }

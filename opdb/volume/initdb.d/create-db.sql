@@ -34,7 +34,7 @@ INSERT INTO client_info (
 ) VALUES (
     "first-client"
     , "123123123"
-    , "http://localhost:8080/auth/token"
+    , "http://localhost:8080/login/token"
 );
 
 -- 初期データ投入 user_info

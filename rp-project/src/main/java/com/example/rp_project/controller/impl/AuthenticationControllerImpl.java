@@ -63,7 +63,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
         // ログイン完了処理APIのビュー名をセット
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/auth/complete"); // TODO 定数で管理したい
+        modelAndView.setViewName("redirect:/login/complete"); // TODO 定数で管理したい
 
         return modelAndView;
     }

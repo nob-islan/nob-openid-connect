@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author nob
  */
 @Controller
-@RequestMapping(value = UrlConstant.AUTH)
+@RequestMapping(value = UrlConstant.LOGIN)
 public interface AuthenticationController {
 
     /**

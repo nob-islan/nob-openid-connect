@@ -8,7 +8,7 @@ package com.example.rp_project.constant;
 public class UrlConstant {
 
     /**
-     * 認証向けURL
+     * ログイン向けURL
      */
-    public static final String AUTH = "/auth";
+    public static final String LOGIN = "/login";
 }
