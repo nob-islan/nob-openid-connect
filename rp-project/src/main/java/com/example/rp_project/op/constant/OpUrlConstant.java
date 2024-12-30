@@ -10,7 +10,7 @@ public class OpUrlConstant {
     /**
      * 認可リクエスト検証API
      */
-    public static final String AUTHORIZE_API = "http://localhost:8081/v1/api/auth/authorization";
+    public static final String AUTHORIZE_API = "http://localhost:8081/auth/authorization";
 
     /**
      * クライアントID
@@ -36,5 +36,5 @@ public class OpUrlConstant {
     /**
      * トークンリクエスト検証API
      */
-    public static final String TOKEN_API = "http://localhost:8081/v1/api/auth/token";
+    public static final String TOKEN_API = "http://localhost:8081/auth/token";
 }
