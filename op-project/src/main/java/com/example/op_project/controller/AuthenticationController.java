@@ -1,5 +1,6 @@
 package com.example.op_project.controller;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.example.op_project.controller.reqres.FetchTokenRequest;
 import com.example.op_project.controller.reqres.FetchTokenResponse;
 import com.example.op_project.exception.OpSecurityException;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 /**
@@ -30,11 +32,19 @@ public interface AuthenticationController {
      * 
      * @param httpSession      HTTPセッション
      * @param authorizeRequest 認可リクエスト
-     * @return ログインページ
+     * @return ログインページ呼び出しAPIへのリダイレクト
      * @throws OpSecurityException
      */
     @GetMapping(value = "/authorization")
     ModelAndView authorize(HttpSession httpSession, AuthorizeRequest authorizeRequest) throws OpSecurityException;
+
+    /**
+     * ログインページを表示します。
+     * 
+     * @return ログインページ
+     */
+    @GetMapping(value = "/login")
+    ModelAndView displayLoginPage();
 
     /**
      * 認証リクエストの検証を行います。
@@ -45,7 +55,8 @@ public interface AuthenticationController {
      * @throws OpSecurityException
      */
     @PostMapping(value = "/authentication")
-    ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest)
+    ModelAndView authenticate(Model model, HttpSession httpSession, HttpServletRequest httpServletRequest,
+            AuthenticateRequest authenticateRequest)
             throws OpSecurityException;
 
     /**

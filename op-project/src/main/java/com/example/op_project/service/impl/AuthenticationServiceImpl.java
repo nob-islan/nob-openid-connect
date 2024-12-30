@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.op_project.constant.ErrorMessageConstant;
+import com.example.op_project.exception.OpBusinessException;
 import com.example.op_project.exception.OpSecurityException;
 import com.example.op_project.repository.AuthorizationInfoRepository;
 import com.example.op_project.repository.ClientInfoRepository;
@@ -68,7 +69,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public AuthenticateOutModel authenticate(AuthenticateInModel authenticateInModel) throws OpSecurityException {
+    public AuthenticateOutModel authenticate(AuthenticateInModel authenticateInModel) throws OpBusinessException {
 
         // 認可コード向け文字列
         final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -83,7 +84,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         UserInfo userInfo = userInfoRepository.selectByUserInfo(authenticateInModel.getUsername(),
                 authenticateInModel.getPassword());
         if (userInfo == null) {
-            throw new OpSecurityException(ErrorMessageConstant.INVALID_USER_INFO);
+            throw new OpBusinessException(ErrorMessageConstant.INVALID_USER_INFO);
         }
 
         // 認可コード生成

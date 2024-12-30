@@ -2,6 +2,7 @@ package com.example.op_project.service;
 
 import org.springframework.stereotype.Service;
 
+import com.example.op_project.exception.OpBusinessException;
 import com.example.op_project.exception.OpSecurityException;
 import com.example.op_project.service.inout.AuthenticateInModel;
 import com.example.op_project.service.inout.AuthenticateOutModel;
@@ -32,7 +33,7 @@ public interface AuthenticationService {
      * @return 認可コード
      * @throws OpSecurityException
      */
-    AuthenticateOutModel authenticate(AuthenticateInModel authenticateInModel) throws OpSecurityException;
+    AuthenticateOutModel authenticate(AuthenticateInModel authenticateInModel) throws OpBusinessException;
 
     /**
      * トークンリクエストの検証を行います。

@@ -6,6 +6,7 @@
   </head>
 
   <body>
+    <p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red"></p>
     <form
       th:action="@{/auth/authentication}"
       th:object="${authenticateRequest}"
