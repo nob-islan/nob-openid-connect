@@ -61,6 +61,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // 認可コード向け文字列
         final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+        // 認可コードの有効期限[分]
+        final Integer AUTHORIZATION_CODE_DEADLINE = 1;
+
         // ユーザ名、パスワード検証
         UserInfo userInfo = userInfoRepository.selectByUserInfo(authenticateInModel.getUsername(),
                 authenticateInModel.getPassword());
@@ -86,7 +89,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
-        calendar.add(Calendar.MINUTE, 10); // 有効期限を現在時刻から10分後とする // TODO 「10分」を定数化
+        calendar.add(Calendar.MINUTE, AUTHORIZATION_CODE_DEADLINE); // 有効期限
         Date expirationDateTime = calendar.getTime();
         authorizationInfo.setExpirationDateTime(expirationDateTime);
         authorizationInfo.setIsDeleted(false);
