@@ -13,6 +13,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.rp_project.exception.RpException;
 import com.example.rp_project.op.constant.OpConstant;
 import com.example.rp_project.op.reqres.OpFetchTokenRequest;
 import com.example.rp_project.op.reqres.OpFetchTokenResponse;
@@ -33,7 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public FetchTokenOutModel fetchToken(FetchTokenInModel fetchTokenInModel) {
+    public FetchTokenOutModel fetchToken(FetchTokenInModel fetchTokenInModel) throws RpException {
 
         // トークンの複合キー
         final String DECODE_KEY = "testtesttest";
@@ -63,7 +64,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         // トークンが不正であればエラー
         if (!isValidToken) {
-            throw new RuntimeException("トークンが不正です。"); // TODO エラーハンドリング
+            throw new RpException("トークンが不正です。");
         }
 
         // 返却値を作成

@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.rp_project.constant.UrlConstant;
 import com.example.rp_project.controller.reqres.FetchTokenRequest;
+import com.example.rp_project.exception.RpException;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -41,7 +42,8 @@ public interface AuthenticationController {
      * @return ログイン完了画面へのリダイレクト
      */
     @GetMapping(value = UrlConstant.TOKEN)
-    ModelAndView fetchToken(HttpServletResponse httpServletResponse, FetchTokenRequest fetchTokenRequest);
+    ModelAndView fetchToken(HttpServletResponse httpServletResponse, FetchTokenRequest fetchTokenRequest)
+            throws RpException;
 
     /**
      * ログイン完了ページを表示します。

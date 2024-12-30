@@ -8,6 +8,7 @@ import com.example.rp_project.constant.PageConstant;
 import com.example.rp_project.constant.UrlConstant;
 import com.example.rp_project.controller.AuthenticationController;
 import com.example.rp_project.controller.reqres.FetchTokenRequest;
+import com.example.rp_project.exception.RpException;
 import com.example.rp_project.op.constant.OpConstant;
 import com.example.rp_project.service.AuthenticationService;
 import com.example.rp_project.service.inout.FetchTokenInModel;
@@ -48,7 +49,8 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     }
 
     @Override
-    public ModelAndView fetchToken(HttpServletResponse httpServletResponse, FetchTokenRequest fetchTokenRequest) {
+    public ModelAndView fetchToken(HttpServletResponse httpServletResponse, FetchTokenRequest fetchTokenRequest)
+            throws RpException {
 
         // サービス呼び出し
         FetchTokenInModel fetchTokenInModel = new FetchTokenInModel();
