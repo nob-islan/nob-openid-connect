@@ -8,6 +8,11 @@ package com.example.op_project.constant;
 public class ErrorMessageConstant {
 
     /**
+     * スコープが不正な場合
+     */
+    public static final String INVALID_SCOPE = "スコープが不正です。";
+
+    /**
      * クライアント情報が不正な場合
      */
     public static final String INVALID_CLIENT_INFO = "クライアント情報が不正です。";

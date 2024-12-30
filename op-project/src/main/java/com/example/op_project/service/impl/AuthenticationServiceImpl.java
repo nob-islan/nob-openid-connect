@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.op_project.constant.ErrorMessageConstant;
+import com.example.op_project.enums.Scope;
 import com.example.op_project.exception.OpBusinessException;
 import com.example.op_project.exception.OpSecurityException;
 import com.example.op_project.repository.AuthorizationInfoRepository;
@@ -53,6 +54,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void authorize(AuthorizeInModel authorizeInModel) throws OpSecurityException {
+
+        // scopeが"openid"でなければエラー
+        if (!authorizeInModel.getScope().equals(Scope.OPENID.getCode())) {
+            throw new OpSecurityException(ErrorMessageConstant.INVALID_SCOPE);
+        }
 
         // repository呼び出し
         ClientInfo clientInfo = clientInfoRepository.selectByClientId(authorizeInModel.getClientId());
@@ -169,6 +175,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .withAudience(fetchTokenInModel.getClientId()) // トークン利用者
                 .withIssuer(tokenIssuer) // トークン発行者
                 .withSubject(authorizationInfo.getUsername()) // アクセス主体
+                .withClaim("scope", Scope.OPENID.getCode()) // スコープ
                 .sign(algorithm);
         String idToken = JWT.create()
                 .withExpiresAt(expirationDateTime) // トークン有効期間終了時間

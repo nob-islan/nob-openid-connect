@@ -19,4 +19,9 @@ public class AuthorizeInModel {
      * リダイレクトURI
      */
     private String redirectUri;
+
+    /**
+     * スコープ
+     */
+    private String scope;
 }

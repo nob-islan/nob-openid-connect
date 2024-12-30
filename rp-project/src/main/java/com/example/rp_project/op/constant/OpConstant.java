@@ -35,8 +35,13 @@ public class OpConstant {
     public static final String REDIRECT_URI = "http://localhost:8080/login/token";
 
     /**
+     * スコープ
+     */
+    public static final String SCOPE = "openid";
+
+    /**
      * 認可リクエスト
      */
     public static final String AUTHORIZE_REQUEST = AUTHORIZE_API + "?clientId=" + CLIENT_ID + "&redirectUri="
-            + REDIRECT_URI;
+            + REDIRECT_URI + "&scope=" + SCOPE;
 }

@@ -19,4 +19,9 @@ public class AuthorizeRequest {
      * リダイレクトURI
      */
     private String redirectUri;
+
+    /**
+     * スコープ
+     */
+    private String scope;
 }
