@@ -25,8 +25,6 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping(value = UrlConstant.AUTH)
 public interface AuthenticationController {
 
-    // TODO ページを表示するメソッドとAPIとで分離する？
-
     /**
      * 認可リクエストの検証を行います。
      * 
