@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.rp_project.constant.PageConstant;
+import com.example.rp_project.constant.UrlConstant;
 import com.example.rp_project.controller.AuthenticationController;
 import com.example.rp_project.controller.reqres.FetchTokenRequest;
 import com.example.rp_project.op.constant.OpUrlConstant;
@@ -63,7 +64,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
         // ログイン完了処理APIのビュー名をセット
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/login/complete"); // TODO 定数で管理したい
+        modelAndView.setViewName("redirect:" + UrlConstant.LOGIN + UrlConstant.COMPLETE);
 
         return modelAndView;
     }

@@ -24,7 +24,7 @@ public interface AuthenticationController {
      * 
      * @return ログイン開始用の初期画面
      */
-    @GetMapping(value = "/welcome")
+    @GetMapping(value = UrlConstant.WELCOME)
     ModelAndView init();
 
     /**
@@ -32,15 +32,15 @@ public interface AuthenticationController {
      * 
      * @return OpenIDプロバイダが提供するログイン画面
      */
-    @GetMapping(value = "/authorization")
+    @GetMapping(value = UrlConstant.AUTHORIZATION)
     ModelAndView authorize();
 
     /**
      * OpenIDプロバイダにトークン発行要求を行い、受け取ったトークンを検証します。検証が正常に完了したらログイン完了画面に遷移します。
      * 
-     * @return ログイン完了画面
+     * @return ログイン完了画面へのリダイレクト
      */
-    @GetMapping(value = "/token")
+    @GetMapping(value = UrlConstant.TOKEN)
     ModelAndView fetchToken(HttpServletResponse httpServletResponse, FetchTokenRequest fetchTokenRequest);
 
     /**
@@ -48,6 +48,6 @@ public interface AuthenticationController {
      * 
      * @return ログイン完了画面
      */
-    @GetMapping(value = "/complete")
+    @GetMapping(value = UrlConstant.COMPLETE)
     ModelAndView complete();
 }
