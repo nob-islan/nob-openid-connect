@@ -7,6 +7,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.op_project.constant.ErrorMessageConstant;
 import com.example.op_project.exception.OpException;
 import com.example.op_project.repository.AuthorizationInfoRepository;
 import com.example.op_project.repository.ClientInfoRepository;
@@ -46,12 +47,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         // クライアント情報が取得できなければエラー
         if (clientInfo == null) {
-            throw new OpException("クライアント情報が不正です。"); // TODO エラーメッセージを外出し
+            throw new OpException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
 
         // リダイレクトURI検証
         if (!clientInfo.getRedirectUri().equals(authorizeInModel.getRedirectUri())) {
-            throw new OpException("クライアント情報が不正です。"); // TODO エラーメッセージを外出し
+            throw new OpException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
     }
 
@@ -60,13 +61,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         // 認可コード向け文字列
         final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
         // 認可コードの有効期限[分]
         final Integer AUTHORIZATION_CODE_DEADLINE = 1;
-
         // 認可コードの長さの最小値
         final Integer MIN_AUTHORIZATION_CODE_LENGTH = 20;
-
         // 認可コードの長さの幅
         final Integer AUTHORIZATION_CODE_LENGTH_RANGE = 10;
 
@@ -74,7 +72,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         UserInfo userInfo = userInfoRepository.selectByUserInfo(authenticateInModel.getUsername(),
                 authenticateInModel.getPassword());
         if (userInfo == null) {
-            throw new OpException("ユーザ情報が間違っています。"); // TODO エラーメッセージを外出し
+            throw new OpException(ErrorMessageConstant.INVALID_USER_INFO);
         }
 
         // 認可コード生成
@@ -115,7 +113,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         AuthorizationInfo authorizationInfo = authorizationInfoRepository.selectByCode(fetchTokenInModel.getCode());
         // 認可コードが取得できなければエラー
         if (authorizationInfo == null) {
-            throw new OpException("認可コードが不正です。"); // TODO エラーメッセージを外出し
+            throw new OpException(ErrorMessageConstant.INVALID_AUTHORIZATION_CODE);
         }
         // 認可コードが取得できた時点で使用済みとする
         authorizationInfo.setIsDeleted(true);
@@ -123,18 +121,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // 認可コードの期限が切れていたらエラー
         Date now = new Date();
         if (now.after(authorizationInfo.getExpirationDateTime())) {
-            throw new OpException("認可コードが不正です。"); // TODO エラーメッセージを外出し
+            throw new OpException(ErrorMessageConstant.INVALID_AUTHORIZATION_CODE);
         }
 
         // 検証用にクライアント情報を検索
         ClientInfo clientInfo = clientInfoRepository.selectByClientId(fetchTokenInModel.getClientId());
         // クライアント情報が取得できなければエラー
         if (clientInfo == null) {
-            throw new OpException("クライアント情報が不正です。"); // TODO エラーメッセージを外出し
+            throw new OpException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
         // クライアントシークレットが一致しなければエラー
         if (!clientInfo.getClientSecret().equals(fetchTokenInModel.getClientSecret())) {
-            throw new OpException("クライアント情報が不正です。"); // TODO エラーメッセージを外出し
+            throw new OpException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
 
         // TODO トークン発行
