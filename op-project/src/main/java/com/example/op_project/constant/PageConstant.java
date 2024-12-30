@@ -10,5 +10,5 @@ public class PageConstant {
     /**
      * ログインページ
      */
-    public static final String LOGIN = "login";
+    public static final String LOGIN = "/login";
 }

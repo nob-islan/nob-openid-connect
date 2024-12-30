@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.op_project.constant.PageConstant;
 import com.example.op_project.controller.AuthenticationController;
 import com.example.op_project.controller.reqres.AuthenticateRequest;
 import com.example.op_project.controller.reqres.AuthorizeRequest;
@@ -47,19 +48,9 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         httpSession.setAttribute("redirectUri", authorizeInModel.getRedirectUri());
         httpSession.setAttribute("clientId", authorizeInModel.getClientId());
 
-        // ログイン画面呼び出しAPIのビュー名をセット
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/auth/login");
-
-        return modelAndView;
-    }
-
-    @Override
-    public ModelAndView displayLoginPage() {
-
         // ログイン画面のビュー名およびモデルをセット
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/login");
+        modelAndView.setViewName(PageConstant.LOGIN);
         modelAndView.addObject("authenticateRequest", new AuthenticateRequest());
 
         return modelAndView;
@@ -81,7 +72,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
             // エラーメッセージをセットして自画面遷移
             model.addAttribute("errorMessage", e.getMessage());
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("/login");
+            modelAndView.setViewName(PageConstant.LOGIN);
             return modelAndView;
         }
 

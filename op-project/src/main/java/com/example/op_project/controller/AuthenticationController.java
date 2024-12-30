@@ -39,14 +39,6 @@ public interface AuthenticationController {
     ModelAndView authorize(HttpSession httpSession, AuthorizeRequest authorizeRequest) throws OpSecurityException;
 
     /**
-     * ログインページを表示します。
-     * 
-     * @return ログインページ
-     */
-    @GetMapping(value = "/login")
-    ModelAndView displayLoginPage();
-
-    /**
      * 認証リクエストの検証を行います。
      * 
      * @param httpSession         HTTPセッション
