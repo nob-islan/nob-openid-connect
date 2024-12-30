@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -45,6 +46,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private TokenManagementRepository tokenManagementRepository;
+
+    @Value("${token.issuer}")
+    private String tokenIssuer;
 
     @Override
     public void authorize(AuthorizeInModel authorizeInModel) throws OpException {
@@ -162,14 +166,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .withExpiresAt(expirationDateTime) // トークンの有効期間終了時間
                 .withIssuedAt(now) // 発行日時
                 .withAudience(fetchTokenInModel.getClientId()) // トークンの利用者
-                .withIssuer("http://localhost:8080") // TODO トークン発行者情報外だし
+                .withIssuer(tokenIssuer) // トークン発行者情報外だし
                 .withSubject(authorizationInfo.getUsername()) // アクセス主体
                 .sign(algorithm);
         String idToken = JWT.create()
                 .withExpiresAt(expirationDateTime) // トークンの有効期間終了時間
                 .withIssuedAt(now) // 発行日時
                 .withAudience(fetchTokenInModel.getClientId()) // トークンの利用者
-                .withIssuer("http://localhost:8080") // TODO トークン発行者情報外だし
+                .withIssuer(tokenIssuer) // トークン発行者情報外だし
                 .withSubject(authorizationInfo.getUsername()) // アクセス主体
                 .sign(algorithm);
 
