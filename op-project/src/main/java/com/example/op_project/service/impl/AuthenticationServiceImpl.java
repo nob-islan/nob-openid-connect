@@ -163,17 +163,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // トークンを生成
         Algorithm algorithm = Algorithm.HMAC256(tokenManagement.getHmacKey());
         String accessToken = JWT.create()
-                .withExpiresAt(expirationDateTime) // トークンの有効期間終了時間
+                .withExpiresAt(expirationDateTime) // トークン有効期間終了時間
                 .withIssuedAt(now) // 発行日時
-                .withAudience(fetchTokenInModel.getClientId()) // トークンの利用者
-                .withIssuer(tokenIssuer) // トークン発行者情報外だし
+                .withAudience(fetchTokenInModel.getClientId()) // トークン利用者
+                .withIssuer(tokenIssuer) // トークン発行者
                 .withSubject(authorizationInfo.getUsername()) // アクセス主体
                 .sign(algorithm);
         String idToken = JWT.create()
-                .withExpiresAt(expirationDateTime) // トークンの有効期間終了時間
+                .withExpiresAt(expirationDateTime) // トークン有効期間終了時間
                 .withIssuedAt(now) // 発行日時
-                .withAudience(fetchTokenInModel.getClientId()) // トークンの利用者
-                .withIssuer(tokenIssuer) // トークン発行者情報外だし
+                .withAudience(fetchTokenInModel.getClientId()) // トークン利用者
+                .withIssuer(tokenIssuer) // トークン発行者
                 .withSubject(authorizationInfo.getUsername()) // アクセス主体
                 .sign(algorithm);
 
