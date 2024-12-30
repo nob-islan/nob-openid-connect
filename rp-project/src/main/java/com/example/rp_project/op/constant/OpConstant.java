@@ -5,12 +5,19 @@ package com.example.rp_project.op.constant;
  * 
  * @author nob
  */
-public class OpUrlConstant {
+public class OpConstant {
+
+    public static final String DOMAIN = "http://localhost:8081";
 
     /**
      * 認可リクエスト検証API
      */
-    public static final String AUTHORIZE_API = "http://localhost:8081/auth/authorization";
+    public static final String AUTHORIZE_API = DOMAIN + "/auth/authorization";
+
+    /**
+     * トークンリクエスト検証API
+     */
+    public static final String TOKEN_API = DOMAIN + "/auth/token";
 
     /**
      * クライアントID
@@ -32,9 +39,4 @@ public class OpUrlConstant {
      */
     public static final String AUTHORIZE_REQUEST = AUTHORIZE_API + "?clientId=" + CLIENT_ID + "&redirectUri="
             + REDIRECT_URI;
-
-    /**
-     * トークンリクエスト検証API
-     */
-    public static final String TOKEN_API = "http://localhost:8081/auth/token";
 }

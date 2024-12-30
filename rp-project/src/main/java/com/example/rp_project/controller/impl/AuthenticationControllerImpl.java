@@ -8,7 +8,7 @@ import com.example.rp_project.constant.PageConstant;
 import com.example.rp_project.constant.UrlConstant;
 import com.example.rp_project.controller.AuthenticationController;
 import com.example.rp_project.controller.reqres.FetchTokenRequest;
-import com.example.rp_project.op.constant.OpUrlConstant;
+import com.example.rp_project.op.constant.OpConstant;
 import com.example.rp_project.service.AuthenticationService;
 import com.example.rp_project.service.inout.FetchTokenInModel;
 import com.example.rp_project.service.inout.FetchTokenOutModel;
@@ -42,7 +42,7 @@ public class AuthenticationControllerImpl implements AuthenticationController {
 
         // OpenIDプロバイダの認可リクエスト先のビュー名をセット
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:" + OpUrlConstant.AUTHORIZE_REQUEST);
+        modelAndView.setViewName("redirect:" + OpConstant.AUTHORIZE_REQUEST);
 
         return modelAndView;
     }
