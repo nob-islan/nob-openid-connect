@@ -4,7 +4,7 @@ USE opdb;
 
 -- テーブル作成 client_info
 CREATE TABLE IF NOT EXISTS client_info (
-    client_id VARCHAR(15) 
+    client_id VARCHAR(15) NOT NULL
     , client_secret VARCHAR(32) NOT NULL
     , redirect_uri TEXT NOT NULL
     , PRIMARY KEY(client_id)
@@ -21,9 +21,17 @@ CREATE TABLE IF NOT EXISTS user_info (
 CREATE TABLE IF NOT EXISTS authorization_info (
     authorization_id INT NOT NULL AUTO_INCREMENT
     , code VARCHAR(30) NOT NULL
-    , PRIMARY KEY(authorization_id)
+    , username VARCHAR(10) NOT NULL
     , expiration_date_time DATETIME NOT NULL
     , is_deleted BOOLEAN NOT NULL
+    , PRIMARY KEY(authorization_id)
+);
+
+-- テーブル作成 token_management
+CREATE TABLE IF NOT EXISTS token_management (
+    client_id VARCHAR(15) NOT NULL
+    , hmac_key VARCHAR(30)
+    , PRIMARY KEY(client_id)
 );
 
 -- 初期データ投入 client_info
@@ -44,4 +52,13 @@ INSERT INTO user_info (
 ) VALUES (
     "nob"
     , "password"
+);
+
+-- 初期データ投入 token_management
+INSERT INTO token_management (
+    client_id
+    , hmac_key
+) VALUES (
+    "first-client"
+    , "testtesttest"
 );

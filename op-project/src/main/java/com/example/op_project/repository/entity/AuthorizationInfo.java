@@ -31,8 +31,14 @@ public class AuthorizationInfo {
     /**
      * 認可コード
      */
-    @Column(length = 40, nullable = false)
+    @Column(length = 30, nullable = false)
     private String code;
+
+    /**
+     * ユーザ名
+     */
+    @Column(length = 10, nullable = false)
+    private String username;
 
     /**
      * 有効期限

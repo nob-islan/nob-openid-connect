@@ -39,8 +39,9 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         BeanUtils.copyProperties(authorizeRequest, authorizeInModel);
         authenticationService.authorize(authorizeInModel);
 
-        // httpSessionにリダイレクトURIをセット
+        // httpSessionにリダイレクトURI、クライアントIDをセット
         httpSession.setAttribute("redirectUri", authorizeInModel.getRedirectUri());
+        httpSession.setAttribute("clientId", authorizeInModel.getClientId());
 
         // ログイン画面のビュー名およびモデルをセット
         ModelAndView modelAndView = new ModelAndView();
@@ -54,9 +55,11 @@ public class AuthenticationControllerImpl implements AuthenticationController {
     public ModelAndView authenticate(HttpSession httpSession, AuthenticateRequest authenticateRequest)
             throws OpException {
 
-        // 認証リクエスト検証 不正であれば例外を投げる
+        // 認証リクエスト検証用inModel作成
         AuthenticateInModel authenticateInModel = new AuthenticateInModel();
         BeanUtils.copyProperties(authenticateRequest, authenticateInModel);
+        authenticateInModel.setClientId((String) httpSession.getAttribute("clientId"));
+        // 認証リクエスト検証
         AuthenticateOutModel authenticateOutModel = authenticationService.authenticate(authenticateInModel);
 
         // httpSessionからリダイレクトURIを取得し、認可コードをクエリパラメータとして付与

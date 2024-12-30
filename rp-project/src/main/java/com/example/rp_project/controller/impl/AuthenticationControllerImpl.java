@@ -56,11 +56,16 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         FetchTokenOutModel fetchTokenOutModel = authenticationService.fetchToken(fetchTokenInModel);
 
         // トークンをcookieにセット
-        Cookie cookie = new Cookie("accessToken", fetchTokenOutModel.getAccessToken());
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        httpServletResponse.addCookie(cookie);
+        Cookie accessTokenCookie = new Cookie("accessToken", fetchTokenOutModel.getAccessToken());
+        accessTokenCookie.setSecure(true);
+        accessTokenCookie.setHttpOnly(true);
+        accessTokenCookie.setPath("/");
+        httpServletResponse.addCookie(accessTokenCookie);
+        Cookie idTokenCookie = new Cookie("idToken", fetchTokenOutModel.getIdToken());
+        idTokenCookie.setSecure(true);
+        idTokenCookie.setHttpOnly(true);
+        idTokenCookie.setPath("/");
+        httpServletResponse.addCookie(idTokenCookie);
 
         // ログイン完了処理APIのビュー名をセット
         ModelAndView modelAndView = new ModelAndView();

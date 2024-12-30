@@ -7,13 +7,17 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.example.op_project.constant.ErrorMessageConstant;
 import com.example.op_project.exception.OpException;
 import com.example.op_project.repository.AuthorizationInfoRepository;
 import com.example.op_project.repository.ClientInfoRepository;
+import com.example.op_project.repository.TokenManagementRepository;
 import com.example.op_project.repository.UserInfoRepository;
 import com.example.op_project.repository.entity.AuthorizationInfo;
 import com.example.op_project.repository.entity.ClientInfo;
+import com.example.op_project.repository.entity.TokenManagement;
 import com.example.op_project.repository.entity.UserInfo;
 import com.example.op_project.service.AuthenticationService;
 import com.example.op_project.service.inout.AuthenticateInModel;
@@ -38,6 +42,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private AuthorizationInfoRepository authorizationInfoRepository;
+
+    @Autowired
+    private TokenManagementRepository tokenManagementRepository;
 
     @Override
     public void authorize(AuthorizeInModel authorizeInModel) throws OpException {
@@ -90,10 +97,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // 認可コードをDBに保持
         AuthorizationInfo authorizationInfo = new AuthorizationInfo();
         authorizationInfo.setCode(code);
+        authorizationInfo.setUsername(authenticateInModel.getUsername());
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
-        calendar.add(Calendar.MINUTE, AUTHORIZATION_CODE_DEADLINE); // 有効期限
+        calendar.add(Calendar.MINUTE, AUTHORIZATION_CODE_DEADLINE);
         Date expirationDateTime = calendar.getTime();
         authorizationInfo.setExpirationDateTime(expirationDateTime);
         authorizationInfo.setIsDeleted(false);
@@ -108,6 +116,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public FetchTokenOutModel fetchToken(FetchTokenInModel fetchTokenInModel) throws OpException {
+
+        // 認可コードの有効期限[分]
+        final Integer ACCESS_TOKEN_DEADLINE = 10;
 
         // 検証用に認可コードを検索
         AuthorizationInfo authorizationInfo = authorizationInfoRepository.selectByCode(fetchTokenInModel.getCode());
@@ -135,9 +146,32 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new OpException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
 
-        // TODO トークン発行
-        String accessToken = "dummyToken";
-        String idToken = "idToken";
+        // トークン生成向けの情報を検索
+        TokenManagement tokenManagement = tokenManagementRepository.selectByClientId(fetchTokenInModel.getClientId());
+
+        // トークンの有効期限を設定
+        now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.MINUTE, ACCESS_TOKEN_DEADLINE);
+        Date expirationDateTime = calendar.getTime();
+
+        // トークンを生成
+        Algorithm algorithm = Algorithm.HMAC256(tokenManagement.getHmacKey());
+        String accessToken = JWT.create()
+                .withExpiresAt(expirationDateTime) // トークンの有効期間終了時間
+                .withIssuedAt(now) // 発行日時
+                .withAudience(fetchTokenInModel.getClientId()) // トークンの利用者
+                .withIssuer("http://localhost:8080") // TODO トークン発行者情報外だし
+                .withSubject(authorizationInfo.getUsername()) // アクセス主体
+                .sign(algorithm);
+        String idToken = JWT.create()
+                .withExpiresAt(expirationDateTime) // トークンの有効期間終了時間
+                .withIssuedAt(now) // 発行日時
+                .withAudience(fetchTokenInModel.getClientId()) // トークンの利用者
+                .withIssuer("http://localhost:8080") // TODO トークン発行者情報外だし
+                .withSubject(authorizationInfo.getUsername()) // アクセス主体
+                .sign(algorithm);
 
         // 返却値を作成
         FetchTokenOutModel fetchTokenOutModel = new FetchTokenOutModel();
