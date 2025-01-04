@@ -23,6 +23,11 @@ public class ErrorMessageConstant {
     public static final String INVALID_USER_INFO = "ユーザ情報が間違っています。";
 
     /**
+     * code_challenge検証時にエラーが発生した場合
+     */
+    public static final String FAIL_CODE_CHALLENGE = "code_challengeの検証に失敗しました。";
+
+    /**
      * 認可コードが不正な場合
      */
     public static final String INVALID_AUTHORIZATION_CODE = "認可コードが不正です。";

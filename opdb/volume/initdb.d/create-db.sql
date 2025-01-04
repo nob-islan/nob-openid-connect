@@ -34,6 +34,15 @@ CREATE TABLE IF NOT EXISTS token_management (
     , PRIMARY KEY(client_id)
 );
 
+-- テーブル作成 code_challenge_info
+CREATE TABLE IF NOT EXISTS code_challenge_info (
+    code_challenge_id INT NOT NULL AUTO_INCREMENT
+    , code_challenge VARCHAR(128) NOT NULL
+    , code_challenge_method VARCHAR(10) NOT NULL
+    , is_deleted BOOLEAN NOT NULL
+    , PRIMARY KEY(code_challenge_id)
+);
+
 -- 初期データ投入 client_info
 INSERT INTO client_info (
     client_id

@@ -63,7 +63,6 @@ public class AuthenticationControllerImpl implements AuthenticationController {
         // 認証リクエスト検証用inModel作成
         AuthenticateInModel authenticateInModel = new AuthenticateInModel();
         BeanUtils.copyProperties(authenticateRequest, authenticateInModel);
-        authenticateInModel.setClientId((String) httpSession.getAttribute("clientId"));
         // 認証リクエスト検証
         AuthenticateOutModel authenticateOutModel = new AuthenticateOutModel();
         try {

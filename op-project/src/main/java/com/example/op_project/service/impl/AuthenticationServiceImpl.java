@@ -1,8 +1,10 @@
 package com.example.op_project.service.impl;
 
+import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HexFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,10 +18,12 @@ import com.example.op_project.exception.OpBusinessException;
 import com.example.op_project.exception.OpSecurityException;
 import com.example.op_project.repository.AuthorizationInfoRepository;
 import com.example.op_project.repository.ClientInfoRepository;
+import com.example.op_project.repository.CodeChallengeInfoRepository;
 import com.example.op_project.repository.TokenManagementRepository;
 import com.example.op_project.repository.UserInfoRepository;
 import com.example.op_project.repository.entity.AuthorizationInfo;
 import com.example.op_project.repository.entity.ClientInfo;
+import com.example.op_project.repository.entity.CodeChallengeInfo;
 import com.example.op_project.repository.entity.TokenManagement;
 import com.example.op_project.repository.entity.UserInfo;
 import com.example.op_project.service.AuthenticationService;
@@ -49,6 +53,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Autowired
     private TokenManagementRepository tokenManagementRepository;
 
+    @Autowired
+    private CodeChallengeInfoRepository codeChallengeInfoRepository;
+
     @Value("${token.issuer}")
     private String tokenIssuer;
 
@@ -72,6 +79,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (!clientInfo.getRedirectUri().equals(authorizeInModel.getRedirectUri())) {
             throw new OpSecurityException(ErrorMessageConstant.INVALID_CLIENT_INFO);
         }
+
+        // code_challengeを保持
+        CodeChallengeInfo codeChallengeInfo = new CodeChallengeInfo();
+        codeChallengeInfo.setCodeChallenge(authorizeInModel.getCodeChallenge());
+        codeChallengeInfo.setCodeChallengeMethod(authorizeInModel.getCodeChallengeMethod());
+        codeChallengeInfo.setIsDeleted(false);
+        codeChallengeInfoRepository.save(codeChallengeInfo);
     }
 
     @Override
@@ -130,6 +144,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         // 認可コードの有効期限[分]
         final Integer ACCESS_TOKEN_DEADLINE = 10;
+
+        // code_challenge検証
+        try {
+            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+            byte[] sha256Byte = sha256.digest(fetchTokenInModel.getCodeVerifier().getBytes());
+            HexFormat hex = HexFormat.of().withLowerCase();
+            String codeChallenge = hex.formatHex(sha256Byte);
+            CodeChallengeInfo codeChallengeInfo = codeChallengeInfoRepository.selectByCodeChallenge(codeChallenge);
+            if (codeChallengeInfo == null) {
+                throw new OpSecurityException(ErrorMessageConstant.FAIL_CODE_CHALLENGE);
+            } // TODO 異常系検証
+        } catch (Exception e) {
+            throw new OpSecurityException(ErrorMessageConstant.FAIL_CODE_CHALLENGE);
+        }
 
         // 検証用に認可コードを検索
         AuthorizationInfo authorizationInfo = authorizationInfoRepository.selectByCode(fetchTokenInModel.getCode());

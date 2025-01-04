@@ -19,9 +19,4 @@ public class AuthenticateInModel {
      * パスワード
      */
     private String password;
-
-    /**
-     * クライアントID
-     */
-    private String clientId;
 }

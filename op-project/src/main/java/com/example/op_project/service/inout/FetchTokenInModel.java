@@ -24,4 +24,9 @@ public class FetchTokenInModel {
      * クライアントシークレット
      */
     private String clientSecret;
+
+    /**
+     * code_verifier
+     */
+    private String codeVerifier;
 }

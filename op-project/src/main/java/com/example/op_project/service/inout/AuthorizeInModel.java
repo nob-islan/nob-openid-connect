@@ -24,4 +24,14 @@ public class AuthorizeInModel {
      * スコープ
      */
     private String scope;
+
+    /**
+     * code_challenge
+     */
+    private String codeChallenge;
+
+    /**
+     * code_challenge_method
+     */
+    private String codeChallengeMethod;
 }
